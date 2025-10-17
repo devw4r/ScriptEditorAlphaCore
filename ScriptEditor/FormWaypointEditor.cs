@@ -147,8 +147,17 @@ namespace ScriptEditor
         {            
             if (uint.TryParse(txtId.Text, out uint creatureId))
             {
-                uint last_point = waypoints.Last().Point;
-                Waypoint point = new Waypoint(creatureId, last_point + 1);
+                Waypoint point;
+                if (waypoints.Any())
+                {
+                    uint last_point = waypoints.Last().Point;
+                    point = new Waypoint(creatureId, last_point + 1);
+                }
+                else
+                {
+                    point = new Waypoint(creatureId, 0);
+                }
+
                 waypoints.Add(point);
                 UpdateList(waypoints.Count - 1);
                 is_dirty = true;
@@ -335,7 +344,7 @@ namespace ScriptEditor
                 Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
                 if (point.Position_z.ToString() != txtZ.Text)
                 {
-                    if (float.TryParse(txtX.Text, out float _val))
+                    if (float.TryParse(txtZ.Text, out float _val))
                     {
                         point.Position_z = _val;
                         waypoints[lstWaypoints.SelectedIndices[0]] = point;
