@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 
 namespace ScriptEditor
@@ -288,7 +289,7 @@ namespace ScriptEditor
 
             return "";
         }
-        public static string FindSpellEffectName(uint id)
+        public static string FindSpellEffectName(int id)
         {
             foreach (ComboboxPair spell in SpellEffectNamesList)
             {
@@ -439,580 +440,502 @@ namespace ScriptEditor
             return "-NONE-";
         }
 
-        public static void LoadBroadcastTexts(string connString, string database)
+        public static void LoadBroadcastTexts(MySqlConnection conn)
         {
             BroadcastTextsList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `male_text`, `female_text`, `chat_type`, `language_id` FROM `broadcast_text` ORDER BY `entry`";
-            try
+            using (MySqlCommand command = Program.MySqlWorldConnection.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `entry`, `male_text`, `female_text`, `chat_type`, `language_id` FROM `broadcast_text` ORDER BY `entry`";
+                try
                 {
-                    string txt = reader.GetString(1); // Get MaleText
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string txt = reader.GetString(1); // Get MaleText
 
-                    if (string.IsNullOrEmpty(txt)) // If MaleText is empty get FemaleText
-                        txt = reader.GetString(2);
+                            if (string.IsNullOrEmpty(txt)) // If MaleText is empty get FemaleText
+                                txt = reader.GetString(2);
 
-                    // Add the new broadcast text entry to the list.
-                    BroadcastTextsList.Add(new BroadcastText(reader.GetUInt32(0), txt, reader.GetUInt32(3), reader.GetUInt32(4)));
+                            BroadcastTextsList.Add(new BroadcastText(reader.GetUInt32(0), txt, reader.GetUInt32(3), reader.GetUInt32(4)));
+                        }
+                    }
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadQuests(string connString, string database)
+
+        public static void LoadQuests(MySqlConnection conn)
         {
             QuestInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `MinLevel`, `QuestLevel`, `Title` FROM `quest_template` ORDER BY `entry`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `entry`, `MinLevel`, `QuestLevel`, `Title` FROM `quest_template` ORDER BY `entry`";
+                try
                 {
-                    // Add the new quest entry to the list.
-                    QuestInfoList.Add(new QuestInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetString(3)));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            QuestInfoList.Add(new QuestInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetString(3)));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadGameObjects(string connString, string database)
+        public static void LoadGameObjects(MySqlConnection conn)
         {
             GameObjectInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `type`, `displayId`, `name` FROM `gameobject_template` t1 ORDER BY `entry`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `entry`, `type`, `displayId`, `name` FROM `gameobject_template` t1 ORDER BY `entry`";
+                try
                 {
-                    // Add the new gameobject entry to the list.
-                    GameObjectInfoList.Add(new GameObjectInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetString(3)));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            GameObjectInfoList.Add(new GameObjectInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetString(3)));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
 
-        public static void LoadCreatures(string connString, string database)
+        public static void LoadCreatures(MySqlConnection conn)
         {
             CreatureInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT entry, level_min, level_max, rank, spell_list_id, name, IFNULL(subname, '') as subname, display_id1, display_id2, display_id3, display_id4, mount_display_id FROM `creature_template` ORDER BY `entry`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT entry, level_min, level_max, `rank`, spell_list_id, name, IFNULL(subname, '') as subname, display_id1, display_id2, display_id3, display_id4, mount_display_id FROM `creature_template` ORDER BY `entry`";
+                try
                 {
-                    // Add the new creature entry to the list.
-                    CreatureInfoList.Add(new CreatureInfo(reader.GetUInt32("entry"), // entry
-                                                          reader.GetUInt32("level_min"), // level_min
-                                                          reader.GetUInt32("level_max"), // level_max
-                                                          reader.GetUInt32("rank"), // rank
-                                                          reader.GetUInt32("spell_list_id"), // spell_list_id
-                                                          reader.GetString("name"),    
-                                                          reader.GetString("subname"),
-                                                          reader.GetUInt32("display_id1"),
-                                                          reader.GetUInt32("display_id2"),
-                                                          reader.GetUInt32("display_id3"),
-                                                          reader.GetUInt32("display_id4"),
-                                                          reader.GetUInt32("mount_display_id")
-                                                          
-                                                          ));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            CreatureInfoList.Add(new CreatureInfo(reader.GetUInt32("entry"), reader.GetUInt32("level_min"), reader.GetUInt32("level_max"),
+                                                                  reader.GetUInt32("rank"), reader.GetUInt32("spell_list_id"), reader.GetString("name"),
+                                                                  reader.GetString("subname"), reader.GetUInt32("display_id1"), reader.GetUInt32("display_id2"),
+                                                                  reader.GetUInt32("display_id3"), reader.GetUInt32("display_id4"), reader.GetUInt32("mount_display_id")
+                                                                  ));
+                        }
+                    }
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadCreatureSpells(string connString, string database)
+        public static void LoadCreatureSpells(MySqlConnection conn)
         {
             CreatureSpellsInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT * FROM `creature_spells` ORDER BY `entry`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT * FROM `creature_spells` ORDER BY `entry`";
+                try
                 {
-                    CreatureSpellsInfo template = new CreatureSpellsInfo(reader.GetUInt32(0), reader.GetString(1));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
 
-                    template.SpellId1 = reader.GetUInt32(2);
-                    template.Probability1 = reader.GetUInt32(3);
-                    template.CastTarget1 = reader.GetUInt32(4);
-                    template.TargetParam1_1 = reader.GetUInt32(5);
-                    template.TargetParam2_1 = reader.GetUInt32(6);
-                    template.CastFlags1 = reader.GetUInt32(7);
-                    template.DelayInitialMin1 = reader.GetUInt32(8);
-                    template.DelayInitialMax1 = reader.GetUInt32(9);
-                    template.DelayRepeatMin1 = reader.GetUInt32(10);
-                    template.DelayRepeatMax1 = reader.GetUInt32(11);
-                    template.ScriptId1 = reader.GetUInt32(12);
+                        while (reader.Read())
+                        {
+                            CreatureSpellsInfo template = new CreatureSpellsInfo(reader.GetUInt32(0), reader.GetString(1));
 
-                    template.SpellId2 = reader.GetUInt32(13);
-                    template.Probability2 = reader.GetUInt32(14);
-                    template.CastTarget2 = reader.GetUInt32(15);
-                    template.TargetParam1_2 = reader.GetUInt32(16);
-                    template.TargetParam2_2 = reader.GetUInt32(17);
-                    template.CastFlags2 = reader.GetUInt32(18);
-                    template.DelayInitialMin2 = reader.GetUInt32(19);
-                    template.DelayInitialMax2 = reader.GetUInt32(20);
-                    template.DelayRepeatMin2 = reader.GetUInt32(21);
-                    template.DelayRepeatMax2 = reader.GetUInt32(22);
-                    template.ScriptId2 = reader.GetUInt32(23);
+                            template.SpellId1 = reader.GetUInt32(2);
+                            template.Probability1 = reader.GetUInt32(3);
+                            template.CastTarget1 = reader.GetUInt32(4);
+                            template.TargetParam1_1 = reader.GetUInt32(5);
+                            template.TargetParam2_1 = reader.GetUInt32(6);
+                            template.CastFlags1 = reader.GetUInt32(7);
+                            template.DelayInitialMin1 = reader.GetUInt32(8);
+                            template.DelayInitialMax1 = reader.GetUInt32(9);
+                            template.DelayRepeatMin1 = reader.GetUInt32(10);
+                            template.DelayRepeatMax1 = reader.GetUInt32(11);
+                            template.ScriptId1 = reader.GetUInt32(12);
 
-                    template.SpellId3 = reader.GetUInt32(24);
-                    template.Probability3 = reader.GetUInt32(25);
-                    template.CastTarget3 = reader.GetUInt32(26);
-                    template.TargetParam1_3 = reader.GetUInt32(27);
-                    template.TargetParam2_3 = reader.GetUInt32(28);
-                    template.CastFlags3 = reader.GetUInt32(29);
-                    template.DelayInitialMin3 = reader.GetUInt32(30);
-                    template.DelayInitialMax3 = reader.GetUInt32(31);
-                    template.DelayRepeatMin3 = reader.GetUInt32(32);
-                    template.DelayRepeatMax3 = reader.GetUInt32(33);
-                    template.ScriptId3 = reader.GetUInt32(34);
+                            template.SpellId2 = reader.GetUInt32(13);
+                            template.Probability2 = reader.GetUInt32(14);
+                            template.CastTarget2 = reader.GetUInt32(15);
+                            template.TargetParam1_2 = reader.GetUInt32(16);
+                            template.TargetParam2_2 = reader.GetUInt32(17);
+                            template.CastFlags2 = reader.GetUInt32(18);
+                            template.DelayInitialMin2 = reader.GetUInt32(19);
+                            template.DelayInitialMax2 = reader.GetUInt32(20);
+                            template.DelayRepeatMin2 = reader.GetUInt32(21);
+                            template.DelayRepeatMax2 = reader.GetUInt32(22);
+                            template.ScriptId2 = reader.GetUInt32(23);
 
-                    template.SpellId4 = reader.GetUInt32(35);
-                    template.Probability4 = reader.GetUInt32(36);
-                    template.CastTarget4 = reader.GetUInt32(37);
-                    template.TargetParam1_4 = reader.GetUInt32(38);
-                    template.TargetParam2_4 = reader.GetUInt32(39);
-                    template.CastFlags4 = reader.GetUInt32(40);
-                    template.DelayInitialMin4 = reader.GetUInt32(41);
-                    template.DelayInitialMax4 = reader.GetUInt32(42);
-                    template.DelayRepeatMin4 = reader.GetUInt32(43);
-                    template.DelayRepeatMax4 = reader.GetUInt32(44);
-                    template.ScriptId4 = reader.GetUInt32(45);
+                            template.SpellId3 = reader.GetUInt32(24);
+                            template.Probability3 = reader.GetUInt32(25);
+                            template.CastTarget3 = reader.GetUInt32(26);
+                            template.TargetParam1_3 = reader.GetUInt32(27);
+                            template.TargetParam2_3 = reader.GetUInt32(28);
+                            template.CastFlags3 = reader.GetUInt32(29);
+                            template.DelayInitialMin3 = reader.GetUInt32(30);
+                            template.DelayInitialMax3 = reader.GetUInt32(31);
+                            template.DelayRepeatMin3 = reader.GetUInt32(32);
+                            template.DelayRepeatMax3 = reader.GetUInt32(33);
+                            template.ScriptId3 = reader.GetUInt32(34);
 
-                    template.SpellId5 = reader.GetUInt32(46);
-                    template.Probability5 = reader.GetUInt32(47);
-                    template.CastTarget5 = reader.GetUInt32(48);
-                    template.TargetParam1_5 = reader.GetUInt32(49);
-                    template.TargetParam2_5 = reader.GetUInt32(50);
-                    template.CastFlags5 = reader.GetUInt32(51);
-                    template.DelayInitialMin5 = reader.GetUInt32(52);
-                    template.DelayInitialMax5 = reader.GetUInt32(53);
-                    template.DelayRepeatMin5 = reader.GetUInt32(54);
-                    template.DelayRepeatMax5 = reader.GetUInt32(55);
-                    template.ScriptId5 = reader.GetUInt32(56);
+                            template.SpellId4 = reader.GetUInt32(35);
+                            template.Probability4 = reader.GetUInt32(36);
+                            template.CastTarget4 = reader.GetUInt32(37);
+                            template.TargetParam1_4 = reader.GetUInt32(38);
+                            template.TargetParam2_4 = reader.GetUInt32(39);
+                            template.CastFlags4 = reader.GetUInt32(40);
+                            template.DelayInitialMin4 = reader.GetUInt32(41);
+                            template.DelayInitialMax4 = reader.GetUInt32(42);
+                            template.DelayRepeatMin4 = reader.GetUInt32(43);
+                            template.DelayRepeatMax4 = reader.GetUInt32(44);
+                            template.ScriptId4 = reader.GetUInt32(45);
 
-                    template.SpellId6 = reader.GetUInt32(57);
-                    template.Probability6 = reader.GetUInt32(58);
-                    template.CastTarget6 = reader.GetUInt32(59);
-                    template.TargetParam1_6 = reader.GetUInt32(60);
-                    template.TargetParam2_6 = reader.GetUInt32(61);
-                    template.CastFlags6 = reader.GetUInt32(62);
-                    template.DelayInitialMin6 = reader.GetUInt32(63);
-                    template.DelayInitialMax6 = reader.GetUInt32(64);
-                    template.DelayRepeatMin6 = reader.GetUInt32(65);
-                    template.DelayRepeatMax6 = reader.GetUInt32(66);
-                    template.ScriptId6 = reader.GetUInt32(67);
+                            template.SpellId5 = reader.GetUInt32(46);
+                            template.Probability5 = reader.GetUInt32(47);
+                            template.CastTarget5 = reader.GetUInt32(48);
+                            template.TargetParam1_5 = reader.GetUInt32(49);
+                            template.TargetParam2_5 = reader.GetUInt32(50);
+                            template.CastFlags5 = reader.GetUInt32(51);
+                            template.DelayInitialMin5 = reader.GetUInt32(52);
+                            template.DelayInitialMax5 = reader.GetUInt32(53);
+                            template.DelayRepeatMin5 = reader.GetUInt32(54);
+                            template.DelayRepeatMax5 = reader.GetUInt32(55);
+                            template.ScriptId5 = reader.GetUInt32(56);
 
-                    template.SpellId7 = reader.GetUInt32(68);
-                    template.Probability7 = reader.GetUInt32(69);
-                    template.CastTarget7 = reader.GetUInt32(70);
-                    template.TargetParam1_7 = reader.GetUInt32(71);
-                    template.TargetParam2_7 = reader.GetUInt32(72);
-                    template.CastFlags7 = reader.GetUInt32(73);
-                    template.DelayInitialMin7 = reader.GetUInt32(74);
-                    template.DelayInitialMax7 = reader.GetUInt32(75);
-                    template.DelayRepeatMin7 = reader.GetUInt32(76);
-                    template.DelayRepeatMax7 = reader.GetUInt32(77);
-                    template.ScriptId7 = reader.GetUInt32(78);
+                            template.SpellId6 = reader.GetUInt32(57);
+                            template.Probability6 = reader.GetUInt32(58);
+                            template.CastTarget6 = reader.GetUInt32(59);
+                            template.TargetParam1_6 = reader.GetUInt32(60);
+                            template.TargetParam2_6 = reader.GetUInt32(61);
+                            template.CastFlags6 = reader.GetUInt32(62);
+                            template.DelayInitialMin6 = reader.GetUInt32(63);
+                            template.DelayInitialMax6 = reader.GetUInt32(64);
+                            template.DelayRepeatMin6 = reader.GetUInt32(65);
+                            template.DelayRepeatMax6 = reader.GetUInt32(66);
+                            template.ScriptId6 = reader.GetUInt32(67);
 
-                    template.SpellId8 = reader.GetUInt32(79);
-                    template.Probability8 = reader.GetUInt32(80);
-                    template.CastTarget8 = reader.GetUInt32(81);
-                    template.TargetParam1_8 = reader.GetUInt32(82);
-                    template.TargetParam2_8 = reader.GetUInt32(83);
-                    template.CastFlags8 = reader.GetUInt32(84);
-                    template.DelayInitialMin8 = reader.GetUInt32(85);
-                    template.DelayInitialMax8 = reader.GetUInt32(86);
-                    template.DelayRepeatMin8 = reader.GetUInt32(87);
-                    template.DelayRepeatMax8 = reader.GetUInt32(88);
-                    template.ScriptId8 = reader.GetUInt32(89);
+                            template.SpellId7 = reader.GetUInt32(68);
+                            template.Probability7 = reader.GetUInt32(69);
+                            template.CastTarget7 = reader.GetUInt32(70);
+                            template.TargetParam1_7 = reader.GetUInt32(71);
+                            template.TargetParam2_7 = reader.GetUInt32(72);
+                            template.CastFlags7 = reader.GetUInt32(73);
+                            template.DelayInitialMin7 = reader.GetUInt32(74);
+                            template.DelayInitialMax7 = reader.GetUInt32(75);
+                            template.DelayRepeatMin7 = reader.GetUInt32(76);
+                            template.DelayRepeatMax7 = reader.GetUInt32(77);
+                            template.ScriptId7 = reader.GetUInt32(78);
 
-                    // Add the new creature spells template to the list.
-                    CreatureSpellsInfoList.Add(template);
+                            template.SpellId8 = reader.GetUInt32(79);
+                            template.Probability8 = reader.GetUInt32(80);
+                            template.CastTarget8 = reader.GetUInt32(81);
+                            template.TargetParam1_8 = reader.GetUInt32(82);
+                            template.TargetParam2_8 = reader.GetUInt32(83);
+                            template.CastFlags8 = reader.GetUInt32(84);
+                            template.DelayInitialMin8 = reader.GetUInt32(85);
+                            template.DelayInitialMax8 = reader.GetUInt32(86);
+                            template.DelayRepeatMin8 = reader.GetUInt32(87);
+                            template.DelayRepeatMax8 = reader.GetUInt32(88);
+                            template.ScriptId8 = reader.GetUInt32(89);
+
+                            // Add the new creature spells template to the list.
+                            CreatureSpellsInfoList.Add(template);
+                        }
+                    }
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadSpells(string connString, string database)
+
+        public static void LoadSpells(MySqlConnection conn)
         {
             SpellInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `ID`, `EffectMiscValue_1`, `EffectMiscValue_2`, `EffectMiscValue_3`, `Name_enUS`, `Description_enUS` FROM `Spell` ORDER BY `ID`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `ID`, `EffectMiscValue_1`, `EffectMiscValue_2`, `EffectMiscValue_3`, `Name_enUS`, `Description_enUS` FROM `Spell` ORDER BY `ID`";
+                try
                 {
-                    // Add the spell entry to the list.
-                    SpellInfoList.Add(new SpellInfo(reader.GetUInt32(0), 0, 0, 0, reader.GetString(4), reader.GetString(5)));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            SpellInfoList.Add(new SpellInfo(reader.GetUInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetString(4), reader.GetString(5)));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadItems(string connString, string database)
+
+        public static void LoadItems(MySqlConnection conn)
         {
             ItemInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `required_level`, `item_level`, `inventory_type`, `display_id`, `name` FROM `item_template` ORDER BY `entry`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `entry`, `required_level`, `item_level`, `inventory_type`, `display_id`, `name` FROM `item_template` ORDER BY `entry`";
+                try
                 {
-                    // Add the new item entry to the list.
-                    ItemInfoList.Add(new ItemInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetUInt32(3), reader.GetUInt32(4), reader.GetString(5)));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            ItemInfoList.Add(new ItemInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetUInt32(3), reader.GetUInt32(4), reader.GetString(5)));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadCondition(string connString, string database)
+
+        public static void LoadCondition(MySqlConnection conn)
         {
             ConditionInfoList.Clear();
             OriginalConditionInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `condition_entry`, `type`, `value1`, `value2`, `value3`, `value4`, `flags` FROM `conditions` ORDER BY `condition_entry`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `condition_entry`, `type`, `value1`, `value2`, `value3`, `value4`, `flags` FROM `conditions` ORDER BY `condition_entry`";
+                try
                 {
-                    // Add unsupported condition types to the list.
-                    int conditionType = reader.GetInt32(1);
-                    if (String.IsNullOrEmpty(FindConditionTypeName(conditionType)))
-                        ConditionNamesList.Add(new ComboboxPair("UNKNOWN_" + conditionType.ToString(), conditionType));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Add unsupported condition types to the list.
+                            int conditionType = reader.GetInt32(1);
+                            if (string.IsNullOrEmpty(FindConditionTypeName(conditionType)))
+                                ConditionNamesList.Add(new ComboboxPair("UNKNOWN_" + conditionType.ToString(), conditionType));
 
-                    // Add the new condition entry to the list.
-                    ConditionInfoList.Add(new ConditionInfo(reader.GetUInt32(0), conditionType, reader.GetInt32(2), reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5), reader.GetUInt32(6)));
-                    OriginalConditionInfoList.Add(new ConditionInfo(reader.GetUInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5), reader.GetUInt32(6)));
+                            // Add the new condition entry to the list.
+                            ConditionInfoList.Add(new ConditionInfo(reader.GetUInt32(0), conditionType, reader.GetInt32(2), reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5), reader.GetUInt32(6)));
+                            OriginalConditionInfoList.Add(new ConditionInfo(reader.GetUInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetInt32(4), reader.GetInt32(5), reader.GetUInt32(6)));
+                        }
+                    }
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadAreas(string connString, string database)
+
+        public static void LoadAreas(MySqlConnection conn)
         {
             AreaInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `map_id`, `zone_id`, `name` FROM `area_template` ORDER BY `entry`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `entry`, `map_id`, `zone_id`, `name` FROM `area_template` ORDER BY `entry`";
+                try
                 {
-                    // Add the new area entry to the list.
-                    AreaInfoList.Add(new AreaInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetString(3)));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            AreaInfoList.Add(new AreaInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetString(3)));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadSounds(string connString, string database)
+
+        public static void LoadSounds(MySqlConnection conn)
         {
             SoundInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `id`, `name` FROM `sound_entries` ORDER BY `id`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `id`, `name` FROM `sound_entries` ORDER BY `id`";
+                try
                 {
-                    // Add the new sound entry to the list.
-                    SoundInfoList.Add(new SoundInfo(reader.GetUInt32(0), reader.GetString(1)));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            SoundInfoList.Add(new SoundInfo(reader.GetUInt32(0), reader.GetString(1)));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadFactions(string connString, string database)
+
+        public static void LoadFactions(MySqlConnection conn)
         {
             FactionInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `id`, `Name_enUS` AS name FROM `Faction` ORDER BY `id`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `id`, `Name_enUS` AS name FROM `Faction` ORDER BY `id`";
+                try
                 {
-                    // Add the new faction entry to the list.
-                    FactionInfoList.Add(new FactionInfo(reader.GetUInt32(0), 0, 0, reader.GetString(1), ""));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            FactionInfoList.Add(new FactionInfo(reader.GetUInt32(0), 0, 0, reader.GetString(1), ""));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadFactionTemplates(string connString, string database)
+        public static void LoadFactionTemplates(MySqlConnection conn)
         {
             FactionTemplateInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `id`, `Faction` AS faction_id FROM `FactionTemplate` ORDER BY `id`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `id`, `Faction` AS faction_id FROM `FactionTemplate` ORDER BY `id`";
+                try
                 {
-                    // Add the new faction template entry to the list.
-                    FactionTemplateInfoList.Add(new FactionTemplateInfo(reader.GetUInt32(0), reader.GetUInt32(1), 0));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            FactionTemplateInfoList.Add(new FactionTemplateInfo(reader.GetUInt32(0), reader.GetUInt32(1), 0));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
-        public static void LoadGameEvents(string connString, string database)
+        public static void LoadGameEvents(MySqlConnection conn)
         {
             GameEventInfoList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `occurence`, `length`, `description`, `patch_min`, `patch_max` FROM `game_event` ORDER BY `entry`";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT `entry`, `occurence`, `length`, `description`, `patch_min`, `patch_max` FROM `game_event` ORDER BY `entry`";
+                try
                 {
-                    // Add the new game event entry to the list.
-                    GameEventInfoList.Add(new GameEventInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetString(3), reader.GetUInt32(4), reader.GetUInt32(5)));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            GameEventInfoList.Add(new GameEventInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetString(3), reader.GetUInt32(4), reader.GetUInt32(5)));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
 
-        internal static void LoadCreatureSpellsSniffs(string connString, string database)
+        internal static void LoadCreatureSpellsSniffs(MySqlConnection conn)
         {
-            if (!Program.sniffsInstalled) return;
+            if (!Program.SniffsInstalled) 
+                return;
 
             CreatureSpellsSniffsList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT entry, spell_id, initial_casts_count, initial_delay_min, initial_delay_average, initial_delay_max, repeat_casts_count, repeat_delay_min, repeat_delay_average, repeat_delay_max FROM creature_spell_timers ORDER BY entry ASC";
-            try
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                command.CommandText = "SELECT entry, spell_id, initial_casts_count, initial_delay_min, initial_delay_average, initial_delay_max, repeat_casts_count, repeat_delay_min, repeat_delay_average, repeat_delay_max FROM creature_spell_timers ORDER BY entry ASC";
+                try
                 {
-                    CreatureSpellsSniffsList.Add(new CreatureSpellsSniff(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetUInt32(3), reader.GetUInt32(4), reader.GetUInt32(5),
-                        reader.GetUInt32(6), reader.GetUInt32(7), reader.GetUInt32(8), reader.GetUInt32(9)));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            CreatureSpellsSniffsList.Add(new CreatureSpellsSniff(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetUInt32(3), reader.GetUInt32(4), reader.GetUInt32(5),
+                                reader.GetUInt32(6), reader.GetUInt32(7), reader.GetUInt32(8), reader.GetUInt32(9)));
+                        }
+                    }
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
 
-        internal static void LoadCreatureMovement(string connString, string database)
+        internal static void LoadCreatureMovement(MySqlConnection conn)
         {
             CreatureMovementList.Clear();
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT id, point, position_x, position_y, position_z, orientation, waittime, wander_distance, script_id FROM creature_movement";
-            try
-            {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    CreatureMovementList.Add(new Waypoint(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetFloat(2), reader.GetFloat(3), reader.GetFloat(4), reader.GetFloat(5), reader.GetUInt32(6), reader.GetFloat(7), reader.GetUInt32(8)));
-                }
-                reader.Close();
-            }
-            catch (Exception ex)
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
+                command.CommandText = "SELECT id, point, position_x, position_y, position_z, orientation, waittime, wander_distance, script_id FROM creature_movement";
+                try
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            CreatureMovementList.Add(new Waypoint(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetFloat(2), reader.GetFloat(3), reader.GetFloat(4), reader.GetFloat(5), reader.GetUInt32(6), reader.GetFloat(7), reader.GetUInt32(8)));
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            conn.Close();
         }
 
-        internal static void LoadCreatureMovementSpecial(string connString, string database)
+        internal static void LoadCreatureMovementSpecial(MySqlConnection conn)
         {
             CreatureMovementSpecialList.Clear();
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT id, point, position_x, position_y, position_z, orientation, waittime, wander_distance, script_id FROM creature_movement_special";
-            try
-            {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    CreatureMovementSpecialList.Add(new Waypoint(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetFloat(2), reader.GetFloat(3), reader.GetFloat(4), reader.GetFloat(5), reader.GetUInt32(6), reader.GetFloat(7), reader.GetUInt32(8)));
-                }
-                reader.Close();
-            }
-            catch (Exception ex)
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
+                command.CommandText = "SELECT id, point, position_x, position_y, position_z, orientation, waittime, wander_distance, script_id FROM creature_movement_special";
+                try
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            CreatureMovementSpecialList.Add(new Waypoint(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetFloat(2), reader.GetFloat(3), reader.GetFloat(4), reader.GetFloat(5), reader.GetUInt32(6), reader.GetFloat(7), reader.GetUInt32(8)));
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            conn.Close();
         }
 
-        internal static void LoadCreatureMovementTemplate(string connString, string database)
+        internal static void LoadCreatureMovementTemplate(MySqlConnection conn)
         {
             CreatureMovementTemplateList.Clear();
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT entry, point, position_x, position_y, position_z, orientation, waittime, wander_distance, script_id FROM creature_movement_template";
-            try
-            {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
 
-                while (reader.Read())
-                {
-                    CreatureMovementTemplateList.Add(new Waypoint(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetFloat(2), reader.GetFloat(3), reader.GetFloat(4), reader.GetFloat(5), reader.GetUInt32(6), reader.GetFloat(7), reader.GetUInt32(8)));
-                }
-                reader.Close();
-            }
-            catch (Exception ex)
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
+                command.CommandText = "SELECT entry, point, position_x, position_y, position_z, orientation, waittime, wander_distance, script_id FROM creature_movement_template";
+                try
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            CreatureMovementTemplateList.Add(new Waypoint(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetFloat(2), reader.GetFloat(3), reader.GetFloat(4), reader.GetFloat(5), reader.GetUInt32(6), reader.GetFloat(7), reader.GetUInt32(8)));
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            conn.Close();
         }
 
-        internal static void LoadCreatureDisplayInfo(string connString, string database)
+        internal static void LoadCreatureDisplayInfo(MySqlConnection conn)
         {
             CreatureDisplayIdList.Clear();
-            MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
-            MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT ID FROM CreatureDisplayInfo";
-            try
+            CreatureDisplayIdList.Add(0);
+
+            using (MySqlCommand command = conn.CreateCommand())
             {
-                conn.Open();
-                MySqlDataReader reader = command.ExecuteReader();
-
-                CreatureDisplayIdList.Add(0);
-
-                while (reader.Read())
+                command.CommandText = "SELECT ID FROM CreatureDisplayInfo";
+                try
                 {
-                    CreatureDisplayIdList.Add(reader.GetUInt32(0));
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            CreatureDisplayIdList.Add(reader.GetUInt32(0));
                 }
-                reader.Close();
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
-            }
-            conn.Close();
         }
 
         static GameData()
@@ -2202,7 +2125,7 @@ namespace ScriptEditor
             SpellEffectNamesList.Add(new ComboboxPair("Unused 127", 127));
             SpellEffectNamesList.Add(new ComboboxPair("Apply Area Aura Friend", 128));
             SpellEffectNamesList.Add(new ComboboxPair("Apply Area Aura Enemy", 129));
-            
+
             // Add spell aura names.
             SpellAuraNamesList.Add(new ComboboxPair("None", 0));
             SpellAuraNamesList.Add(new ComboboxPair("Bind Sight", 1));
@@ -2559,10 +2482,15 @@ namespace ScriptEditor
     }
     public struct BroadcastText
     {
-        public uint ID;
-        public string Text;
+        public uint ID { get; set; }
+        public string Text { get; set; }
         public uint ChatType;
         public uint Language;
+
+        public string ChatType_ { get { return ((Globals.ChatTypes)ChatType).ToString(); } }
+        public string Language_ { get { return ((Globals.Languages)Language).ToString(); } }
+
+
         public BroadcastText(uint id, string text, uint chattype, uint language)
         {
             ID = id;
@@ -2573,10 +2501,11 @@ namespace ScriptEditor
     }
     public struct QuestInfo
     {
-        public uint ID;
-        public uint MinLevel;
-        public uint QuestLevel;
-        public string Title;
+        public uint ID { get; set; }
+        public string Title { get; set; }
+        public uint MinLevel { get; set; }
+        public uint QuestLevel { get; set; }
+
         public QuestInfo(uint id, uint minlevel, uint questlevel, string title)
         {
             ID = id;
@@ -2587,7 +2516,9 @@ namespace ScriptEditor
     }
     public struct CreatureInfo
     {
-        public uint Entry;
+        public uint Entry { get; set; }
+        public string Name { get; set; }
+        public string Subname;
         public uint Display_id1;
         public uint Display_id2;
         public uint Display_id3;
@@ -2597,8 +2528,9 @@ namespace ScriptEditor
         public uint MaxLevel;
         public uint Rank;
         public uint SpellListId;
-        public string Name;
-        public string Subname;
+
+        public string Rank_ { get { return GameData.CreatureRanksList[(int)Rank].Text; } }
+        public string Level_ { get { return MinLevel != MaxLevel ? $"{MinLevel}-{MaxLevel}" : $"{MinLevel}"; } }
 
         public CreatureInfo(uint entry, uint minlevel, uint maxlevel, uint rank, uint spelllistid, string name, string subname, uint display_id1, uint display_id2, uint display_id3, uint display_id4, uint mount_display_id)
         {
@@ -2617,15 +2549,18 @@ namespace ScriptEditor
 
         }
     }
-    public struct SpellInfo
+    public class SpellInfo
     {
-        public uint ID;
-        public uint Effect1;
-        public uint Effect2;
-        public uint Effect3;
-        public string Name;
-        public string Description;
-        public SpellInfo(uint id, uint effect1, uint effect2, uint effect3, string name, string description)
+        public uint ID { get; set; }
+        public string Name { get; set; }
+        public int Effect1;
+        public int Effect2;
+        public int Effect3;
+        public string Effect_1 { get { return GameData.FindSpellEffectName(Effect1); } }
+        public string Effect_2 { get { return GameData.FindSpellEffectName(Effect2); } }
+        public string Effect_3 { get { return GameData.FindSpellEffectName(Effect3); } }
+        public string Description { get; set; }
+        public SpellInfo(uint id, int effect1, int effect2, int effect3, string name, string description)
         {
             ID = id;
             Effect1 = effect1;
@@ -2637,12 +2572,13 @@ namespace ScriptEditor
     }
     public struct ItemInfo
     {
-        public uint ID;
-        public uint RequiredLevel;
-        public uint ItemLevel;
+        public uint ID { get; set; }
+        public string Name { get; set; }
+        public uint DisplayId { get; set; }
+        public uint RequiredLevel { get; set; }
+        public uint ItemLevel { get; set; }
         public uint InventoryType;
-        public uint DisplayId;
-        public string Name;
+
         public ItemInfo(uint id, uint requiredlevel, uint itemlevel, uint inventorytype, uint displayid, string name)
         {
             ID = id;
@@ -2672,9 +2608,9 @@ namespace ScriptEditor
     }
     public struct TaxiInfo
     {
-        public uint ID;
-        public string Source;
-        public string Destination;
+        public uint ID { get; set; }
+        public string Source { get; set; }
+        public string Destination { get; set; }
         public TaxiInfo(uint id, string source, string destination)
         {
             ID = id;
@@ -2704,10 +2640,10 @@ namespace ScriptEditor
     }
     public struct AreaInfo
     {
-        public uint ID;
-        public uint Map;
-        public uint Zone;
-        public string Name;
+        public uint ID { get; set; }
+        public uint Map { get; set; }
+        public uint Zone { get; set; }
+        public string Name { get; set; }
         public AreaInfo(uint id, uint map, uint zone, string name)
         {
             ID = id;
@@ -2720,6 +2656,7 @@ namespace ScriptEditor
     {
         public uint ID;
         public string Name;
+
         public SoundInfo(uint id, string name)
         {
             ID = id;
@@ -2728,11 +2665,12 @@ namespace ScriptEditor
     }
     public struct FactionInfo
     {
-        public uint ID;
-        public int Reputation;
-        public uint Team;
-        public string Name;
-        public string Description;
+        public uint ID { get; set; }
+        public string Name { get; set; }
+        public int Reputation { get; set; }
+        public uint Team { get; set; }
+        public string Description { get; set; }
+
         public FactionInfo(uint id, int reputation, uint team, string name, string description)
         {
             ID = id;
@@ -2742,11 +2680,35 @@ namespace ScriptEditor
             Description = description;
         }
     }
-    public struct FactionTemplateInfo
+    public class FactionTemplateInfo
     {
-        public uint ID;
-        public uint FactionId;
-        public uint Flags;
+        public uint ID { get; set; }
+        public uint FactionId { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                var item = GameData.FactionInfoList.Find(f => f.ID == FactionId && !string.IsNullOrEmpty(f.Name));
+                if (item is FactionInfo fInf)
+                    return fInf.Name;
+                return "";
+            }
+        }
+
+        public uint Flags { get; set; }
+
+        public string Description
+        {
+            get
+            {
+                var item = GameData.FactionInfoList.Find(f => f.ID == FactionId && !string.IsNullOrEmpty(f.Description));
+                if (item is FactionInfo fInf)
+                    return fInf.Description;
+                return "";
+            }
+        }
+
         public FactionTemplateInfo(uint id, uint factionid, uint flags)
         {
             ID = id;
@@ -2756,12 +2718,12 @@ namespace ScriptEditor
     }
     public struct GameEventInfo
     {
-        public uint ID;
-        public uint Occurrence;
-        public uint Length;
-        public string Name;
-        public uint PatchMin;
-        public uint PatchMax;
+        public uint ID { get; set; }
+        public string Name { get; set; }
+        public uint Occurrence { get; set; }
+        public uint Length { get; set; }
+        public uint PatchMin { get; set; }
+        public uint PatchMax { get; set; }
         public GameEventInfo(uint id, uint occurrence, uint length, string name, uint patchmin, uint patchmax)
         {
             ID = id;
@@ -2774,10 +2736,11 @@ namespace ScriptEditor
     }
     public struct GameObjectInfo
     {
-        public uint ID;
-        public uint Type;
-        public uint DisplayId;
-        public string Name;
+        public uint ID { get; set; }
+        public string Name { get; set; }
+        public uint DisplayId { get; set; }
+        public uint Type { get; set; }
+
         public GameObjectInfo(uint id, uint type, uint displayid, string name)
         {
             ID = id;
@@ -2841,5 +2804,5 @@ namespace ScriptEditor
         }
     }
 
-    
+
 }

@@ -35,6 +35,7 @@
             this.tsmiCreatureEvents = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCreatureSpells = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiConditions = new System.Windows.Forms.ToolStripMenuItem();
+            this.waypointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFinders = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAreaFinder = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCreatureFinder = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,18 +62,19 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.LoadingBar = new System.Windows.Forms.ToolStripProgressBar();
             this.LoadingStatusText = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnWaypoints = new System.Windows.Forms.Button();
-            this.btnScriptEditor = new System.Windows.Forms.Button();
-            this.btnEventEditor = new System.Windows.Forms.Button();
-            this.btnCastsEditor = new System.Windows.Forms.Button();
-            this.btnConditionsEditor = new System.Windows.Forms.Button();
-            this.btnCreatureEditor = new System.Windows.Forms.Button();
+            this.BtnWaypoints = new System.Windows.Forms.Button();
+            this.BtnScriptEditor = new System.Windows.Forms.Button();
+            this.BtnEventEditor = new System.Windows.Forms.Button();
+            this.BtnSpellEditor = new System.Windows.Forms.Button();
+            this.BtnConditionsEditor = new System.Windows.Forms.Button();
+            this.BtnCreatureEditor = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Enabled = false;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiEditors,
             this.tsmiFinders,
@@ -80,10 +82,9 @@
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(330, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(825, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.Visible = false;
             // 
             // tsmiEditors
             // 
@@ -91,7 +92,8 @@
             this.tsmiScripts,
             this.tsmiCreatureEvents,
             this.tsmiCreatureSpells,
-            this.tsmiConditions});
+            this.tsmiConditions,
+            this.waypointsToolStripMenuItem});
             this.tsmiEditors.Name = "tsmiEditors";
             this.tsmiEditors.Size = new System.Drawing.Size(55, 20);
             this.tsmiEditors.Text = "Editors";
@@ -99,26 +101,36 @@
             // tsmiScripts
             // 
             this.tsmiScripts.Name = "tsmiScripts";
-            this.tsmiScripts.Size = new System.Drawing.Size(156, 22);
+            this.tsmiScripts.Size = new System.Drawing.Size(180, 22);
             this.tsmiScripts.Text = "Scripts";
+            this.tsmiScripts.Click += new System.EventHandler(this.ScriptEditor_Click);
             // 
             // tsmiCreatureEvents
             // 
             this.tsmiCreatureEvents.Name = "tsmiCreatureEvents";
-            this.tsmiCreatureEvents.Size = new System.Drawing.Size(156, 22);
-            this.tsmiCreatureEvents.Text = "Creature Events";
+            this.tsmiCreatureEvents.Size = new System.Drawing.Size(180, 22);
+            this.tsmiCreatureEvents.Text = "Events";
+            this.tsmiCreatureEvents.Click += new System.EventHandler(this.EventEditor_Click);
             // 
             // tsmiCreatureSpells
             // 
             this.tsmiCreatureSpells.Name = "tsmiCreatureSpells";
-            this.tsmiCreatureSpells.Size = new System.Drawing.Size(156, 22);
-            this.tsmiCreatureSpells.Text = "Creature Spells";
+            this.tsmiCreatureSpells.Size = new System.Drawing.Size(180, 22);
+            this.tsmiCreatureSpells.Text = "Spells";
+            this.tsmiCreatureSpells.Click += new System.EventHandler(this.CreatureSpellEditor_Click);
             // 
             // tsmiConditions
             // 
             this.tsmiConditions.Name = "tsmiConditions";
-            this.tsmiConditions.Size = new System.Drawing.Size(156, 22);
+            this.tsmiConditions.Size = new System.Drawing.Size(180, 22);
             this.tsmiConditions.Text = "Conditions";
+            this.tsmiConditions.Click += new System.EventHandler(this.ConditionEditor_Click);
+            // 
+            // waypointsToolStripMenuItem
+            // 
+            this.waypointsToolStripMenuItem.Name = "waypointsToolStripMenuItem";
+            this.waypointsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.waypointsToolStripMenuItem.Text = "Waypoints";
             // 
             // tsmiFinders
             // 
@@ -141,68 +153,90 @@
             // tsmiAreaFinder
             // 
             this.tsmiAreaFinder.Name = "tsmiAreaFinder";
-            this.tsmiAreaFinder.Size = new System.Drawing.Size(164, 22);
-            this.tsmiAreaFinder.Text = "Area";
+            this.tsmiAreaFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiAreaFinder.Tag = "Areas";
+            this.tsmiAreaFinder.Text = "Areas";
+            this.tsmiAreaFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiCreatureFinder
             // 
             this.tsmiCreatureFinder.Name = "tsmiCreatureFinder";
-            this.tsmiCreatureFinder.Size = new System.Drawing.Size(164, 22);
+            this.tsmiCreatureFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiCreatureFinder.Tag = "Creatures";
             this.tsmiCreatureFinder.Text = "Creature";
+            this.tsmiCreatureFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiEventFinder
             // 
             this.tsmiEventFinder.Name = "tsmiEventFinder";
-            this.tsmiEventFinder.Size = new System.Drawing.Size(164, 22);
-            this.tsmiEventFinder.Text = "Event Finder";
+            this.tsmiEventFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiEventFinder.Tag = "Events";
+            this.tsmiEventFinder.Text = "Events";
+            this.tsmiEventFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiFactionFinder
             // 
             this.tsmiFactionFinder.Name = "tsmiFactionFinder";
-            this.tsmiFactionFinder.Size = new System.Drawing.Size(164, 22);
-            this.tsmiFactionFinder.Text = "Faction";
+            this.tsmiFactionFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiFactionFinder.Tag = "Factions";
+            this.tsmiFactionFinder.Text = "Factions";
+            this.tsmiFactionFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiFactionTemplateFinder
             // 
             this.tsmiFactionTemplateFinder.Name = "tsmiFactionTemplateFinder";
-            this.tsmiFactionTemplateFinder.Size = new System.Drawing.Size(164, 22);
-            this.tsmiFactionTemplateFinder.Text = "Faction Template";
+            this.tsmiFactionTemplateFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiFactionTemplateFinder.Tag = "FactionTemplates";
+            this.tsmiFactionTemplateFinder.Text = "Faction Templates";
+            this.tsmiFactionTemplateFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiGameObjectFinder
             // 
             this.tsmiGameObjectFinder.Name = "tsmiGameObjectFinder";
-            this.tsmiGameObjectFinder.Size = new System.Drawing.Size(164, 22);
-            this.tsmiGameObjectFinder.Text = "Game Object";
+            this.tsmiGameObjectFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiGameObjectFinder.Tag = "GameObjects";
+            this.tsmiGameObjectFinder.Text = "Game Objects";
+            this.tsmiGameObjectFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiItemFinder
             // 
             this.tsmiItemFinder.Name = "tsmiItemFinder";
-            this.tsmiItemFinder.Size = new System.Drawing.Size(164, 22);
-            this.tsmiItemFinder.Text = "Item";
+            this.tsmiItemFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiItemFinder.Tag = "Items";
+            this.tsmiItemFinder.Text = "Items";
+            this.tsmiItemFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiQuestFinder
             // 
             this.tsmiQuestFinder.Name = "tsmiQuestFinder";
-            this.tsmiQuestFinder.Size = new System.Drawing.Size(164, 22);
-            this.tsmiQuestFinder.Text = "Quest";
+            this.tsmiQuestFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiQuestFinder.Tag = "Quests";
+            this.tsmiQuestFinder.Text = "Quests";
+            this.tsmiQuestFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiSpellFinder
             // 
             this.tsmiSpellFinder.Name = "tsmiSpellFinder";
-            this.tsmiSpellFinder.Size = new System.Drawing.Size(164, 22);
-            this.tsmiSpellFinder.Text = "Spell";
+            this.tsmiSpellFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiSpellFinder.Tag = "Spells";
+            this.tsmiSpellFinder.Text = "Spells";
+            this.tsmiSpellFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiTaxiFinder
             // 
             this.tsmiTaxiFinder.Name = "tsmiTaxiFinder";
-            this.tsmiTaxiFinder.Size = new System.Drawing.Size(164, 22);
-            this.tsmiTaxiFinder.Text = "Taxi";
+            this.tsmiTaxiFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiTaxiFinder.Tag = "Taxis";
+            this.tsmiTaxiFinder.Text = "Taxis";
+            this.tsmiTaxiFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiTextFinder
             // 
             this.tsmiTextFinder.Name = "tsmiTextFinder";
-            this.tsmiTextFinder.Size = new System.Drawing.Size(164, 22);
-            this.tsmiTextFinder.Text = "Broadcast Text";
+            this.tsmiTextFinder.Size = new System.Drawing.Size(169, 22);
+            this.tsmiTextFinder.Tag = "BroadcastTexts";
+            this.tsmiTextFinder.Text = "Broadcast Texts";
+            this.tsmiTextFinder.Click += new System.EventHandler(this.Finders_Click);
             // 
             // tsmiHelpers
             // 
@@ -225,14 +259,16 @@
             this.tsmiFlagsPlayerUF,
             this.tsmiFlagsSpellMechanic});
             this.tsmiFlags.Name = "tsmiFlags";
-            this.tsmiFlags.Size = new System.Drawing.Size(101, 22);
+            this.tsmiFlags.Size = new System.Drawing.Size(180, 22);
             this.tsmiFlags.Text = "Flags";
             // 
             // tsmiFlagsGeneric
             // 
             this.tsmiFlagsGeneric.Name = "tsmiFlagsGeneric";
             this.tsmiFlagsGeneric.Size = new System.Drawing.Size(218, 22);
+            this.tsmiFlagsGeneric.Tag = "GenericFlags";
             this.tsmiFlagsGeneric.Text = "Generic";
+            this.tsmiFlagsGeneric.Click += new System.EventHandler(this.FlagHelper_Click);
             // 
             // toolStripSeparator1
             // 
@@ -243,52 +279,66 @@
             // 
             this.tsmiFlagsGameObjectUF.Name = "tsmiFlagsGameObjectUF";
             this.tsmiFlagsGameObjectUF.Size = new System.Drawing.Size(218, 22);
+            this.tsmiFlagsGameObjectUF.Tag = "GameObjectFlags";
             this.tsmiFlagsGameObjectUF.Text = "Game Object Flags (UF)";
+            this.tsmiFlagsGameObjectUF.Click += new System.EventHandler(this.FlagHelper_Click);
             // 
             // tsmiFlagsGameObjectDynUF
             // 
             this.tsmiFlagsGameObjectDynUF.Name = "tsmiFlagsGameObjectDynUF";
             this.tsmiFlagsGameObjectDynUF.Size = new System.Drawing.Size(218, 22);
+            this.tsmiFlagsGameObjectDynUF.Tag = "GameObjectDynamicFlags";
             this.tsmiFlagsGameObjectDynUF.Text = "Game Object Dynamic (UF)";
+            this.tsmiFlagsGameObjectDynUF.Click += new System.EventHandler(this.FlagHelper_Click);
             // 
             // tsmiFlagsUnitUF
             // 
             this.tsmiFlagsUnitUF.Name = "tsmiFlagsUnitUF";
             this.tsmiFlagsUnitUF.Size = new System.Drawing.Size(218, 22);
+            this.tsmiFlagsUnitUF.Tag = "UnitFlags";
             this.tsmiFlagsUnitUF.Text = "Unit (UF)";
+            this.tsmiFlagsUnitUF.Click += new System.EventHandler(this.FlagHelper_Click);
             // 
             // tsmiFlagsUnitDynamicUF
             // 
             this.tsmiFlagsUnitDynamicUF.Name = "tsmiFlagsUnitDynamicUF";
             this.tsmiFlagsUnitDynamicUF.Size = new System.Drawing.Size(218, 22);
+            this.tsmiFlagsUnitDynamicUF.Tag = "UnitDynamicFlags";
             this.tsmiFlagsUnitDynamicUF.Text = "Unit Dynamic (UF)";
+            this.tsmiFlagsUnitDynamicUF.Click += new System.EventHandler(this.FlagHelper_Click);
             // 
             // tsmiFlagsNpcUF
             // 
             this.tsmiFlagsNpcUF.Name = "tsmiFlagsNpcUF";
             this.tsmiFlagsNpcUF.Size = new System.Drawing.Size(218, 22);
-            this.tsmiFlagsNpcUF.Text = "NPC (UF)";
+            this.tsmiFlagsNpcUF.Tag = "NpcFlags";
+            this.tsmiFlagsNpcUF.Text = "Npc (UF)";
+            this.tsmiFlagsNpcUF.Click += new System.EventHandler(this.FlagHelper_Click);
             // 
             // tsmiFlagsPlayerUF
             // 
             this.tsmiFlagsPlayerUF.Name = "tsmiFlagsPlayerUF";
             this.tsmiFlagsPlayerUF.Size = new System.Drawing.Size(218, 22);
+            this.tsmiFlagsPlayerUF.Tag = "PlayerFlags";
             this.tsmiFlagsPlayerUF.Text = "Player (UF)";
+            this.tsmiFlagsPlayerUF.Click += new System.EventHandler(this.FlagHelper_Click);
             // 
             // tsmiFlagsSpellMechanic
             // 
             this.tsmiFlagsSpellMechanic.Name = "tsmiFlagsSpellMechanic";
             this.tsmiFlagsSpellMechanic.Size = new System.Drawing.Size(218, 22);
-            this.tsmiFlagsSpellMechanic.Text = "Spell Mechanic";
+            this.tsmiFlagsSpellMechanic.Tag = "SpellMechanicMask";
+            this.tsmiFlagsSpellMechanic.Text = "Spell Mechanic Mask";
+            this.tsmiFlagsSpellMechanic.Click += new System.EventHandler(this.FlagHelper_Click);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LoadingBar,
             this.LoadingStatusText});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 388);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 442);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(722, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(825, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -305,71 +355,71 @@
             this.LoadingStatusText.Size = new System.Drawing.Size(62, 17);
             this.LoadingStatusText.Text = "Loading ...";
             // 
-            // btnWaypoints
+            // BtnWaypoints
             // 
-            this.btnWaypoints.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnWaypoints.Location = new System.Drawing.Point(565, 47);
-            this.btnWaypoints.Name = "btnWaypoints";
-            this.btnWaypoints.Size = new System.Drawing.Size(129, 75);
-            this.btnWaypoints.TabIndex = 4;
-            this.btnWaypoints.Text = "Waypoints";
-            this.btnWaypoints.UseVisualStyleBackColor = true;
-            this.btnWaypoints.Click += new System.EventHandler(this.btnWaypoints_Click);
+            this.BtnWaypoints.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BtnWaypoints.Location = new System.Drawing.Point(565, 47);
+            this.BtnWaypoints.Name = "BtnWaypoints";
+            this.BtnWaypoints.Size = new System.Drawing.Size(129, 75);
+            this.BtnWaypoints.TabIndex = 4;
+            this.BtnWaypoints.Text = "Waypoints";
+            this.BtnWaypoints.UseVisualStyleBackColor = true;
+            this.BtnWaypoints.Click += new System.EventHandler(this.Waypoints_Click);
             // 
-            // btnScriptEditor
+            // BtnScriptEditor
             // 
-            this.btnScriptEditor.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnScriptEditor.Location = new System.Drawing.Point(25, 47);
-            this.btnScriptEditor.Name = "btnScriptEditor";
-            this.btnScriptEditor.Size = new System.Drawing.Size(129, 75);
-            this.btnScriptEditor.TabIndex = 0;
-            this.btnScriptEditor.Text = "Script Editor";
-            this.btnScriptEditor.UseVisualStyleBackColor = true;
-            this.btnScriptEditor.Click += new System.EventHandler(this.picScriptEditor_Click);
+            this.BtnScriptEditor.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BtnScriptEditor.Location = new System.Drawing.Point(25, 47);
+            this.BtnScriptEditor.Name = "BtnScriptEditor";
+            this.BtnScriptEditor.Size = new System.Drawing.Size(129, 75);
+            this.BtnScriptEditor.TabIndex = 0;
+            this.BtnScriptEditor.Text = "Scripts";
+            this.BtnScriptEditor.UseVisualStyleBackColor = true;
+            this.BtnScriptEditor.Click += new System.EventHandler(this.ScriptEditor_Click);
             // 
-            // btnEventEditor
+            // BtnEventEditor
             // 
-            this.btnEventEditor.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnEventEditor.Location = new System.Drawing.Point(160, 47);
-            this.btnEventEditor.Name = "btnEventEditor";
-            this.btnEventEditor.Size = new System.Drawing.Size(129, 75);
-            this.btnEventEditor.TabIndex = 1;
-            this.btnEventEditor.Text = "Event Editor";
-            this.btnEventEditor.UseVisualStyleBackColor = true;
-            this.btnEventEditor.Click += new System.EventHandler(this.picEventEditor_Click);
+            this.BtnEventEditor.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BtnEventEditor.Location = new System.Drawing.Point(160, 47);
+            this.BtnEventEditor.Name = "BtnEventEditor";
+            this.BtnEventEditor.Size = new System.Drawing.Size(129, 75);
+            this.BtnEventEditor.TabIndex = 1;
+            this.BtnEventEditor.Text = "Events";
+            this.BtnEventEditor.UseVisualStyleBackColor = true;
+            this.BtnEventEditor.Click += new System.EventHandler(this.EventEditor_Click);
             // 
-            // btnCastsEditor
+            // BtnSpellEditor
             // 
-            this.btnCastsEditor.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnCastsEditor.Location = new System.Drawing.Point(295, 47);
-            this.btnCastsEditor.Name = "btnCastsEditor";
-            this.btnCastsEditor.Size = new System.Drawing.Size(129, 75);
-            this.btnCastsEditor.TabIndex = 2;
-            this.btnCastsEditor.Text = "Casts Editor";
-            this.btnCastsEditor.UseVisualStyleBackColor = true;
-            this.btnCastsEditor.Click += new System.EventHandler(this.picCastsEditor_Click);
+            this.BtnSpellEditor.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BtnSpellEditor.Location = new System.Drawing.Point(295, 47);
+            this.BtnSpellEditor.Name = "BtnSpellEditor";
+            this.BtnSpellEditor.Size = new System.Drawing.Size(129, 75);
+            this.BtnSpellEditor.TabIndex = 2;
+            this.BtnSpellEditor.Text = "Spells";
+            this.BtnSpellEditor.UseVisualStyleBackColor = true;
+            this.BtnSpellEditor.Click += new System.EventHandler(this.CreatureSpellEditor_Click);
             // 
-            // btnConditionsEditor
+            // BtnConditionsEditor
             // 
-            this.btnConditionsEditor.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnConditionsEditor.Location = new System.Drawing.Point(430, 47);
-            this.btnConditionsEditor.Name = "btnConditionsEditor";
-            this.btnConditionsEditor.Size = new System.Drawing.Size(129, 75);
-            this.btnConditionsEditor.TabIndex = 3;
-            this.btnConditionsEditor.Text = "Conditions Editor";
-            this.btnConditionsEditor.UseVisualStyleBackColor = true;
-            this.btnConditionsEditor.Click += new System.EventHandler(this.picConditionEditor_Click);
+            this.BtnConditionsEditor.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BtnConditionsEditor.Location = new System.Drawing.Point(430, 47);
+            this.BtnConditionsEditor.Name = "BtnConditionsEditor";
+            this.BtnConditionsEditor.Size = new System.Drawing.Size(129, 75);
+            this.BtnConditionsEditor.TabIndex = 3;
+            this.BtnConditionsEditor.Text = "Conditions";
+            this.BtnConditionsEditor.UseVisualStyleBackColor = true;
+            this.BtnConditionsEditor.Click += new System.EventHandler(this.ConditionEditor_Click);
             // 
-            // btnCreatureEditor
+            // BtnCreatureEditor
             // 
-            this.btnCreatureEditor.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnCreatureEditor.Location = new System.Drawing.Point(25, 128);
-            this.btnCreatureEditor.Name = "btnCreatureEditor";
-            this.btnCreatureEditor.Size = new System.Drawing.Size(129, 75);
-            this.btnCreatureEditor.TabIndex = 7;
-            this.btnCreatureEditor.Text = "Creature Editor";
-            this.btnCreatureEditor.UseVisualStyleBackColor = true;
-            this.btnCreatureEditor.Click += new System.EventHandler(this.btnCreatureEditor_Click);
+            this.BtnCreatureEditor.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.BtnCreatureEditor.Location = new System.Drawing.Point(25, 128);
+            this.BtnCreatureEditor.Name = "BtnCreatureEditor";
+            this.BtnCreatureEditor.Size = new System.Drawing.Size(129, 75);
+            this.BtnCreatureEditor.TabIndex = 7;
+            this.BtnCreatureEditor.Text = "Creatures";
+            this.BtnCreatureEditor.UseVisualStyleBackColor = true;
+            this.BtnCreatureEditor.Click += new System.EventHandler(this.CreatureEditor_Click);
             // 
             // Form1
             // 
@@ -377,13 +427,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(722, 410);
-            this.Controls.Add(this.btnCreatureEditor);
-            this.Controls.Add(this.btnConditionsEditor);
-            this.Controls.Add(this.btnCastsEditor);
-            this.Controls.Add(this.btnEventEditor);
-            this.Controls.Add(this.btnScriptEditor);
-            this.Controls.Add(this.btnWaypoints);
+            this.ClientSize = new System.Drawing.Size(825, 464);
+            this.Controls.Add(this.BtnCreatureEditor);
+            this.Controls.Add(this.BtnConditionsEditor);
+            this.Controls.Add(this.BtnSpellEditor);
+            this.Controls.Add(this.BtnEventEditor);
+            this.Controls.Add(this.BtnScriptEditor);
+            this.Controls.Add(this.BtnWaypoints);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
@@ -392,8 +442,10 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AlphaCore Developer Tools";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -436,11 +488,12 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar LoadingBar;
         private System.Windows.Forms.ToolStripStatusLabel LoadingStatusText;
-        private System.Windows.Forms.Button btnWaypoints;
-        private System.Windows.Forms.Button btnScriptEditor;
-        private System.Windows.Forms.Button btnEventEditor;
-        private System.Windows.Forms.Button btnCastsEditor;
-        private System.Windows.Forms.Button btnConditionsEditor;
-        private System.Windows.Forms.Button btnCreatureEditor;
+        private System.Windows.Forms.Button BtnWaypoints;
+        private System.Windows.Forms.Button BtnScriptEditor;
+        private System.Windows.Forms.Button BtnEventEditor;
+        private System.Windows.Forms.Button BtnSpellEditor;
+        private System.Windows.Forms.Button BtnConditionsEditor;
+        private System.Windows.Forms.Button BtnCreatureEditor;
+        private System.Windows.Forms.ToolStripMenuItem waypointsToolStripMenuItem;
     }
 }

@@ -10,7 +10,7 @@ namespace ScriptEditor
         public LoadingAction(Action action, string indicatorText)
         {
             Action = action;
-            IndicatorText = indicatorText;            
+            IndicatorText = indicatorText;  
         }
     }
 }

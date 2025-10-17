@@ -60,6 +60,9 @@
     <Reference Include="MySqlConnector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92, processorArchitecture=MSIL">
       <HintPath>..\packages\MySqlConnector.2.2.5\lib\net461\MySqlConnector.dll</HintPath>
     </Reference>
+    <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -99,6 +102,12 @@
     </Compile>
     <Compile Include="DataFinderForms\FormFactionFinder.Designer.cs">
       <DependentUpon>FormFactionFinder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataFinderForms\FormFinderGeneric.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataFinderForms\FormFinderGeneric.Designer.cs">
+      <DependentUpon>FormFinderGeneric.cs</DependentUpon>
     </Compile>
     <Compile Include="DataFinderForms\FormGameObjectFinder.cs">
       <SubType>Form</SubType>
@@ -251,6 +260,7 @@
       <DependentUpon>FormTargetSelectFlags.cs</DependentUpon>
     </Compile>
     <Compile Include="GameData.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="LoadingAction.cs" />
     <Compile Include="MixedListSorter.cs" />
@@ -266,6 +276,9 @@
     </Compile>
     <EmbeddedResource Include="DataFinderForms\FormFactionFinder.resx">
       <DependentUpon>FormFactionFinder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataFinderForms\FormFinderGeneric.resx">
+      <DependentUpon>FormFinderGeneric.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataFinderForms\FormGameObjectFinder.resx">
       <DependentUpon>FormGameObjectFinder.cs</DependentUpon>

@@ -1926,7 +1926,7 @@ namespace ScriptEditor
         {
             if (Helpers.ShowSaveDialog(ref query) == DialogResult.OK)
             {
-                MySqlConnection conn = new MySqlConnection(string.Format(Program.connString, "alpha_world"));
+                MySqlConnection conn = new MySqlConnection(string.Format(Program.connString, Program.txtMysqlWorldDb));
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = query;
                 try
@@ -1991,7 +1991,7 @@ namespace ScriptEditor
 
             if (Helpers.ShowSaveDialog(ref query) == DialogResult.OK)
             {
-                MySqlConnection conn = new MySqlConnection(string.Format(Program.connString, "alpha_world"));
+                MySqlConnection conn = new MySqlConnection(string.Format(Program.connString, Program.txtMysqlWorldDb));
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = query;
                 try

@@ -386,7 +386,7 @@ namespace ScriptEditor
 
             ResetEditorForm();
 
-            MySqlConnection conn = new MySqlConnection(string.Format(Program.connString, "alpha_world"));
+            MySqlConnection conn = new MySqlConnection(string.Format(Program.connString, Program.txtMysqlWorldDb));
             MySqlCommand command = conn.CreateCommand();
             if (isQuestRelated)
             {
@@ -457,7 +457,7 @@ namespace ScriptEditor
                 string query = GenerateScriptQuery();
                 if (Helpers.ShowSaveDialog(ref query) == DialogResult.OK)
                 {
-                    MySqlConnection conn = new MySqlConnection(string.Format(Program.connString, "alpha_world"));
+                    MySqlConnection conn = new MySqlConnection(string.Format(Program.connString, Program.txtMysqlWorldDb));
                     MySqlCommand command = conn.CreateCommand();
                     command.CommandText = query;
                     try

@@ -1,8 +1,13 @@
 ﻿using MySqlConnector;
+using ScriptEditor.DataFinderForms;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Media;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -10,249 +15,262 @@ namespace ScriptEditor
 {
     public partial class Form1 : Form
     {
-        bool dataLoaded = false;
-
-        private bool CheckDBConnection()
-        {
-            MySqlConnection conn = new MySqlConnection(string.Format(Program.connString, "alpha_world"));            
-            try
-            {
-                conn.Open();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Unable to connect to the database server. MySQL error message:\n\n" + ex.Message, "Connection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return false;
-        }
-
-        private bool AreSniffsAvailable()
-        {
-            MySqlConnection conn = new MySqlConnection(string.Format(Program.connString, Program.sniffsDB));
-            try
-            {
-                conn.Open();
-                MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "show tables";
-                MySqlDataReader reader = command.ExecuteReader();
-                while(reader.Read())
-                {
-                    string txt = reader.GetString(0);
-                    if (txt.ToLower() == "creature_spell_timers") return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        private async Task<bool> LoadData()
-        {
-            IProgress<int> progress = new Progress<int>(value => { LoadingBar.PerformStep(); });
-            List<LoadingAction> loadingActions = new List<LoadingAction>();
-            loadingActions.Add(new LoadingAction(() => GameData.LoadBroadcastTexts(Program.connString, "alpha_world"), "Loading broadcast texts ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadQuests(Program.connString, "alpha_world"), "Loading quests ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadGameObjects(Program.connString, "alpha_world"), "Loading game objects ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadCreatures(Program.connString, "alpha_world"), "Loading creatures ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadSpells(Program.connString, "alpha_dbc"), "Loading spells ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadItems(Program.connString, "alpha_world"), "Loading items ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadCondition(Program.connString, "alpha_world"), "Loading conditions ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadAreas(Program.connString, "alpha_world"), "Loading areas ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadFactions(Program.connString, "alpha_dbc"), "Loading factions ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadFactionTemplates(Program.connString, "alpha_dbc"), "Loading faction templates ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadCreatureSpells(Program.connString, "alpha_world"), "Loading creature spells ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadCreatureMovement(Program.connString, "alpha_world"), "Loading creature movement ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadCreatureMovementSpecial(Program.connString, "alpha_world"), "Loading creature movement special ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadCreatureMovementTemplate(Program.connString, "alpha_world"), "Loading creature movement templates ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadCreatureSpellsSniffs(Program.connString, "sniffs_combined5"), "Loading creature spell sniffs ..."));
-            loadingActions.Add(new LoadingAction(() => GameData.LoadCreatureDisplayInfo(Program.connString, "alpha_dbc"), "Loading creature display info ..."));
-
-            LoadingBar.Step = loadingActions.Count;
-
-            await Task.Run(() =>
-            {
-                foreach(LoadingAction _action in loadingActions) 
-                {
-                    LoadingStatusText.Text = _action.IndicatorText;
-                    _action.Action();
-                    progress.Report(1);
-                }
-
-                dataLoaded = true;
-            });
-
-            return true;
-        }
+        private readonly BackgroundWorker LoadingWorker = new BackgroundWorker();
 
         public Form1()
         {
             InitializeComponent();
-
+        }
+        private void Form1_Load(object _sender, EventArgs _e)
+        {
+            // Init BG worker.
+            LoadingWorker.WorkerReportsProgress = true;
+            LoadingWorker.DoWork += LoadingWorker_DoWork;
+            LoadingWorker.RunWorkerCompleted += LoadingWorker_RunWorkerCompleted; ;
+            LoadingWorker.ProgressChanged += LoadingWorker_ProgressChanged;
         }
 
-        private void picScriptEditor_Click(object sender, EventArgs e)
+        private void Form1_Shown(object sender, EventArgs e)
         {
-            if (!dataLoaded) return;
+            // World DB.
+            if (!CheckDBConnection(Program.connString, Program.txtMysqlWorldDb, out Program.MySqlWorldConnection))
+                throw new Exception($"Unable to open database connection for {Program.txtMysqlWorldDb}");
+
+            // Dbc DB.
+            if (!CheckDBConnection(Program.connString, Program.txtMysqlDbcDb, out Program.MySqlDbcConnection))
+                throw new Exception($"Unable to open database connection for {Program.txtMysqlDbcDb}");
+
+            // Sniffs DB.
+            if (!CheckDBConnection(Program.connString, Program.txtMysqlSniffsDB, out Program.MySqlSniffsConnection))
+                Program.SniffsInstalled = false;
+
+            // Begin loading data.
+            LoadingWorker.RunWorkerAsync();
+        }
+
+        private void LoadingWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                List<LoadingAction> loadingActions = new List<LoadingAction>
+                {
+                    new LoadingAction(() => GameData.LoadBroadcastTexts(Program.MySqlWorldConnection), "Loading broadcast texts ..."),
+                    new LoadingAction(() => GameData.LoadQuests(Program.MySqlWorldConnection), "Loading quests ..."),
+                    new LoadingAction(() => GameData.LoadGameObjects(Program.MySqlWorldConnection), "Loading game objects ..."),
+                    new LoadingAction(() => GameData.LoadCreatures(Program.MySqlWorldConnection), "Loading creatures ..."),
+                    new LoadingAction(() => GameData.LoadItems(Program.MySqlWorldConnection), "Loading items ..."),
+                    new LoadingAction(() => GameData.LoadCondition(Program.MySqlWorldConnection), "Loading conditions ..."),
+                    new LoadingAction(() => GameData.LoadAreas(Program.MySqlWorldConnection), "Loading areas ..."),
+                    new LoadingAction(() => GameData.LoadCreatureSpells(Program.MySqlWorldConnection), "Loading creature spells ..."),
+                    new LoadingAction(() => GameData.LoadCreatureMovement(Program.MySqlWorldConnection), "Loading creature movement ..."),
+                    new LoadingAction(() => GameData.LoadCreatureMovementSpecial(Program.MySqlWorldConnection), "Loading creature movement special ..."),
+                    new LoadingAction(() => GameData.LoadCreatureMovementTemplate(Program.MySqlWorldConnection), "Loading creature movement templates ..."),
+
+                    new LoadingAction(() => GameData.LoadFactions(Program.MySqlDbcConnection), "Loading factions ..."),
+                    new LoadingAction(() => GameData.LoadFactionTemplates(Program.MySqlDbcConnection), "Loading faction templates ..."),
+                    new LoadingAction(() => GameData.LoadCreatureDisplayInfo(Program.MySqlDbcConnection), "Loading creature display info ..."),
+                    new LoadingAction(() => GameData.LoadSpells(Program.MySqlDbcConnection), "Loading spells ..."),
+
+                    new LoadingAction(() => GameData.LoadCreatureSpellsSniffs(Program.MySqlSniffsConnection), "Loading creature spell sniffs ...")
+                };
+
+                LoadingWorker.ReportProgress(0, new Action(() =>
+                {
+                    LoadingBar.Step = 1;
+                    LoadingBar.Maximum = loadingActions.Count;
+                }));
+
+                foreach (LoadingAction _action in loadingActions)
+                {
+                    LoadingWorker.ReportProgress(0, new Action(() => LoadingStatusText.Text = _action.IndicatorText));
+                    _action.Action();
+                    LoadingWorker.ReportProgress(1);
+                }
+
+                e.Result = true;
+            }
+            catch (Exception ex)
+            {
+                e.Result = ex;
+            }
+        }
+
+        private void LoadingWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.ProgressPercentage > 0)
+                LoadingBar.PerformStep();
+
+            if (e.UserState is Action a)
+                a.Invoke();
+        }
+
+        private void LoadingWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Result is Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+
+            LoadingBar.Visible = false;
+            menuStrip1.Enabled = true;
+            statusStrip1.Visible = false;           
+        }
+
+        private bool CheckDBConnection(string connString, string database, out MySqlConnection c)
+        {
+            c = new MySqlConnection(string.Format(connString, database));
+            try
+            {
+                c.Open();
+
+                if (!database.Equals(Program.txtMysqlSniffsDB))
+                    return true;
+
+                using (MySqlCommand command = c.CreateCommand())
+                {
+                    command.CommandText = "show tables";
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                            if (reader.GetString(0).ToLower() == "creature_spell_timers")
+                                return true;
+                }
+            }
+            catch { }
+
+            c?.Dispose();
+            return false;
+        }
+
+        private void ScriptEditor_Click(object sender, EventArgs e)
+        {
             FormScriptEditor editor = new FormScriptEditor();
             editor.Show();
         }
 
-        private void picEventEditor_Click(object sender, EventArgs e)
+        private void EventEditor_Click(object sender, EventArgs e)
         {
-            if (!dataLoaded) return;
             FormEventEditor editor = new FormEventEditor();
             editor.Show();
         }
 
-        private void picCastsEditor_Click(object sender, EventArgs e)
+        private void CreatureSpellEditor_Click(object sender, EventArgs e)
         {
-            if (!dataLoaded) return;
             FormCastsEditor editor = new FormCastsEditor();
             editor.Show();
         }
 
-        private void picConditionEditor_Click(object sender, EventArgs e)
+        private void ConditionEditor_Click(object sender, EventArgs e)
         {
-            if (!dataLoaded) return;
             FormConditionFinder editor = new FormConditionFinder();
             editor.ShowStandalone();
         }
 
-        private async void Form1_Load(object _sender, EventArgs _e)
+
+
+        private void Find<T>(IList<T> objects)
         {
-            if (!CheckDBConnection()) Application.Exit();
-
-            Program.sniffsInstalled = AreSniffsAvailable();
-
-            await LoadData();
-
-            LoadingBar.Visible = false;
-            menuStrip1.Visible = true;
-            statusStrip1.Visible = false;
-
-            // Assign event handlers to menu items
-
-            // Editors
-            tsmiScripts.Click += picScriptEditor_Click;
-            tsmiCreatureEvents.Click += picEventEditor_Click;
-            tsmiCreatureSpells.Click += picCastsEditor_Click;
-            tsmiConditions.Click += picConditionEditor_Click;
-
-            // Finders
-            tsmiAreaFinder.Click += (sender, e) =>
+            using (FormFinderGeneric f = new FormFinderGeneric())
             {
-                FormAreaFinder finder = new FormAreaFinder();
-                finder.ShowDialog();
-            };
-            tsmiCreatureFinder.Click += (sender, e) =>
-            {
-                FormCreatureFinder finder = new FormCreatureFinder();
-                finder.ShowDialog();
-            };
-            tsmiEventFinder.Click += (sender, e) =>
-            {
-                FormEventFinder finder = new FormEventFinder();
-                finder.ShowDialog();
-            };
-            tsmiFactionFinder.Click += (sender, e) =>
-            {
-                FormFactionFinder finder = new FormFactionFinder();
-                finder.ShowDialog();
-            };
-            tsmiFactionTemplateFinder.Click += (sender, e) =>
-            {
-                FormFactionTemplateFinder finder = new FormFactionTemplateFinder();
-                finder.ShowDialog();
-            };
-            tsmiGameObjectFinder.Click += (sender, e) =>
-            {
-                FormGameObjectFinder finder = new FormGameObjectFinder();
-                finder.ShowDialog();
-            };
-            tsmiItemFinder.Click += (sender, e) =>
-            {
-                FormItemFinder finder = new FormItemFinder();
-                finder.ShowDialog();
-            };
-            tsmiQuestFinder.Click += (sender, e) =>
-            {
-                FormQuestFinder finder = new FormQuestFinder();
-                finder.ShowDialog();
-            };
-            tsmiSpellFinder.Click += (sender, e) =>
-            {
-                FormSpellFinder finder = new FormSpellFinder();
-                finder.ShowDialog();
-            };
-            tsmiTaxiFinder.Click += (sender, e) =>
-            {
-                FormTaxiFinder finder = new FormTaxiFinder();
-                finder.ShowDialog();
-            };
-            tsmiTextFinder.Click += (sender, e) =>
-            {
-                FormTextFinder finder = new FormTextFinder();
-                finder.ShowDialog();
-            };
-
-            // Helpers
-            tsmiFlagsGameObjectDynUF.Click += (sender, e) =>
-            {
-                uint flags = 0;
-                Helpers.ShowFlagInputDialog(ref flags, "Game Object Dynamic Flags (UF)", GameData.GameObjectDynFlagsList);
-            };
-            tsmiFlagsGameObjectUF.Click += (sender, e) =>
-            {
-                uint flags = 0;
-                Helpers.ShowFlagInputDialog(ref flags, "Game Object Flags (UF)", GameData.GameObjectFlagsList);
-            };
-            tsmiFlagsGeneric.Click += (sender, e) =>
-            {
-                uint flags = 0;
-                Helpers.ShowFlagInputDialog(ref flags, "Generic Flags", null);
-            };
-            tsmiFlagsNpcUF.Click += (sender, e) =>
-            {
-                uint flags = 0;
-                Helpers.ShowFlagInputDialog(ref flags, "NPC Flags (UF)", GameData.UnitNpcFlagsList);
-            };
-            tsmiFlagsPlayerUF.Click += (sender, e) =>
-            {
-                uint flags = 0;
-                Helpers.ShowFlagInputDialog(ref flags, "Player Flags (UF)", GameData.UnitNpcFlagsList);
-            };
-            tsmiFlagsSpellMechanic.Click += (sender, e) =>
-            {
-                uint flags = 0;
-                Helpers.ShowFlagInputDialog(ref flags, "Spell Mechanic Mask", GameData.SpellMechanicMaskList);
-            };
-            tsmiFlagsUnitDynamicUF.Click += (sender, e) =>
-            {
-                uint flags = 0;
-                Helpers.ShowFlagInputDialog(ref flags, "Unit Dynamic Flags (UF)", GameData.UnitDynamicFlagsList);
-            };
-            tsmiFlagsUnitUF.Click += (sender, e) =>
-            {
-                uint flags = 0;
-                Helpers.ShowFlagInputDialog(ref flags, "Unit Flags (UF)", GameData.UnitFieldFlagsList);
-            };
-
+                f.Fill(objects);
+                f.ShowDialog();
+            }
         }
 
-        private void btnWaypoints_Click(object sender, EventArgs e)
+        private void Waypoints_Click(object sender, EventArgs e)
         {
             FormWaypointEditor form = new FormWaypointEditor();
             form.ShowDialog();
         }
 
-        private void btnCreatureEditor_Click(object sender, EventArgs e)
+        private void CreatureEditor_Click(object sender, EventArgs e)
         {
             FormCreatureEditor form = new FormCreatureEditor();
             form.ShowDialog();
+        }
+
+        private void Finders_Click(object sender, EventArgs e)
+        {
+            if (!(sender is ToolStripMenuItem tItem))
+                return;
+
+            if (!Enum.TryParse(tItem.Tag.ToString(), out Globals.Finders finder))
+                return;
+
+            switch (finder)
+            {
+                case Globals.Finders.Areas:
+                    Find(GameData.AreaInfoList);
+                    break;
+                case Globals.Finders.Events:
+                    Find(GameData.GameEventInfoList);
+                    break;
+                case Globals.Finders.Creatures:
+                    Find(GameData.CreatureInfoList);
+                    break;
+                case Globals.Finders.Factions:
+                    Find(GameData.FactionInfoList);
+                    break;
+                case Globals.Finders.FactionTemplates:
+                    Find(GameData.FactionTemplateInfoList);
+                    break;
+                case Globals.Finders.Items:
+                    Find(GameData.ItemInfoList);
+                    break;
+                case Globals.Finders.GameObjects:
+                    Find(GameData.GameObjectInfoList);
+                    break;
+                case Globals.Finders.Quests:
+                    Find(GameData.QuestInfoList);
+                    break;
+                case Globals.Finders.Spells:
+                    Find(GameData.SpellInfoList);
+                    break;
+                case Globals.Finders.Taxis:
+                    Find(GameData.TaxiInfoList);
+                    break;
+                case Globals.Finders.BroadcastTexts:
+                    Find(GameData.BroadcastTextsList);
+                    break;
+            }
+        }
+
+        private void FlagHelper_Click(object sender, EventArgs e)
+        {
+            if (!(sender is ToolStripMenuItem tItem))
+                return;
+
+            if (!Enum.TryParse(tItem.Tag.ToString(), out Globals.FlagHelpers fHelper))
+                return;
+
+            uint flags = 0;
+            switch (fHelper)
+            {
+                case Globals.FlagHelpers.GenericFlags:
+                    Helpers.ShowFlagInputDialog(ref flags, "Generic Flags", null);
+                    break;
+                case Globals.FlagHelpers.GameObjectDynamicFlags:
+                    Helpers.ShowFlagInputDialog(ref flags, "Game Object Dynamic Flags (UF)", GameData.GameObjectDynFlagsList);
+                    break;
+                case Globals.FlagHelpers.GameObjectFlags:
+                    Helpers.ShowFlagInputDialog(ref flags, "Game Object Flags (UF)", GameData.GameObjectFlagsList);
+                    break;
+                case Globals.FlagHelpers.UnitFlags:
+                    Helpers.ShowFlagInputDialog(ref flags, "Unit Flags (UF)", GameData.UnitFieldFlagsList);
+                    break;
+                case Globals.FlagHelpers.UnitDynamicFlags:
+                    Helpers.ShowFlagInputDialog(ref flags, "Unit Dynamic Flags (UF)", GameData.UnitDynamicFlagsList);
+                    break;
+                case Globals.FlagHelpers.SpellMechanicMask:
+                    Helpers.ShowFlagInputDialog(ref flags, "Spell Mechanic Mask", GameData.SpellMechanicMaskList);
+                    break;
+                case Globals.FlagHelpers.PlayerFlags:
+                    Helpers.ShowFlagInputDialog(ref flags, "Player Flags (UF)", GameData.PlayerFlagsList);
+                    break;
+                case Globals.FlagHelpers.NpcFlags:
+                    Helpers.ShowFlagInputDialog(ref flags, "NPC Flags (UF)", GameData.UnitNpcFlagsList);
+                    break;
+            }
         }
     }
 }

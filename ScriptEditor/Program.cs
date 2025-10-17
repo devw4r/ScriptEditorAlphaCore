@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Reflection;
 using IniParser;
 using IniParser.Model;
+using MySqlConnector;
 
 namespace ScriptEditor
 {
@@ -15,9 +16,14 @@ namespace ScriptEditor
         public static string mysqlPass = "pwd";
         public static string mysqlHost = "localhost";
         public static string mysqlPort = "3306";
-        public static string mysqlDB = "alpha_world";
-        public static string sniffsDB = "sniffs_combined5";
-        public static bool sniffsInstalled = false;
+        public static string txtMysqlWorldDb = "alpha_world";
+        public static string txtMysqlDbcDb = "alpha_dbc";
+        public static string txtMysqlSniffsDB = "sniffs_combined5";
+        public static bool SniffsInstalled = false;
+
+        public static MySqlConnection MySqlWorldConnection;
+        public static MySqlConnection MySqlDbcConnection;
+        public static MySqlConnection MySqlSniffsConnection;
 
         // Highlight non-default values.
         public static bool highlight = false;
@@ -31,7 +37,7 @@ namespace ScriptEditor
         [STAThread]
         static void Main()
         {
-            //Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             LoadConfig();
@@ -57,7 +63,10 @@ namespace ScriptEditor
                 mysqlPass = data.Global["Pass"];
                 mysqlHost = data.Global["Host"];
                 mysqlPort = data.Global["Port"];
+                txtMysqlWorldDb = data.Global["WorldDB"];
+                txtMysqlDbcDb = data.Global["DbcDB"];
                 locale = data.Global["Locale"];
+
                 highlight = bool.Parse(data.Global["Highlight"]);
             }
             else
@@ -66,6 +75,8 @@ namespace ScriptEditor
                 mysqlPass = "pwd";
                 mysqlHost = "localhost";
                 mysqlPort = "3306";
+                txtMysqlWorldDb = "alpha_world";
+                txtMysqlDbcDb = "alpha_dbc";
                 locale = "en-US";
                 highlight = false;
 
@@ -75,6 +86,8 @@ namespace ScriptEditor
                 data.Global["Host"] = mysqlHost;
                 data.Global["Port"] = mysqlPort;
                 data.Global["Locale"] = locale;
+                data.Global["WorldDB"] = txtMysqlWorldDb;
+                data.Global["DbcDB"] = txtMysqlDbcDb;
                 data.Global["Highlight"] = highlight.ToString();
 
                 var parser = new FileIniDataParser();
