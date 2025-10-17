@@ -994,7 +994,7 @@ namespace ScriptEditor
             CreatureDisplayIdList.Clear();
             MySqlConnection conn = new MySqlConnection(string.Format(connString, database));
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT ID FROM creaturedisplayinfo";
+            command.CommandText = "SELECT ID FROM CreatureDisplayInfo";
             try
             {
                 conn.Open();
