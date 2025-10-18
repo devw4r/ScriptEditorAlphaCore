@@ -2201,11 +2201,6 @@
             this.Text = "Condition Finder";
             this.Shown += new System.EventHandler(this.FormConditionFinder_Shown);
             this.ResizeEnd += new System.EventHandler(this.FormConditionFinder_ResizeEnd);
-            this.Controls.SetChildIndex(this.panel1, 0);
-            this.Controls.SetChildIndex(this.txtSearch, 0);
-            this.Controls.SetChildIndex(this.btnSearch, 0);
-            this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.lstData, 0);
             this.Controls.SetChildIndex(this.btnDelete, 0);
             this.Controls.SetChildIndex(this.btnDescribe, 0);
             this.Controls.SetChildIndex(this.btnEditAdd, 0);
