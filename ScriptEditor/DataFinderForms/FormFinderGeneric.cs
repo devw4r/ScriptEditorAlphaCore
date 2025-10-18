@@ -19,7 +19,7 @@ namespace ScriptEditor.DataFinderForms
         {
             Text = $"{typeof(T).Name} Finder";
             
-            Generator.GenerateColumns(OlvListView, items, true);
+            Generator.GenerateColumns(OlvListView, items);
 
             foreach (OLVColumn c in OlvListView.Columns)
                 c.MinimumWidth = 100;
@@ -33,7 +33,7 @@ namespace ScriptEditor.DataFinderForms
             if (string.IsNullOrEmpty(TxtSearch.Text))
                 OlvListView.ModelFilter = null;
             else
-                OlvListView.ModelFilter = TextMatchFilter.Contains(OlvListView, TxtSearch.Text);
+                OlvListView.ModelFilter = new TextMatchFilter(OlvListView, TxtSearch.Text);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)

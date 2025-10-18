@@ -1,4 +1,5 @@
-﻿using MySqlConnector;
+﻿using BrightIdeasSoftware;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -2640,10 +2641,15 @@ namespace ScriptEditor
     }
     public struct AreaInfo
     {
+        [OLVColumn]
         public uint ID { get; set; }
-        public uint Map { get; set; }
-        public uint Zone { get; set; }
+        [OLVColumn]
         public string Name { get; set; }
+        [OLVColumn]
+        public uint Map { get; set; }
+        [OLVColumn]
+        public uint Zone { get; set; }
+       
         public AreaInfo(uint id, uint map, uint zone, string name)
         {
             ID = id;

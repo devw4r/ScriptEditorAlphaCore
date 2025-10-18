@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.OlvListView = new BrightIdeasSoftware.FastObjectListView();
+            this.OlvListView = new BrightIdeasSoftware.ObjectListView();
             this.PnlBack = new System.Windows.Forms.Panel();
             this.PnlSearch = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,7 +47,7 @@
             // 
             // OlvListView
             // 
-            this.OlvListView.CellEditUseWholeCell = false;
+            //this.OlvListView.CellEditUseWholeCell = false;
             this.OlvListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OlvListView.FullRowSelect = true;
             this.OlvListView.GridLines = true;
@@ -62,7 +62,7 @@
             this.OlvListView.UseCompatibleStateImageBehavior = false;
             this.OlvListView.UseFiltering = true;
             this.OlvListView.View = System.Windows.Forms.View.Details;
-            this.OlvListView.VirtualMode = true;
+            this.OlvListView.VirtualMode = false;
             // 
             // PnlBack
             // 
@@ -192,7 +192,7 @@
 
         #endregion
 
-        private BrightIdeasSoftware.FastObjectListView OlvListView;
+        private BrightIdeasSoftware.ObjectListView OlvListView;
         private System.Windows.Forms.Panel PnlBack;
         private System.Windows.Forms.TextBox TxtSearch;
         private System.Windows.Forms.Panel PnlSearch;
