@@ -83,7 +83,6 @@
             // btnSelectNone
             // 
             this.btnSelectNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSelectNone.Location = new System.Drawing.Point(412, 3);
             this.btnSelectNone.Name = "btnSelectNone";
             this.btnSelectNone.Size = new System.Drawing.Size(88, 23);
@@ -95,7 +94,6 @@
             // btnSelect
             // 
             this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelect.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSelect.Location = new System.Drawing.Point(506, 3);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(75, 23);
@@ -116,7 +114,6 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCancel.Location = new System.Drawing.Point(587, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -128,7 +125,6 @@
             // btnSelectUnchanged
             // 
             this.btnSelectUnchanged.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectUnchanged.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSelectUnchanged.Location = new System.Drawing.Point(306, 3);
             this.btnSelectUnchanged.Name = "btnSelectUnchanged";
             this.btnSelectUnchanged.Size = new System.Drawing.Size(100, 23);
