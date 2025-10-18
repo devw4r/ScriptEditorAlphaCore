@@ -347,6 +347,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Creature Editor";
+            this.Load += new System.EventHandler(this.FormCreatureEditor_Load);
             this.tcCreature.ResumeLayout(false);
             this.tabDisplay.ResumeLayout(false);
             this.tabDisplay.PerformLayout();

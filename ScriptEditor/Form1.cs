@@ -144,37 +144,44 @@ namespace ScriptEditor
         private void ScriptEditor_Click(object sender, EventArgs e)
         {
             FormScriptEditor editor = new FormScriptEditor();
-            editor.Show();
+            editor.CenterToParent(this);
+            editor.Show(this);
         }
 
         private void EventEditor_Click(object sender, EventArgs e)
         {
             FormEventEditor editor = new FormEventEditor();
-            editor.Show();
+            editor.CenterToParent(this);
+            editor.Show(this);
         }
 
         private void CreatureSpellEditor_Click(object sender, EventArgs e)
         {
             FormCastsEditor editor = new FormCastsEditor();
-            editor.Show();
+            editor.CenterToParent(this);
+            editor.Show(this);
         }
 
         private void ConditionEditor_Click(object sender, EventArgs e)
         {
             FormConditionFinder editor = new FormConditionFinder();
-            editor.ShowStandalone();
+            editor.CenterToParent(this);
+            editor.ShowStandalone(this);
+            
         }
 
         private void Waypoints_Click(object sender, EventArgs e)
         {
             FormWaypointEditor form = new FormWaypointEditor();
-            form.ShowDialog();
+            form.CenterToParent(this);
+            form.Show(this);
         }
 
         private void CreatureEditor_Click(object sender, EventArgs e)
         {
             FormCreatureEditor form = new FormCreatureEditor();
-            form.ShowDialog();
+            form.CenterToParent(this);
+            form.Show(this);
         }
 
         private void Finders_Click(object sender, EventArgs e)
@@ -238,28 +245,28 @@ namespace ScriptEditor
             switch (fHelper)
             {
                 case Globals.FlagHelpers.GenericFlags:
-                    Helpers.ShowFlagInputDialog(ref flags, "Generic Flags", null);
+                    Helpers.ShowFlagInputDialog(this, ref flags, "Generic Flags", null);
                     break;
                 case Globals.FlagHelpers.GameObjectDynamicFlags:
-                    Helpers.ShowFlagInputDialog(ref flags, "Game Object Dynamic Flags (UF)", GameData.GameObjectDynFlagsList);
+                    Helpers.ShowFlagInputDialog(this, ref flags, "Game Object Dynamic Flags (UF)", GameData.GameObjectDynFlagsList);
                     break;
                 case Globals.FlagHelpers.GameObjectFlags:
-                    Helpers.ShowFlagInputDialog(ref flags, "Game Object Flags (UF)", GameData.GameObjectFlagsList);
+                    Helpers.ShowFlagInputDialog(this, ref flags, "Game Object Flags (UF)", GameData.GameObjectFlagsList);
                     break;
                 case Globals.FlagHelpers.UnitFlags:
-                    Helpers.ShowFlagInputDialog(ref flags, "Unit Flags (UF)", GameData.UnitFieldFlagsList);
+                    Helpers.ShowFlagInputDialog(this, ref flags, "Unit Flags (UF)", GameData.UnitFieldFlagsList);
                     break;
                 case Globals.FlagHelpers.UnitDynamicFlags:
-                    Helpers.ShowFlagInputDialog(ref flags, "Unit Dynamic Flags (UF)", GameData.UnitDynamicFlagsList);
+                    Helpers.ShowFlagInputDialog(this, ref flags, "Unit Dynamic Flags (UF)", GameData.UnitDynamicFlagsList);
                     break;
                 case Globals.FlagHelpers.SpellMechanicMask:
-                    Helpers.ShowFlagInputDialog(ref flags, "Spell Mechanic Mask", GameData.SpellMechanicMaskList);
+                    Helpers.ShowFlagInputDialog(this, ref flags, "Spell Mechanic Mask", GameData.SpellMechanicMaskList);
                     break;
                 case Globals.FlagHelpers.PlayerFlags:
-                    Helpers.ShowFlagInputDialog(ref flags, "Player Flags (UF)", GameData.PlayerFlagsList);
+                    Helpers.ShowFlagInputDialog(this, ref flags, "Player Flags (UF)", GameData.PlayerFlagsList);
                     break;
                 case Globals.FlagHelpers.NpcFlags:
-                    Helpers.ShowFlagInputDialog(ref flags, "NPC Flags (UF)", GameData.UnitNpcFlagsList);
+                    Helpers.ShowFlagInputDialog(this, ref flags, "NPC Flags (UF)", GameData.UnitNpcFlagsList);
                     break;
             }
         }

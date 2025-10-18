@@ -84,7 +84,7 @@ namespace ScriptEditor
             return result;
         }
 
-        public static DialogResult ShowFlagInputDialog(ref uint flags, string name, List<Tuple<string, uint>> valuesList)
+        public static DialogResult ShowFlagInputDialog(IWin32Window parent, ref uint flags, string name, List<Tuple<string, uint>> valuesList)
         {
             if (valuesList == null)
             {
@@ -215,7 +215,7 @@ namespace ScriptEditor
             inputBox.AcceptButton = okButton;
             inputBox.CancelButton = cancelButton;
 
-            DialogResult result = inputBox.ShowDialog();
+            DialogResult result = inputBox.ShowDialog(parent);
             if (result == DialogResult.OK)
             {
                 flags = CalculateMaskFromCheckBoxes(checkBoxes);
@@ -363,11 +363,11 @@ namespace ScriptEditor
             }
         }
         // Generic function for setting a value from another form.
-        public static void SetScriptFieldFromDataFinderForm<TScriptField, TFinderForm>(ListView listView, Button btn, TextBox txtbox, NameFinder finder, string fieldname) where TFinderForm : FormDataFinder, new()  
+        public static void SetScriptFieldFromDataFinderForm<TScriptField, TFinderForm>(IWin32Window owner, ListView listView, Button btn, TextBox txtbox, NameFinder finder, string fieldname) where TFinderForm : FormDataFinder, new()  
                                                                                                                                                                             where TScriptField : class
         {
             FormDataFinder frm = new TFinderForm();
-            if (frm.ShowDialog(GetScriptFieldValue<TScriptField, int>(listView, fieldname)) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(owner, GetScriptFieldValue<TScriptField, int>(listView, fieldname)) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -405,10 +405,10 @@ namespace ScriptEditor
                 SetScriptFieldFromValue<TScriptField>(listView, returnId, fieldname);
             }
         }
-        public static void SetScriptFieldFromFlagsForm<TScriptField>(ListView listView, Button btn, List<Tuple<string, uint>> valuesList, string windowtitle, string fieldname) where TScriptField : class
+        public static void SetScriptFieldFromFlagsForm<TScriptField>(IWin32Window parent, ListView listView, Button btn, List<Tuple<string, uint>> valuesList, string windowtitle, string fieldname) where TScriptField : class
         {
             uint flags = GetScriptFieldValue<TScriptField, uint>(listView, fieldname);
-            if (Helpers.ShowFlagInputDialog(ref flags, windowtitle, valuesList) == System.Windows.Forms.DialogResult.OK)
+            if (Helpers.ShowFlagInputDialog(parent, ref flags, windowtitle, valuesList) == System.Windows.Forms.DialogResult.OK)
             {
                 if (flags > 0)
                 {

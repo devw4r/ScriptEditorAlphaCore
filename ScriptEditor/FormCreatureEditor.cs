@@ -78,5 +78,21 @@ namespace ScriptEditor
 
             }
         }
+
+        public void CenterToParent(IWin32Window owner)
+        {
+            if (!(owner is Form f))
+                return;
+
+            StartPosition = FormStartPosition.Manual;
+            Owner = f;
+            Location = new Point(f.Location.X + (f.Width - Width) / 2, f.Location.Y + (f.Height - Height) / 2);
+        }
+
+        private void FormCreatureEditor_Load(object sender, EventArgs e)
+        {
+            if (Parent != null)
+                CenterToParent();
+        }
     }
 }

@@ -31,7 +31,17 @@ namespace ScriptEditor
             lstData.Activation = ItemActivation.TwoClick;
         }
 
-        public DialogResult ShowDialog(int current_id, bool has_ignore_option = false)
+        public void CenterToParent(IWin32Window owner)
+        {
+            if (!(owner is Form f))
+                return;
+
+            StartPosition = FormStartPosition.Manual;
+            Owner = f;
+            Location = new Point(f.Location.X + (f.Width - Width) / 2, f.Location.Y + (f.Height - Height) / 2);
+        }
+
+        public DialogResult ShowDialog(IWin32Window parent, int current_id, bool has_ignore_option = false)
         {
             if (current_id > 0)
             {
@@ -42,7 +52,7 @@ namespace ScriptEditor
             if (has_ignore_option)
                 btnSelectUnchanged.Visible = true;
 
-            return this.ShowDialog();
+            return this.ShowDialog(parent);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -178,6 +188,12 @@ namespace ScriptEditor
             ReturnValue = -1;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void FormDataFinder_Load(object sender, EventArgs e)
+        {
+            if (Parent != null)
+                CenterToParent();
         }
     }
 }

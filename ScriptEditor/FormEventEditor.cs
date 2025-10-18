@@ -78,8 +78,20 @@ namespace ScriptEditor
             InitializeComponent();
         }
 
+        public void CenterToParent(IWin32Window owner)
+        {
+            if (!(owner is Form f))
+                return;
+
+            StartPosition = FormStartPosition.Manual;
+            Owner = f;
+            Location = new Point(f.Location.X + (f.Width - Width) / 2, f.Location.Y + (f.Height - Height) / 2);
+        }
+
         private void FormEventEditor_Load(object sender, EventArgs e)
         {
+            if (Parent != null)
+                CenterToParent();
             LoadControls();
         }
 
@@ -877,7 +889,7 @@ namespace ScriptEditor
         // Generic function for setting a value from another form.
         private void SetScriptFieldFromDataFinderForm<TFinderForm>(Button btn, TextBox txtbox, NameFinder finder, string fieldname) where TFinderForm : FormDataFinder, new()
         {
-            Helpers.SetScriptFieldFromDataFinderForm<CreatureEvent, TFinderForm>(lstEvents, btn, txtbox, finder, fieldname);
+            Helpers.SetScriptFieldFromDataFinderForm<CreatureEvent, TFinderForm>(this, lstEvents, btn, txtbox, finder, fieldname);
         }
         // Generic function for getting int value in field.
         private int GetScriptFieldValue(string fieldname)
@@ -1017,7 +1029,7 @@ namespace ScriptEditor
         private void btnEventCondition_Click(object sender, EventArgs e)
         {
             FormConditionFinder frm = new FormConditionFinder();
-            if (frm.ShowDialog(GetScriptFieldValue("ConditionId")) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue("ConditionId")) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 

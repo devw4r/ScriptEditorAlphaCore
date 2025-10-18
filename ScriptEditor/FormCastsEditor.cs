@@ -24,9 +24,21 @@ namespace ScriptEditor
             ReturnValue = id;
         }
 
+        public void CenterToParent(IWin32Window owner)
+        {
+            if (!(owner is Form f))
+                return;
+
+            StartPosition = FormStartPosition.Manual;
+            Owner = f;
+            Location = new Point(f.Location.X + (f.Width - Width) / 2, f.Location.Y + (f.Height - Height) / 2);
+        }
+
         private void FormCastsEditor_Load(object sender, EventArgs e)
         {
             dontUpdate = true;
+            if (Parent != null)
+                CenterToParent();
             LoadControls();
             ResetAllControls();
             // If a value was provided on load, we show this template.
@@ -669,7 +681,7 @@ namespace ScriptEditor
         private void SetScriptFieldFromDataFinderForm<TFinderForm>(Button btn, TextBox txtbox, NameFinder finder, string fieldname) where TFinderForm : FormDataFinder, new()
         {
             FormDataFinder frm = new TFinderForm();
-            if (frm.ShowDialog(GetScriptFieldValue(fieldname)) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue(fieldname)) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 

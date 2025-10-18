@@ -82,7 +82,7 @@
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(825, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(581, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -131,6 +131,7 @@
             this.waypointsToolStripMenuItem.Name = "waypointsToolStripMenuItem";
             this.waypointsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.waypointsToolStripMenuItem.Text = "Waypoints";
+            this.waypointsToolStripMenuItem.Click += new System.EventHandler(this.Waypoints_Click);
             // 
             // tsmiFinders
             // 
@@ -259,7 +260,7 @@
             this.tsmiFlagsPlayerUF,
             this.tsmiFlagsSpellMechanic});
             this.tsmiFlags.Name = "tsmiFlags";
-            this.tsmiFlags.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFlags.Size = new System.Drawing.Size(101, 22);
             this.tsmiFlags.Text = "Flags";
             // 
             // tsmiFlagsGeneric
@@ -336,9 +337,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LoadingBar,
             this.LoadingStatusText});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 442);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 244);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(825, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(581, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -358,7 +359,7 @@
             // BtnWaypoints
             // 
             this.BtnWaypoints.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.BtnWaypoints.Location = new System.Drawing.Point(565, 47);
+            this.BtnWaypoints.Location = new System.Drawing.Point(160, 128);
             this.BtnWaypoints.Name = "BtnWaypoints";
             this.BtnWaypoints.Size = new System.Drawing.Size(129, 75);
             this.BtnWaypoints.TabIndex = 4;
@@ -427,7 +428,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(825, 464);
+            this.ClientSize = new System.Drawing.Size(581, 266);
             this.Controls.Add(this.BtnCreatureEditor);
             this.Controls.Add(this.BtnConditionsEditor);
             this.Controls.Add(this.BtnSpellEditor);

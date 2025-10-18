@@ -54,5 +54,15 @@ namespace ScriptEditor
             SelectedSniff = (CreatureSpellsSniff)lvSpellSniffs.SelectedItems[0].Tag;
             DialogResult = DialogResult.OK;
         }
+
+        public void CenterToParent(IWin32Window owner)
+        {
+            if (!(owner is Form f))
+                return;
+
+            StartPosition = FormStartPosition.Manual;
+            Owner = f;
+            Location = new Point(f.Location.X + (f.Width - Width) / 2, f.Location.Y + (f.Height - Height) / 2);
+        }
     }
 }

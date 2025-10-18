@@ -139,6 +139,8 @@ namespace ScriptEditor
 
         private void FormScriptEditor_Load(object sender, EventArgs e)
         {
+            if (Parent != null)
+                CenterToParent();
             LoadControls();
         }
 
@@ -2370,7 +2372,7 @@ namespace ScriptEditor
         private void btnCommandCondition_Click(object sender, EventArgs e)
         {
             FormConditionFinder frm = new FormConditionFinder();
-            if (frm.ShowDialog(GetScriptFieldValue<int>("ConditionId")) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue<int>("ConditionId")) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -2431,11 +2433,11 @@ namespace ScriptEditor
         // Generic function for setting a value from another form.
         private void SetScriptFieldFromDataFinderForm<TFinderForm>(Button btn, TextBox txtbox, NameFinder finder, string fieldname) where TFinderForm : FormDataFinder, new()
         {
-            Helpers.SetScriptFieldFromDataFinderForm<ScriptAction, TFinderForm>(lstActions, btn, txtbox, finder, fieldname);
+            Helpers.SetScriptFieldFromDataFinderForm<ScriptAction, TFinderForm>(this, lstActions, btn, txtbox, finder, fieldname);
         }
         private void SetScriptFieldFromFlagsForm(Button btn, List<Tuple<string, uint>> valuesList, string windowtitle, string fieldname)
         {
-            Helpers.SetScriptFieldFromFlagsForm<ScriptAction>(lstActions, btn, valuesList, windowtitle, fieldname);
+            Helpers.SetScriptFieldFromFlagsForm<ScriptAction>(this, lstActions, btn, valuesList, windowtitle, fieldname);
         }
         // Generic function for getting int value in field.
         private T GetScriptFieldValue<T>(string fieldname) where T : struct, IComparable<T>
@@ -3732,7 +3734,7 @@ namespace ScriptEditor
         private void btnTerminateConditionId_Click(object sender, EventArgs e)
         {
             FormConditionFinder frm = new FormConditionFinder();
-            if (frm.ShowDialog(GetScriptFieldValue<int>("Datalong")) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue<int>("Datalong")) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -4156,7 +4158,7 @@ namespace ScriptEditor
         {
             FormConditionFinder frm = new FormConditionFinder();
             bool has_ignore = GetSelectedCommandType() == 69 ? true : false;
-            if (frm.ShowDialog(GetScriptFieldValue<int>("Dataint"), has_ignore) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue<int>("Dataint"), has_ignore) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -4172,7 +4174,7 @@ namespace ScriptEditor
         {
             FormConditionFinder frm = new FormConditionFinder();
             bool has_ignore = GetSelectedCommandType() == 69 ? true : false;
-            if (frm.ShowDialog(GetScriptFieldValue<int>("Dataint3"), has_ignore) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue<int>("Dataint3"), has_ignore) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -4227,7 +4229,7 @@ namespace ScriptEditor
         private void btnRemoveScriptedMapEventTargetCondition_Click(object sender, EventArgs e)
         {
             FormConditionFinder frm = new FormConditionFinder();
-            if (frm.ShowDialog(GetScriptFieldValue<int>("Datalong2")) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue<int>("Datalong2")) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -4493,6 +4495,16 @@ namespace ScriptEditor
         private void FormScriptEditor_Shown(object sender, EventArgs e)
         {
             txtScriptId.Focus();
+        }
+
+        public void CenterToParent(IWin32Window owner)
+        {
+            if (!(owner is Form f))
+                return;
+
+            StartPosition = FormStartPosition.Manual;
+            Owner = f;
+            Location = new Point(f.Location.X + (f.Width - Width) / 2, f.Location.Y + (f.Height - Height) / 2);
         }
     }
 

@@ -169,6 +169,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Data Finder";
+            this.Load += new System.EventHandler(this.FormDataFinder_Load);
             this.ResizeEnd += new System.EventHandler(this.FormDataFinder_ResizeEnd);
             this.pnlBottom.ResumeLayout(false);
             this.ResumeLayout(false);

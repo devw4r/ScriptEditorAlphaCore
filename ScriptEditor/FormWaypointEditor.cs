@@ -212,11 +212,13 @@ namespace ScriptEditor
                 if(MessageBox.Show("You have unsaved changes. Do you really want to close the editor without saving?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     DialogResult = DialogResult.Cancel;
+                    Close();
                 }
             }
             else
             {
                 DialogResult = DialogResult.OK;
+                Close();
             }
             
         }
@@ -467,6 +469,22 @@ namespace ScriptEditor
             UpdateList(selected + 1);
 
             is_dirty = true;
+        }
+
+        public void CenterToParent(IWin32Window owner)
+        {
+            if (!(owner is Form f))
+                return;
+
+            StartPosition = FormStartPosition.Manual;
+            Owner = f;
+            Location = new Point(f.Location.X + (f.Width - Width) / 2, f.Location.Y + (f.Height - Height) / 2);
+        }
+
+        private void FormWaypointEditor_Load(object sender, EventArgs e)
+        {
+            if (Parent != null)
+                CenterToParent();
         }
     }
 }

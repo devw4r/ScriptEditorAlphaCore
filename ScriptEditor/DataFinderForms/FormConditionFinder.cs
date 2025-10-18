@@ -108,7 +108,7 @@ namespace ScriptEditor
             new ComboboxPair("Friendly", 2)
         };
 
-        public void ShowStandalone()
+        public void ShowStandalone(IWin32Window owner)
         {
             this.ControlBox = true;
             this.MinimizeBox = true;
@@ -116,7 +116,7 @@ namespace ScriptEditor
             this.Text = "Condition Editor";
             this.ShowInTaskbar = true;
             btnEditAdd_Click(null, null);
-            this.Show();
+            this.Show(owner);
         }
 
         private string GetComparisonOperatorName(int value)
@@ -1413,17 +1413,6 @@ namespace ScriptEditor
         public FormConditionFinder()
         {
             InitializeComponent();
-            AddControlsToLists();
-            dontUpdate = true;
-            lstData.Height = 305;
-            cmbConditionType.DataSource = GameData.ConditionNamesList;
-            txtConditionId.AutoSize = false;
-            txtConditionId.Height = 21;
-            cmbConditionType.SelectedIndex = -1;
-            cmbTeamId.DataSource = ConditionTeam_ComboOptions;
-            cmbSkillId.DataSource = GameData.SkillsList;
-            cmbHasFlagFieldIndex.DataSource = GameData.FlagFieldsList;
-            dontUpdate = false;
         }
 
         protected override void AddAllData()
@@ -1658,12 +1647,12 @@ namespace ScriptEditor
         // Generic function for setting a value from another form.
         private void SetScriptFieldFromDataFinderForm<TFinderForm>(Button btn, TextBox txtbox, NameFinder finder, string fieldname) where TFinderForm : FormDataFinder, new()
         {
-            Helpers.SetScriptFieldFromDataFinderForm<ConditionInfo, TFinderForm>(lstData, btn, txtbox, finder, fieldname);
+            Helpers.SetScriptFieldFromDataFinderForm<ConditionInfo, TFinderForm>(this, lstData, btn, txtbox, finder, fieldname);
             UpdateSelectedItem();
         }
         private void SetScriptFieldFromFlagsForm(Button btn, List<Tuple<string, uint>> valuesList, string windowtitle, string fieldname)
         {
-            Helpers.SetScriptFieldFromFlagsForm<ConditionInfo>(lstData, btn, valuesList, windowtitle, fieldname);
+            Helpers.SetScriptFieldFromFlagsForm<ConditionInfo>(this, lstData, btn, valuesList, windowtitle, fieldname);
             UpdateSelectedItem();
         }
         // Generic function for getting int value in field.
@@ -1998,7 +1987,7 @@ namespace ScriptEditor
         private void btnConditionNotCondition1_Click(object sender, EventArgs e)
         {
             FormConditionFinder frm = new FormConditionFinder();
-            if (frm.ShowDialog(GetScriptFieldValue("Value1")) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue("Value1")) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -2015,7 +2004,7 @@ namespace ScriptEditor
         private void btnConditionAndCondition1_Click(object sender, EventArgs e)
         {
             FormConditionFinder frm = new FormConditionFinder();
-            if (frm.ShowDialog(GetScriptFieldValue("Value1")) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue("Value1")) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -2030,7 +2019,7 @@ namespace ScriptEditor
         private void btnConditionAndCondition2_Click(object sender, EventArgs e)
         {
             FormConditionFinder frm = new FormConditionFinder();
-            if (frm.ShowDialog(GetScriptFieldValue("Value2")) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue("Value2")) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -2045,7 +2034,7 @@ namespace ScriptEditor
         private void btnConditionAndCondition3_Click(object sender, EventArgs e)
         {
             FormConditionFinder frm = new FormConditionFinder();
-            if (frm.ShowDialog(GetScriptFieldValue("Value3")) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue("Value3")) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -2060,7 +2049,7 @@ namespace ScriptEditor
         private void btnConditionAndCondition4_Click(object sender, EventArgs e)
         {
             FormConditionFinder frm = new FormConditionFinder();
-            if (frm.ShowDialog(GetScriptFieldValue("Value4")) == System.Windows.Forms.DialogResult.OK)
+            if (frm.ShowDialog(this, GetScriptFieldValue("Value4")) == System.Windows.Forms.DialogResult.OK)
             {
                 int returnId = frm.ReturnValue;
 
@@ -2363,6 +2352,24 @@ namespace ScriptEditor
         private void FormConditionFinder_Shown(object sender, EventArgs e)
         {
             txtSearch.Focus();
+        }
+
+        private void FormConditionFinder_Load(object sender, EventArgs e)
+        {
+            if (Parent != null)
+                CenterToParent();
+
+            AddControlsToLists();
+            dontUpdate = true;
+            lstData.Height = 305;
+            cmbConditionType.DataSource = GameData.ConditionNamesList;
+            txtConditionId.AutoSize = false;
+            txtConditionId.Height = 21;
+            cmbConditionType.SelectedIndex = -1;
+            cmbTeamId.DataSource = ConditionTeam_ComboOptions;
+            cmbSkillId.DataSource = GameData.SkillsList;
+            cmbHasFlagFieldIndex.DataSource = GameData.FlagFieldsList;
+            dontUpdate = false;
         }
     }
 }

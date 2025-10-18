@@ -2146,6 +2146,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormConditionFinder";
             this.Text = "Condition Finder";
+            this.Load += new System.EventHandler(this.FormConditionFinder_Load);
             this.Shown += new System.EventHandler(this.FormConditionFinder_Shown);
             this.ResizeEnd += new System.EventHandler(this.FormConditionFinder_ResizeEnd);
             this.Controls.SetChildIndex(this.lblNoSelection, 0);
