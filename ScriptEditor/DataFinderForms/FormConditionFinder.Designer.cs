@@ -313,9 +313,9 @@
             this.frmConditionNot.Controls.Add(this.lblConditionNotCondition);
             this.frmConditionNot.Controls.Add(this.lblConditionNotTooltip);
             this.frmConditionNot.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionNot.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionNot.Location = new System.Drawing.Point(0, 36);
             this.frmConditionNot.Name = "frmConditionNot";
-            this.frmConditionNot.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionNot.Size = new System.Drawing.Size(674, 162);
             this.frmConditionNot.TabIndex = 9;
             this.frmConditionNot.Visible = false;
             // 
@@ -363,7 +363,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnSave.Location = new System.Drawing.Point(504, 4);
+            this.btnSave.Location = new System.Drawing.Point(504, 5);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 11;
@@ -399,7 +399,7 @@
             // 
             this.btnSaveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveAll.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnSaveAll.Location = new System.Drawing.Point(585, 4);
+            this.btnSaveAll.Location = new System.Drawing.Point(585, 5);
             this.btnSaveAll.Name = "btnSaveAll";
             this.btnSaveAll.Size = new System.Drawing.Size(75, 23);
             this.btnSaveAll.TabIndex = 15;
@@ -446,11 +446,12 @@
             // 
             // lblNoSelection
             // 
-            this.lblNoSelection.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblNoSelection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNoSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNoSelection.Location = new System.Drawing.Point(0, 0);
+            this.lblNoSelection.Location = new System.Drawing.Point(3, 5);
             this.lblNoSelection.Name = "lblNoSelection";
-            this.lblNoSelection.Size = new System.Drawing.Size(498, 30);
+            this.lblNoSelection.Size = new System.Drawing.Size(498, 28);
             this.lblNoSelection.TabIndex = 19;
             this.lblNoSelection.Text = "No Condition Selected";
             this.lblNoSelection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -464,9 +465,9 @@
             this.frmConditionAura.Controls.Add(this.lblAuraSpellId);
             this.frmConditionAura.Controls.Add(this.lblConditionAuraTooltip);
             this.frmConditionAura.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionAura.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionAura.Location = new System.Drawing.Point(0, 36);
             this.frmConditionAura.Name = "frmConditionAura";
-            this.frmConditionAura.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionAura.Size = new System.Drawing.Size(674, 162);
             this.frmConditionAura.TabIndex = 20;
             this.frmConditionAura.Visible = false;
             // 
@@ -524,9 +525,9 @@
             this.frmConditionItem.Controls.Add(this.lblItemId);
             this.frmConditionItem.Controls.Add(this.lblConditionItemTooltip);
             this.frmConditionItem.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionItem.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionItem.Location = new System.Drawing.Point(0, 36);
             this.frmConditionItem.Name = "frmConditionItem";
-            this.frmConditionItem.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionItem.Size = new System.Drawing.Size(674, 162);
             this.frmConditionItem.TabIndex = 21;
             this.frmConditionItem.Visible = false;
             // 
@@ -582,9 +583,9 @@
             this.frmConditionArea.Controls.Add(this.lblAreaId);
             this.frmConditionArea.Controls.Add(this.lblConditionAreaTooltip);
             this.frmConditionArea.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionArea.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionArea.Location = new System.Drawing.Point(0, 36);
             this.frmConditionArea.Name = "frmConditionArea";
-            this.frmConditionArea.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionArea.Size = new System.Drawing.Size(674, 162);
             this.frmConditionArea.TabIndex = 22;
             this.frmConditionArea.Visible = false;
             // 
@@ -626,9 +627,9 @@
             this.frmConditionReputation.Controls.Add(this.lblReputationFactionId);
             this.frmConditionReputation.Controls.Add(this.lblConditionReputationTooltip);
             this.frmConditionReputation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionReputation.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionReputation.Location = new System.Drawing.Point(0, 36);
             this.frmConditionReputation.Name = "frmConditionReputation";
-            this.frmConditionReputation.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionReputation.Size = new System.Drawing.Size(674, 162);
             this.frmConditionReputation.TabIndex = 23;
             this.frmConditionReputation.Visible = false;
             // 
@@ -696,9 +697,9 @@
             this.frmConditionTeam.Controls.Add(this.lblTeamId);
             this.frmConditionTeam.Controls.Add(this.lblConditionTeamTooltip);
             this.frmConditionTeam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionTeam.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionTeam.Location = new System.Drawing.Point(0, 36);
             this.frmConditionTeam.Name = "frmConditionTeam";
-            this.frmConditionTeam.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionTeam.Size = new System.Drawing.Size(674, 162);
             this.frmConditionTeam.TabIndex = 24;
             this.frmConditionTeam.Visible = false;
             // 
@@ -739,9 +740,9 @@
             this.frmConditionSkill.Controls.Add(this.lblSkillId);
             this.frmConditionSkill.Controls.Add(this.lblConditionSkillTooltip);
             this.frmConditionSkill.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionSkill.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionSkill.Location = new System.Drawing.Point(0, 36);
             this.frmConditionSkill.Name = "frmConditionSkill";
-            this.frmConditionSkill.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionSkill.Size = new System.Drawing.Size(674, 162);
             this.frmConditionSkill.TabIndex = 25;
             this.frmConditionSkill.Visible = false;
             // 
@@ -799,9 +800,9 @@
             this.frmConditionQuest.Controls.Add(this.lblQuestId);
             this.frmConditionQuest.Controls.Add(this.lblConditionQuestTooltip);
             this.frmConditionQuest.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionQuest.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionQuest.Location = new System.Drawing.Point(0, 36);
             this.frmConditionQuest.Name = "frmConditionQuest";
-            this.frmConditionQuest.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionQuest.Size = new System.Drawing.Size(674, 162);
             this.frmConditionQuest.TabIndex = 26;
             this.frmConditionQuest.Visible = false;
             // 
@@ -865,9 +866,9 @@
             this.frmConditionComparison.Controls.Add(this.lblComparisonValue);
             this.frmConditionComparison.Controls.Add(this.lblConditionComparisonTooltip);
             this.frmConditionComparison.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionComparison.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionComparison.Location = new System.Drawing.Point(0, 36);
             this.frmConditionComparison.Name = "frmConditionComparison";
-            this.frmConditionComparison.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionComparison.Size = new System.Drawing.Size(674, 162);
             this.frmConditionComparison.TabIndex = 27;
             this.frmConditionComparison.Visible = false;
             // 
@@ -927,9 +928,9 @@
             this.frmConditionGameEvent.Controls.Add(this.lvlGameEventId);
             this.frmConditionGameEvent.Controls.Add(this.lblConditionGameEventTooltip);
             this.frmConditionGameEvent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionGameEvent.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionGameEvent.Location = new System.Drawing.Point(0, 36);
             this.frmConditionGameEvent.Name = "frmConditionGameEvent";
-            this.frmConditionGameEvent.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionGameEvent.Size = new System.Drawing.Size(674, 162);
             this.frmConditionGameEvent.TabIndex = 28;
             this.frmConditionGameEvent.Visible = false;
             // 
@@ -970,9 +971,9 @@
             this.frmConditionRaceClass.Controls.Add(this.lblRaceMask);
             this.frmConditionRaceClass.Controls.Add(this.lblConditionRaceClassTooltip);
             this.frmConditionRaceClass.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionRaceClass.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionRaceClass.Location = new System.Drawing.Point(0, 36);
             this.frmConditionRaceClass.Name = "frmConditionRaceClass";
-            this.frmConditionRaceClass.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionRaceClass.Size = new System.Drawing.Size(674, 162);
             this.frmConditionRaceClass.TabIndex = 29;
             this.frmConditionRaceClass.Visible = false;
             // 
@@ -1032,9 +1033,9 @@
             this.frmConditionInstanceScript.Controls.Add(this.lblInstanceScriptValue1);
             this.frmConditionInstanceScript.Controls.Add(this.lblConditionInstanceScriptTooltip);
             this.frmConditionInstanceScript.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionInstanceScript.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionInstanceScript.Location = new System.Drawing.Point(0, 36);
             this.frmConditionInstanceScript.Name = "frmConditionInstanceScript";
-            this.frmConditionInstanceScript.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionInstanceScript.Size = new System.Drawing.Size(674, 162);
             this.frmConditionInstanceScript.TabIndex = 30;
             this.frmConditionInstanceScript.Visible = false;
             // 
@@ -1094,9 +1095,9 @@
             this.frmConditionNearbyCreature.Controls.Add(this.lblNearbyCreatureId);
             this.frmConditionNearbyCreature.Controls.Add(this.lblConditionNearbyCreatureTooltip);
             this.frmConditionNearbyCreature.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionNearbyCreature.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionNearbyCreature.Location = new System.Drawing.Point(0, 36);
             this.frmConditionNearbyCreature.Name = "frmConditionNearbyCreature";
-            this.frmConditionNearbyCreature.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionNearbyCreature.Size = new System.Drawing.Size(674, 162);
             this.frmConditionNearbyCreature.TabIndex = 31;
             this.frmConditionNearbyCreature.Visible = false;
             // 
@@ -1199,9 +1200,9 @@
             this.frmConditionNearbyObject.Controls.Add(this.lblNearbyObjectId);
             this.frmConditionNearbyObject.Controls.Add(this.lblConditionNearbyObjectTooltip);
             this.frmConditionNearbyObject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionNearbyObject.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionNearbyObject.Location = new System.Drawing.Point(0, 36);
             this.frmConditionNearbyObject.Name = "frmConditionNearbyObject";
-            this.frmConditionNearbyObject.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionNearbyObject.Size = new System.Drawing.Size(674, 162);
             this.frmConditionNearbyObject.TabIndex = 32;
             this.frmConditionNearbyObject.Visible = false;
             // 
@@ -1260,9 +1261,9 @@
             this.frmConditionContentPatch.Controls.Add(this.lblContentPatch);
             this.frmConditionContentPatch.Controls.Add(this.lblConditionContentPatchTooltip);
             this.frmConditionContentPatch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionContentPatch.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionContentPatch.Location = new System.Drawing.Point(0, 36);
             this.frmConditionContentPatch.Name = "frmConditionContentPatch";
-            this.frmConditionContentPatch.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionContentPatch.Size = new System.Drawing.Size(674, 162);
             this.frmConditionContentPatch.TabIndex = 33;
             this.frmConditionContentPatch.Visible = false;
             // 
@@ -1339,9 +1340,9 @@
             this.frmConditionEscort.Controls.Add(this.lblEscortFlags);
             this.frmConditionEscort.Controls.Add(this.lblConditionEscortTooltip);
             this.frmConditionEscort.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionEscort.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionEscort.Location = new System.Drawing.Point(0, 36);
             this.frmConditionEscort.Name = "frmConditionEscort";
-            this.frmConditionEscort.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionEscort.Size = new System.Drawing.Size(674, 162);
             this.frmConditionEscort.TabIndex = 34;
             this.frmConditionEscort.Visible = false;
             // 
@@ -1414,9 +1415,9 @@
             this.frmConditionInstanceData.Controls.Add(this.lblInstanceDataIndex);
             this.frmConditionInstanceData.Controls.Add(this.lblConditionInstanceDataTooltip);
             this.frmConditionInstanceData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionInstanceData.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionInstanceData.Location = new System.Drawing.Point(0, 36);
             this.frmConditionInstanceData.Name = "frmConditionInstanceData";
-            this.frmConditionInstanceData.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionInstanceData.Size = new System.Drawing.Size(674, 162);
             this.frmConditionInstanceData.TabIndex = 35;
             this.frmConditionInstanceData.Visible = false;
             // 
@@ -1500,9 +1501,9 @@
             this.frmConditionMapEventData.Controls.Add(this.lblMapEventDataValue);
             this.frmConditionMapEventData.Controls.Add(this.lblConditionMapEventDataTooltip);
             this.frmConditionMapEventData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionMapEventData.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionMapEventData.Location = new System.Drawing.Point(0, 36);
             this.frmConditionMapEventData.Name = "frmConditionMapEventData";
-            this.frmConditionMapEventData.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionMapEventData.Size = new System.Drawing.Size(674, 162);
             this.frmConditionMapEventData.TabIndex = 36;
             this.frmConditionMapEventData.Visible = false;
             // 
@@ -1603,9 +1604,9 @@
             this.frmConditionUnknown.Controls.Add(this.lblUnknownValue3);
             this.frmConditionUnknown.Controls.Add(this.lblConditionUnknownTooltip);
             this.frmConditionUnknown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionUnknown.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionUnknown.Location = new System.Drawing.Point(0, 36);
             this.frmConditionUnknown.Name = "frmConditionUnknown";
-            this.frmConditionUnknown.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionUnknown.Size = new System.Drawing.Size(674, 162);
             this.frmConditionUnknown.TabIndex = 37;
             this.frmConditionUnknown.Visible = false;
             // 
@@ -1695,9 +1696,9 @@
             this.frmConditionMapEventTargets.Controls.Add(this.lblMapEventTargetsEventId);
             this.frmConditionMapEventTargets.Controls.Add(this.lblConditionMapEventTargetsTooltip);
             this.frmConditionMapEventTargets.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionMapEventTargets.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionMapEventTargets.Location = new System.Drawing.Point(0, 36);
             this.frmConditionMapEventTargets.Name = "frmConditionMapEventTargets";
-            this.frmConditionMapEventTargets.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionMapEventTargets.Size = new System.Drawing.Size(674, 162);
             this.frmConditionMapEventTargets.TabIndex = 38;
             this.frmConditionMapEventTargets.Visible = false;
             // 
@@ -1760,9 +1761,9 @@
             this.frmConditionAnd.Controls.Add(this.lblConditionAndCondition1);
             this.frmConditionAnd.Controls.Add(this.lblConditionAndTooltip);
             this.frmConditionAnd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionAnd.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionAnd.Location = new System.Drawing.Point(0, 36);
             this.frmConditionAnd.Name = "frmConditionAnd";
-            this.frmConditionAnd.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionAnd.Size = new System.Drawing.Size(674, 162);
             this.frmConditionAnd.TabIndex = 39;
             this.frmConditionAnd.Visible = false;
             // 
@@ -1866,9 +1867,9 @@
             this.frmConditionDbGuid.Controls.Add(this.lblConditionDbGuid1);
             this.frmConditionDbGuid.Controls.Add(this.lblConditionDbGuidTooltip);
             this.frmConditionDbGuid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionDbGuid.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionDbGuid.Location = new System.Drawing.Point(0, 36);
             this.frmConditionDbGuid.Name = "frmConditionDbGuid";
-            this.frmConditionDbGuid.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionDbGuid.Size = new System.Drawing.Size(674, 162);
             this.frmConditionDbGuid.TabIndex = 40;
             this.frmConditionDbGuid.Visible = false;
             // 
@@ -1965,9 +1966,9 @@
             this.frmConditionLocalTime.Controls.Add(this.lblLocalTimeStartTime);
             this.frmConditionLocalTime.Controls.Add(this.lblConditionLocalTimeTooltip);
             this.frmConditionLocalTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionLocalTime.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionLocalTime.Location = new System.Drawing.Point(0, 36);
             this.frmConditionLocalTime.Name = "frmConditionLocalTime";
-            this.frmConditionLocalTime.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionLocalTime.Size = new System.Drawing.Size(674, 162);
             this.frmConditionLocalTime.TabIndex = 41;
             this.frmConditionLocalTime.Visible = false;
             // 
@@ -2088,9 +2089,9 @@
             this.frmConditionHasFlag.Controls.Add(this.lblHasFlagFieldIndex);
             this.frmConditionHasFlag.Controls.Add(this.frmConditionHasFlagTooltip);
             this.frmConditionHasFlag.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.frmConditionHasFlag.Location = new System.Drawing.Point(0, 30);
+            this.frmConditionHasFlag.Location = new System.Drawing.Point(0, 36);
             this.frmConditionHasFlag.Name = "frmConditionHasFlag";
-            this.frmConditionHasFlag.Size = new System.Drawing.Size(674, 168);
+            this.frmConditionHasFlag.Size = new System.Drawing.Size(674, 162);
             this.frmConditionHasFlag.TabIndex = 43;
             this.frmConditionHasFlag.Visible = false;
             // 
@@ -2187,30 +2188,30 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(674, 30);
+            this.panel2.Size = new System.Drawing.Size(674, 36);
             this.panel2.TabIndex = 44;
             // 
             // FormConditionFinder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(674, 413);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnEditAdd);
             this.Controls.Add(this.btnDescribe);
             this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormConditionFinder";
             this.Text = "Condition Finder";
             this.Shown += new System.EventHandler(this.FormConditionFinder_Shown);
             this.ResizeEnd += new System.EventHandler(this.FormConditionFinder_ResizeEnd);
-            this.Controls.SetChildIndex(this.btnDelete, 0);
-            this.Controls.SetChildIndex(this.btnDescribe, 0);
-            this.Controls.SetChildIndex(this.btnEditAdd, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.txtSearch, 0);
             this.Controls.SetChildIndex(this.btnSearch, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.lstData, 0);
+            this.Controls.SetChildIndex(this.btnDelete, 0);
+            this.Controls.SetChildIndex(this.btnDescribe, 0);
+            this.Controls.SetChildIndex(this.btnEditAdd, 0);
             this.frmConditionNot.ResumeLayout(false);
             this.frmConditionNot.PerformLayout();
             this.frmConditionAura.ResumeLayout(false);

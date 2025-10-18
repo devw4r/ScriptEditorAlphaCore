@@ -1492,6 +1492,7 @@ namespace ScriptEditor
         {
             lstData.Columns[1].Width = lstData.ClientSize.Width - lstData.Columns[0].Width - lstData.Columns[2].Width - lstData.Columns[3].Width - lstData.Columns[4].Width - lstData.Columns[5].Width - lstData.Columns[6].Width;
         }
+
         private void UpdateSelectedItem()
         {
             if (lstData.SelectedItems.Count > 0)

@@ -162,11 +162,6 @@ namespace ScriptEditor
         {
             if (editMode)
                 return;
-
-            lstData.Width = this.Size.Width - 32;
-            lstData.Height = this.Size.Height - lstData.Location.Y - 68;
-            btnSearch.Location = new Point(lstData.Size.Width + lstData.Location.X - btnSearch.Size.Width, btnSearch.Location.Y);
-            txtSearch.Width = btnSearch.Location.X - txtSearch.Location.X - 7;
         }
 
         private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
