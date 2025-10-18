@@ -53,6 +53,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(672, 393);
             this.Name = "FormTaxiFinder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Taxi Finder";
             this.Shown += new System.EventHandler(this.FormTaxiFinder_Shown);
             this.ResizeEnd += new System.EventHandler(this.FormTaxiFinder_ResizeEnd);

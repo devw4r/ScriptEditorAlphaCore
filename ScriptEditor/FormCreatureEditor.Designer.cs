@@ -33,6 +33,9 @@
             this.btnLookup = new System.Windows.Forms.Button();
             this.tcCreature = new System.Windows.Forms.TabControl();
             this.tabDisplay = new System.Windows.Forms.TabPage();
+            this.lblMountDisplayIDinvalid = new System.Windows.Forms.Label();
+            this.lblMountDisplayId = new System.Windows.Forms.Label();
+            this.textMountDisplayId = new System.Windows.Forms.TextBox();
             this.lblDisplayID4invalid = new System.Windows.Forms.Label();
             this.lblDisplayID3invalid = new System.Windows.Forms.Label();
             this.lblDisplayID2invalid = new System.Windows.Forms.Label();
@@ -52,9 +55,6 @@
             this.tabStats = new System.Windows.Forms.TabPage();
             this.tabFlags = new System.Windows.Forms.TabPage();
             this.Spawns = new System.Windows.Forms.TabPage();
-            this.lblMountDisplayIDinvalid = new System.Windows.Forms.Label();
-            this.lblMountDisplayId = new System.Windows.Forms.Label();
-            this.textMountDisplayId = new System.Windows.Forms.TextBox();
             this.tcCreature.SuspendLayout();
             this.tabDisplay.SuspendLayout();
             this.SuspendLayout();
@@ -127,6 +127,34 @@
             this.tabDisplay.TabIndex = 0;
             this.tabDisplay.Text = "Display";
             this.tabDisplay.UseVisualStyleBackColor = true;
+            // 
+            // lblMountDisplayIDinvalid
+            // 
+            this.lblMountDisplayIDinvalid.AutoSize = true;
+            this.lblMountDisplayIDinvalid.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMountDisplayIDinvalid.ForeColor = System.Drawing.Color.Red;
+            this.lblMountDisplayIDinvalid.Location = new System.Drawing.Point(207, 223);
+            this.lblMountDisplayIDinvalid.Name = "lblMountDisplayIDinvalid";
+            this.lblMountDisplayIDinvalid.Size = new System.Drawing.Size(44, 13);
+            this.lblMountDisplayIDinvalid.TabIndex = 18;
+            this.lblMountDisplayIDinvalid.Text = "invalid";
+            this.lblMountDisplayIDinvalid.Visible = false;
+            // 
+            // lblMountDisplayId
+            // 
+            this.lblMountDisplayId.AutoSize = true;
+            this.lblMountDisplayId.Location = new System.Drawing.Point(12, 223);
+            this.lblMountDisplayId.Name = "lblMountDisplayId";
+            this.lblMountDisplayId.Size = new System.Drawing.Size(88, 13);
+            this.lblMountDisplayId.TabIndex = 17;
+            this.lblMountDisplayId.Text = "Mount Display ID";
+            // 
+            // textMountDisplayId
+            // 
+            this.textMountDisplayId.Location = new System.Drawing.Point(104, 220);
+            this.textMountDisplayId.Name = "textMountDisplayId";
+            this.textMountDisplayId.Size = new System.Drawing.Size(97, 20);
+            this.textMountDisplayId.TabIndex = 16;
             // 
             // lblDisplayID4invalid
             // 
@@ -301,34 +329,6 @@
             this.Spawns.Text = "Spawns";
             this.Spawns.UseVisualStyleBackColor = true;
             // 
-            // lblMountDisplayIDinvalid
-            // 
-            this.lblMountDisplayIDinvalid.AutoSize = true;
-            this.lblMountDisplayIDinvalid.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMountDisplayIDinvalid.ForeColor = System.Drawing.Color.Red;
-            this.lblMountDisplayIDinvalid.Location = new System.Drawing.Point(207, 223);
-            this.lblMountDisplayIDinvalid.Name = "lblMountDisplayIDinvalid";
-            this.lblMountDisplayIDinvalid.Size = new System.Drawing.Size(44, 13);
-            this.lblMountDisplayIDinvalid.TabIndex = 18;
-            this.lblMountDisplayIDinvalid.Text = "invalid";
-            this.lblMountDisplayIDinvalid.Visible = false;
-            // 
-            // lblMountDisplayId
-            // 
-            this.lblMountDisplayId.AutoSize = true;
-            this.lblMountDisplayId.Location = new System.Drawing.Point(12, 223);
-            this.lblMountDisplayId.Name = "lblMountDisplayId";
-            this.lblMountDisplayId.Size = new System.Drawing.Size(88, 13);
-            this.lblMountDisplayId.TabIndex = 17;
-            this.lblMountDisplayId.Text = "Mount Display ID";
-            // 
-            // textMountDisplayId
-            // 
-            this.textMountDisplayId.Location = new System.Drawing.Point(104, 220);
-            this.textMountDisplayId.Name = "textMountDisplayId";
-            this.textMountDisplayId.Size = new System.Drawing.Size(97, 20);
-            this.textMountDisplayId.TabIndex = 16;
-            // 
             // FormCreatureEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -345,6 +345,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Creature Editor";
             this.tcCreature.ResumeLayout(false);
             this.tabDisplay.ResumeLayout(false);

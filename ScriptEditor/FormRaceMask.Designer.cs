@@ -203,6 +203,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormRaceMask";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Race Mask Editor";
             this.grpAlliance.ResumeLayout(false);
             this.grpAlliance.PerformLayout();

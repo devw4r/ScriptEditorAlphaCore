@@ -104,12 +104,6 @@
     <Compile Include="DataFinderForms\FormFactionFinder.Designer.cs">
       <DependentUpon>FormFactionFinder.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataFinderForms\FormFinderGeneric.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DataFinderForms\FormFinderGeneric.Designer.cs">
-      <DependentUpon>FormFinderGeneric.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataFinderForms\FormGameObjectFinder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,9 +271,6 @@
     </Compile>
     <EmbeddedResource Include="DataFinderForms\FormFactionFinder.resx">
       <DependentUpon>FormFactionFinder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataFinderForms\FormFinderGeneric.resx">
-      <DependentUpon>FormFinderGeneric.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataFinderForms\FormGameObjectFinder.resx">
       <DependentUpon>FormGameObjectFinder.cs</DependentUpon>

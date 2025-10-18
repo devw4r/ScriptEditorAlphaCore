@@ -37,6 +37,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSelectUnchanged = new System.Windows.Forms.Button();
+            this.pnlBottom = new System.Windows.Forms.Panel();
+            this.pnlBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstData
@@ -80,7 +82,9 @@
             // 
             // btnSelectNone
             // 
-            this.btnSelectNone.Location = new System.Drawing.Point(412, 367);
+            this.btnSelectNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSelectNone.Location = new System.Drawing.Point(412, 3);
             this.btnSelectNone.Name = "btnSelectNone";
             this.btnSelectNone.Size = new System.Drawing.Size(88, 23);
             this.btnSelectNone.TabIndex = 3;
@@ -90,7 +94,9 @@
             // 
             // btnSelect
             // 
-            this.btnSelect.Location = new System.Drawing.Point(506, 367);
+            this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelect.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSelect.Location = new System.Drawing.Point(506, 3);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(75, 23);
             this.btnSelect.TabIndex = 4;
@@ -109,7 +115,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(587, 367);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnCancel.Location = new System.Drawing.Point(587, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -119,7 +127,9 @@
             // 
             // btnSelectUnchanged
             // 
-            this.btnSelectUnchanged.Location = new System.Drawing.Point(306, 367);
+            this.btnSelectUnchanged.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelectUnchanged.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSelectUnchanged.Location = new System.Drawing.Point(306, 3);
             this.btnSelectUnchanged.Name = "btnSelectUnchanged";
             this.btnSelectUnchanged.Size = new System.Drawing.Size(100, 23);
             this.btnSelectUnchanged.TabIndex = 8;
@@ -128,17 +138,26 @@
             this.btnSelectUnchanged.Visible = false;
             this.btnSelectUnchanged.Click += new System.EventHandler(this.btnSelectUnchanged_Click);
             // 
+            // pnlBottom
+            // 
+            this.pnlBottom.Controls.Add(this.btnCancel);
+            this.pnlBottom.Controls.Add(this.btnSelectUnchanged);
+            this.pnlBottom.Controls.Add(this.btnSelectNone);
+            this.pnlBottom.Controls.Add(this.btnSelect);
+            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlBottom.Location = new System.Drawing.Point(0, 363);
+            this.pnlBottom.Name = "pnlBottom";
+            this.pnlBottom.Size = new System.Drawing.Size(672, 30);
+            this.pnlBottom.TabIndex = 9;
+            // 
             // FormDataFinder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 393);
             this.ControlBox = false;
-            this.Controls.Add(this.btnSelectUnchanged);
-            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.pnlBottom);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnSelect);
-            this.Controls.Add(this.btnSelectNone);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.lstData);
@@ -148,8 +167,10 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Data Finder";
             this.ResizeEnd += new System.EventHandler(this.FormDataFinder_ResizeEnd);
+            this.pnlBottom.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,5 +187,6 @@
         protected System.Windows.Forms.Button btnCancel;
         protected System.Windows.Forms.Button btnSelectNone;
         protected System.Windows.Forms.Button btnSelectUnchanged;
+        private System.Windows.Forms.Panel pnlBottom;
     }
 }

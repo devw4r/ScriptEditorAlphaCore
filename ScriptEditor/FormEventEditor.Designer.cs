@@ -1487,6 +1487,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormEventEditor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Event Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEventEditor_FormClosing);
             this.Load += new System.EventHandler(this.FormEventEditor_Load);

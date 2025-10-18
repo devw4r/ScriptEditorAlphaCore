@@ -60,6 +60,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(672, 393);
             this.Name = "FormQuestFinder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quest Finder";
             this.Shown += new System.EventHandler(this.FormQuestFinder_Shown);
             this.ResizeEnd += new System.EventHandler(this.FormQuestFinder_ResizeEnd);

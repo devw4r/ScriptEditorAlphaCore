@@ -65,6 +65,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(672, 393);
             this.Name = "FormGameObjectFinder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Shown += new System.EventHandler(this.FormGameObjectFinder_Shown);
             this.ResizeEnd += new System.EventHandler(this.FormGameObjectFinder_ResizeEnd);
             this.ResumeLayout(false);

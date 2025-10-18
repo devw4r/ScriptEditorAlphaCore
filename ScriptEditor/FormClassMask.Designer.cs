@@ -192,6 +192,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormClassMask";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Class Mask Editor";
             this.ResumeLayout(false);
             this.PerformLayout();

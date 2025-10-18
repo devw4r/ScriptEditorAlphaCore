@@ -155,12 +155,8 @@ namespace ScriptEditor
 
             lstData.Width = this.Size.Width - 32;
             lstData.Height = this.Size.Height - lstData.Location.Y - 68;
-            btnCancel.Location = new Point(lstData.Size.Width + lstData.Location.X - btnCancel.Size.Width, lstData.Location.Y + lstData.Height + 6);
-            btnSelect.Location = new Point(btnCancel.Location.X - btnSelect.Size.Width - 6, btnCancel.Location.Y);
-            btnSelectNone.Location = new Point(btnSelect.Location.X - btnSelectNone.Size.Width - 6, btnSelect.Location.Y);
             btnSearch.Location = new Point(lstData.Size.Width + lstData.Location.X - btnSearch.Size.Width, btnSearch.Location.Y);
             txtSearch.Width = btnSearch.Location.X - txtSearch.Location.X - 7;
-            btnSelectUnchanged.Location = new Point(btnSelectNone.Location.X - btnSelectUnchanged.Size.Width - 6, btnSelectNone.Location.Y);
         }
 
         private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)

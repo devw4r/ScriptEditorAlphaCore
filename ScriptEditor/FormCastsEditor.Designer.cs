@@ -1144,6 +1144,7 @@
             this.Icon = global::ScriptEditor.Properties.Resources.mage;
             this.MaximizeBox = false;
             this.Name = "FormCastsEditor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Creature Spells";
             this.Load += new System.EventHandler(this.FormCastsEditor_Load);
             this.frmData.ResumeLayout(false);

@@ -162,6 +162,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Spell sniffs";
             this.Shown += new System.EventHandler(this.FormSpellSniffs_Shown);
             this.ResumeLayout(false);

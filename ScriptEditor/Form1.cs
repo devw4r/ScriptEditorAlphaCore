@@ -1,5 +1,4 @@
 ﻿using MySqlConnector;
-using ScriptEditor.DataFinderForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -166,17 +165,6 @@ namespace ScriptEditor
             editor.ShowStandalone();
         }
 
-
-
-        private void Find<T>(IList<T> objects)
-        {
-            using (FormFinderGeneric f = new FormFinderGeneric())
-            {
-                f.Fill(objects);
-                f.ShowDialog();
-            }
-        }
-
         private void Waypoints_Click(object sender, EventArgs e)
         {
             FormWaypointEditor form = new FormWaypointEditor();
@@ -197,42 +185,45 @@ namespace ScriptEditor
             if (!Enum.TryParse(tItem.Tag.ToString(), out Globals.Finders finder))
                 return;
 
+            Form form = null;
             switch (finder)
             {
                 case Globals.Finders.Areas:
-                    Find(GameData.AreaInfoList);
+                    form = new FormAreaFinder();
                     break;
                 case Globals.Finders.Events:
-                    Find(GameData.GameEventInfoList);
+                    form = new FormEventFinder();
                     break;
                 case Globals.Finders.Creatures:
-                    Find(GameData.CreatureInfoList);
+                    form = new FormCreatureFinder();
                     break;
                 case Globals.Finders.Factions:
-                    Find(GameData.FactionInfoList);
+                    form = new FormFactionFinder();
                     break;
                 case Globals.Finders.FactionTemplates:
-                    Find(GameData.FactionTemplateInfoList);
+                    form = new FormFactionTemplateFinder();
                     break;
                 case Globals.Finders.Items:
-                    Find(GameData.ItemInfoList);
+                    form = new FormEventFinder();
                     break;
                 case Globals.Finders.GameObjects:
-                    Find(GameData.GameObjectInfoList);
+                    form = new FormGameObjectFinder();
                     break;
                 case Globals.Finders.Quests:
-                    Find(GameData.QuestInfoList);
+                    form = new FormQuestFinder();
                     break;
                 case Globals.Finders.Spells:
-                    Find(GameData.SpellInfoList);
+                    form = new FormSpellFinder();
                     break;
                 case Globals.Finders.Taxis:
-                    Find(GameData.TaxiInfoList);
+                    form = new FormTaxiFinder();
                     break;
                 case Globals.Finders.BroadcastTexts:
-                    Find(GameData.BroadcastTextsList);
+                    form = new FormTaxiFinder();
                     break;
             }
+
+            form?.ShowDialog(this);
         }
 
         private void FlagHelper_Click(object sender, EventArgs e)

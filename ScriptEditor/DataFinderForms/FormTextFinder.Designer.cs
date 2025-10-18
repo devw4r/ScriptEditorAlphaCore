@@ -60,6 +60,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(672, 393);
             this.Name = "FormTextFinder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Text Finder";
             this.Shown += new System.EventHandler(this.FormTextFinder_Shown);
             this.ResizeEnd += new System.EventHandler(this.FormTextFinder_ResizeEnd);

@@ -46,6 +46,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(672, 393);
             this.Name = "FormSoundFinder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Sound Finder";
             this.ResizeEnd += new System.EventHandler(this.FormSoundFinder_ResizeEnd);
             this.ResumeLayout(false);

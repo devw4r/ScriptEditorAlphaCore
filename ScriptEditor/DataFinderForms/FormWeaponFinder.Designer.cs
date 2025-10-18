@@ -60,6 +60,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(672, 393);
             this.Name = "FormWeaponFinder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Weapon Finder";
             this.Load += new System.EventHandler(this.FormWeaponFinder_Load);
             this.ResizeEnd += new System.EventHandler(this.FormWeaponFinder_ResizeEnd);

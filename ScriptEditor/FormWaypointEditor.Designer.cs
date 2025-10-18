@@ -431,6 +431,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Waypoint Editor";
             this.Shown += new System.EventHandler(this.WaypointEditor_Shown);
             this.ResumeLayout(false);

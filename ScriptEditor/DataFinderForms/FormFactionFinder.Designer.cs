@@ -67,7 +67,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(672, 393);
             this.Name = "FormFactionFinder";
-            this.Text = "Faction Template Finder";
+            this.Text = "Faction Finder";
             this.Shown += new System.EventHandler(this.FormFactionFinder_Shown);
             this.ResizeEnd += new System.EventHandler(this.FormFactionFinder_ResizeEnd);
             this.ResumeLayout(false);

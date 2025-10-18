@@ -74,6 +74,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(672, 393);
             this.Name = "FormSpellFinder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Spell Finder";
             this.Load += new System.EventHandler(this.FormSpellFinder_Load);
             this.ResizeEnd += new System.EventHandler(this.FormSpellFinder_ResizeEnd);

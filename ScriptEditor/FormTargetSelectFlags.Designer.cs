@@ -244,6 +244,7 @@
             this.Controls.Add(this.chkFlag1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormTargetSelectFlags";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Target Selection Flags";
             this.ResumeLayout(false);
             this.PerformLayout();
