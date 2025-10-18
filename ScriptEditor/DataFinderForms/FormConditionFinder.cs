@@ -1497,6 +1497,7 @@ namespace ScriptEditor
                     frm.Width = this.Size.Width - 32;
                     frm.Location = new Point(frm.Location.X, this.Size.Height - 217);
                 }
+
                 foreach (Label lbl in conditionTooltipsList)
                 {
                     lbl.Width = lbl.Parent.Size.Width - lbl.Location.X - 14;
@@ -2351,17 +2352,12 @@ namespace ScriptEditor
 
         private void FormConditionFinder_Shown(object sender, EventArgs e)
         {
-            txtSearch.Focus();
-        }
-
-        private void FormConditionFinder_Load(object sender, EventArgs e)
-        {
             if (Parent != null)
                 CenterToParent();
 
             AddControlsToLists();
             dontUpdate = true;
-            lstData.Height = 305;
+            // lstData.Height = 305;
             cmbConditionType.DataSource = GameData.ConditionNamesList;
             txtConditionId.AutoSize = false;
             txtConditionId.Height = 21;
@@ -2370,6 +2366,7 @@ namespace ScriptEditor
             cmbSkillId.DataSource = GameData.SkillsList;
             cmbHasFlagFieldIndex.DataSource = GameData.FlagFieldsList;
             dontUpdate = false;
+            txtSearch.Focus();
         }
     }
 }
