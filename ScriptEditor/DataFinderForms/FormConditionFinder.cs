@@ -1490,35 +1490,6 @@ namespace ScriptEditor
 
         private void FormConditionFinder_ResizeEnd(object sender, EventArgs e)
         {
-            if (editMode)
-            {
-                foreach(Panel frm in conditionFormsList)
-                {
-                    frm.Width = this.Size.Width - 32;
-                    frm.Location = new Point(frm.Location.X, this.Size.Height - 217);
-                }
-
-                foreach (Label lbl in conditionTooltipsList)
-                {
-                    lbl.Width = lbl.Parent.Size.Width - lbl.Location.X - 14;
-                }
-                
-                lblNoSelection.Location = new Point(frmConditionUnknown.Location.X + (frmConditionUnknown.Size.Width / 2) - (lblNoSelection.Size.Width / 2), frmConditionUnknown.Location.Y + (frmConditionUnknown.Size.Height / 2) - (lblNoSelection.Size.Height / 2));
-
-                txtConditionId.Location = new Point(txtConditionId.Location.X, frmConditionUnknown.Location.Y - 28);
-                cmbConditionType.Location = new Point(cmbConditionType.Location.X, frmConditionUnknown.Location.Y - 28);
-                cmbConditionType.Width = this.Size.Width - 479;
-                chkConditionFlag1.Location = new Point(cmbConditionType.Location.X + cmbConditionType.Size.Width + 7, cmbConditionType.Location.Y + 3);
-                chkConditionFlag2.Location = new Point(chkConditionFlag1.Location.X + chkConditionFlag1.Size.Width + 6, cmbConditionType.Location.Y + 3);
-                btnSaveAll.Location = new Point(this.Size.Width - btnSaveAll.Size.Width - 20, frmConditionUnknown.Location.Y - 28);
-                btnSave.Location = new Point(btnSaveAll.Location.X - 81, frmConditionUnknown.Location.Y - 28);
-
-                lstData.Width = this.Size.Width - 32;
-                lstData.Height = this.Size.Height - lstData.Location.Y - 5 - (this.Size.Height - txtConditionId.Location.Y);
-                btnSearch.Location = new Point(lstData.Size.Width + lstData.Location.X - btnSearch.Size.Width, btnSearch.Location.Y);
-                txtSearch.Width = btnSearch.Location.X - txtSearch.Location.X - 7;
-            }
-
             lstData.Columns[1].Width = lstData.ClientSize.Width - lstData.Columns[0].Width - lstData.Columns[2].Width - lstData.Columns[3].Width - lstData.Columns[4].Width - lstData.Columns[5].Width - lstData.Columns[6].Width;
         }
         private void UpdateSelectedItem()
@@ -1542,6 +1513,8 @@ namespace ScriptEditor
 
         private void lstData_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblNoSelection.Visible =  lstData.SelectedItems.Count == 0;
+
             if (lstData.SelectedItems.Count == 0)
             {
                 dontUpdate = true;
