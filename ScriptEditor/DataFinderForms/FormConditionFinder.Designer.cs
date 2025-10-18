@@ -254,27 +254,12 @@
             this.columnFlags});
             this.lstData.Size = new System.Drawing.Size(650, 123);
             this.lstData.SelectedIndexChanged += new System.EventHandler(this.lstData_SelectedIndexChanged);
-            // 
-            // btnSelect
-            // 
-            this.btnSelect.Location = new System.Drawing.Point(508, 3);
+
             // 
             // label1
             // 
             this.label1.Size = new System.Drawing.Size(109, 13);
             this.label1.Text = "Enter Id to search for:";
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(589, 3);
-            // 
-            // btnSelectNone
-            // 
-            this.btnSelectNone.Location = new System.Drawing.Point(414, 3);
-            // 
-            // btnSelectUnchanged
-            // 
-            this.btnSelectUnchanged.Location = new System.Drawing.Point(308, 3);
             // 
             // columnType
             // 
@@ -362,6 +347,7 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSave.Location = new System.Drawing.Point(504, 5);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
@@ -397,6 +383,7 @@
             // btnSaveAll
             // 
             this.btnSaveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveAll.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSaveAll.Location = new System.Drawing.Point(585, 5);
             this.btnSaveAll.Name = "btnSaveAll";
             this.btnSaveAll.Size = new System.Drawing.Size(75, 23);

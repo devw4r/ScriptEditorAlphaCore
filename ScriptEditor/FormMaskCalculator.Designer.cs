@@ -92,6 +92,8 @@
             // 
             // FormMaskCalculator
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(272, 198);
             this.Controls.Add(this.btnPhaseRemove);
             this.Controls.Add(this.btnPhaseAdd);
