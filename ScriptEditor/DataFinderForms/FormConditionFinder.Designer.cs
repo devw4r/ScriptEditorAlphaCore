@@ -254,27 +254,12 @@
             this.columnFlags});
             this.lstData.Size = new System.Drawing.Size(650, 123);
             this.lstData.SelectedIndexChanged += new System.EventHandler(this.lstData_SelectedIndexChanged);
-            // 
-            // btnSelect
-            // 
-            this.btnSelect.Location = new System.Drawing.Point(512, 3);
+
             // 
             // label1
             // 
             this.label1.Size = new System.Drawing.Size(109, 13);
             this.label1.Text = "Enter Id to search for:";
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(593, 3);
-            // 
-            // btnSelectNone
-            // 
-            this.btnSelectNone.Location = new System.Drawing.Point(418, 3);
-            // 
-            // btnSelectUnchanged
-            // 
-            this.btnSelectUnchanged.Location = new System.Drawing.Point(312, 3);
             // 
             // columnType
             // 
@@ -2193,7 +2178,6 @@
             // 
             // FormConditionFinder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(674, 413);
             this.Controls.Add(this.btnEditAdd);
             this.Controls.Add(this.btnDescribe);
