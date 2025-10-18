@@ -2191,8 +2191,6 @@
             // 
             // FormConditionFinder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 413);
             this.Controls.Add(this.btnEditAdd);
             this.Controls.Add(this.btnDescribe);
