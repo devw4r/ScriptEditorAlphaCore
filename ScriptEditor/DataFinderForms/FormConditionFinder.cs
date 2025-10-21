@@ -1519,7 +1519,7 @@ namespace ScriptEditor
                 foreach(Panel frm in conditionFormsList)
                 {
                     frm.Width = this.Size.Width - 32;
-                    frm.Location = new Point(frm.Location.X, this.Size.Height - 217);
+                    frm.Location = new Point(frm.Location.X, this.Size.Height - 260);
                 }
                 foreach (Label lbl in conditionTooltipsList)
                 {
