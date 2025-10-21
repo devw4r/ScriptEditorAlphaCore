@@ -283,150 +283,153 @@ namespace ScriptEditor
 
         private void txtPoint_Leave(object sender, EventArgs e)
         {
-            if (lstWaypoints.SelectedItems.Count > 0)
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
+            Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
+            if (point.Point.ToString() != txtPoint.Text)
             {
-                Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
-                if (point.Point.ToString() != txtPoint.Text)
+                if (uint.TryParse(txtPoint.Text, out uint _val))
                 {
-                    if (uint.TryParse(txtPoint.Text, out uint _val))
-                    {
-                        point.Point = _val;
-                        waypoints[lstWaypoints.SelectedIndices[0]] = point;
-                        UpdateList(lstWaypoints.SelectedIndices[0]);
-                        is_dirty = true;
-                    }
+                    point.Point = _val;
+                    waypoints[lstWaypoints.SelectedIndices[0]] = point;
+                    UpdateList(lstWaypoints.SelectedIndices[0]);
+                    is_dirty = true;
                 }
             }
         }
 
         private void txtX_Leave(object sender, EventArgs e)
         {
-            if (lstWaypoints.SelectedItems.Count > 0)
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
+            Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
+            if (point.Position_x.ToString() != txtX.Text)
             {
-                Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
-                if (point.Position_x.ToString() != txtX.Text)
+                if (float.TryParse(txtX.Text, out float _val))
                 {
-                    if (float.TryParse(txtX.Text, out float _val))
-                    {
-                        point.Position_x = _val;
-                        waypoints[lstWaypoints.SelectedIndices[0]] = point;
-                        UpdateList(lstWaypoints.SelectedIndices[0]);
-                        is_dirty = true;
-                    }
+                    point.Position_x = _val;
+                    waypoints[lstWaypoints.SelectedIndices[0]] = point;
+                    UpdateList(lstWaypoints.SelectedIndices[0]);
+                    is_dirty = true;
                 }
             }
         }
 
         private void txtY_Leave(object sender, EventArgs e)
         {
-            if (lstWaypoints.SelectedItems.Count > 0)
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
+            Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
+            if (point.Position_y.ToString() != txtY.Text)
             {
-                Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
-                if (point.Position_y.ToString() != txtY.Text)
+                if (float.TryParse(txtY.Text, out float _val))
                 {
-                    if (float.TryParse(txtY.Text, out float _val))
-                    {
-                        point.Position_y = _val;
-                        waypoints[lstWaypoints.SelectedIndices[0]] = point;
-                        UpdateList(lstWaypoints.SelectedIndices[0]);
-                        is_dirty = true;
-                    }
+                    point.Position_y = _val;
+                    waypoints[lstWaypoints.SelectedIndices[0]] = point;
+                    UpdateList(lstWaypoints.SelectedIndices[0]);
+                    is_dirty = true;
                 }
             }
         }
 
         private void txtZ_Leave(object sender, EventArgs e)
         {
-            if (lstWaypoints.SelectedItems.Count > 0)
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
+            Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
+            if (point.Position_z.ToString() != txtZ.Text)
             {
-                Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
-                if (point.Position_z.ToString() != txtZ.Text)
+                if (float.TryParse(txtZ.Text, out float _val))
                 {
-                    if (float.TryParse(txtZ.Text, out float _val))
-                    {
-                        point.Position_z = _val;
-                        waypoints[lstWaypoints.SelectedIndices[0]] = point;
-                        UpdateList(lstWaypoints.SelectedIndices[0]);
-                        is_dirty = true;
-                    }
+                    point.Position_z = _val;
+                    waypoints[lstWaypoints.SelectedIndices[0]] = point;
+                    UpdateList(lstWaypoints.SelectedIndices[0]);
+                    is_dirty = true;
                 }
             }
         }
 
         private void txtO_Leave(object sender, EventArgs e)
         {
-            if (lstWaypoints.SelectedItems.Count > 0)
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
+            Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
+            if (point.Orientation.ToString() != txtO.Text)
             {
-                Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
-                if (point.Orientation.ToString() != txtO.Text)
+                if (float.TryParse(txtO.Text, out float _val))
                 {
-                    if (float.TryParse(txtO.Text, out float _val))
-                    {
-                        point.Orientation = _val;
-                        waypoints[lstWaypoints.SelectedIndices[0]] = point;
-                        UpdateList(lstWaypoints.SelectedIndices[0]);
-                        is_dirty = true;
-                    }
+                    point.Orientation = _val;
+                    waypoints[lstWaypoints.SelectedIndices[0]] = point;
+                    UpdateList(lstWaypoints.SelectedIndices[0]);
+                    is_dirty = true;
                 }
             }
         }
 
         private void txtWait_Leave(object sender, EventArgs e)
         {
-            if (lstWaypoints.SelectedItems.Count > 0)
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
+            Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
+            if (point.Waittime.ToString() != txtWait.Text)
             {
-                Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
-                if (point.Waittime.ToString() != txtWait.Text)
+                if (uint.TryParse(txtWait.Text, out uint _val))
                 {
-                    if (uint.TryParse(txtWait.Text, out uint _val))
-                    {
-                        point.Waittime = _val;
-                        waypoints[lstWaypoints.SelectedIndices[0]] = point;
-                        UpdateList(lstWaypoints.SelectedIndices[0]);
-                        is_dirty = true;
-                    }
+                    point.Waittime = _val;
+                    waypoints[lstWaypoints.SelectedIndices[0]] = point;
+                    UpdateList(lstWaypoints.SelectedIndices[0]);
+                    is_dirty = true;
                 }
             }
         }
 
         private void txtWander_Leave(object sender, EventArgs e)
         {
-            if (lstWaypoints.SelectedItems.Count > 0)
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
+            Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
+            if (point.Wander_distance.ToString() != txtWander.Text)
             {
-                Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
-                if (point.Wander_distance.ToString() != txtWander.Text)
+                if (float.TryParse(txtWander.Text, out float _val))
                 {
-                    if (float.TryParse(txtWander.Text, out float _val))
-                    {
-                        point.Wander_distance = _val;
-                        waypoints[lstWaypoints.SelectedIndices[0]] = point;
-                        UpdateList(lstWaypoints.SelectedIndices[0]);
-                        is_dirty = true;
-                    }
+                    point.Wander_distance = _val;
+                    waypoints[lstWaypoints.SelectedIndices[0]] = point;
+                    UpdateList(lstWaypoints.SelectedIndices[0]);
+                    is_dirty = true;
                 }
             }
         }
 
         private void txtScript_Leave(object sender, EventArgs e)
         {
-            if (lstWaypoints.SelectedItems.Count > 0)
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
+            Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
+            if (point.Script_id.ToString() != txtScript.Text)
             {
-                Waypoint point = (Waypoint)lstWaypoints.SelectedItems[0].Tag;
-                if (point.Script_id.ToString() != txtScript.Text)
+                if (uint.TryParse(txtScript.Text, out uint _val))
                 {
-                    if (uint.TryParse(txtScript.Text, out uint _val))
-                    {
-                        point.Script_id = _val;
-                        waypoints[lstWaypoints.SelectedIndices[0]] = point;
-                        UpdateList(lstWaypoints.SelectedIndices[0]);
-                        is_dirty = true;
-                    }
+                    point.Script_id = _val;
+                    waypoints[lstWaypoints.SelectedIndices[0]] = point;
+                    UpdateList(lstWaypoints.SelectedIndices[0]);
+                    is_dirty = true;
                 }
             }
         }
 
         private void btnMoveUp_Click(object sender, EventArgs e)
         {
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
             int selected = lstWaypoints.Items.IndexOf(lstWaypoints.SelectedItems[0]);
 
             Waypoint firstPoint = waypoints[selected];
@@ -448,6 +451,9 @@ namespace ScriptEditor
 
         private void btnMoveDown_Click(object sender, EventArgs e)
         {
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
             int selected = lstWaypoints.Items.IndexOf(lstWaypoints.SelectedItems[0]);
 
             Waypoint firstPoint = waypoints[selected];
@@ -481,6 +487,17 @@ namespace ScriptEditor
         {
             if (Parent != null)
                 CenterToParent();
+        }
+
+        private void btnPort_Click(object sender, EventArgs e)
+        {
+            if (lstWaypoints.SelectedItems.Count == 0)
+                return;
+
+            int selected = lstWaypoints.Items.IndexOf(lstWaypoints.SelectedItems[0]);
+
+            Waypoint firstPoint = waypoints[selected];
+            Clipboard.SetText($".port {firstPoint.Position_x} {firstPoint.Position_y} {firstPoint.Position_z}");"
         }
     }
 }
