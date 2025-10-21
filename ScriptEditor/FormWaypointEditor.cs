@@ -497,7 +497,7 @@ namespace ScriptEditor
             int selected = lstWaypoints.Items.IndexOf(lstWaypoints.SelectedItems[0]);
 
             Waypoint firstPoint = waypoints[selected];
-            Clipboard.SetText($".port {firstPoint.Position_x} {firstPoint.Position_y} {firstPoint.Position_z}");"
+            Clipboard.SetText($".port {firstPoint.Position_x} {firstPoint.Position_y} {firstPoint.Position_z}");
         }
     }
 }
