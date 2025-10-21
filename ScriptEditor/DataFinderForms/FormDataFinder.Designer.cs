@@ -55,7 +55,7 @@
             this.lstData.UseCompatibleStateImageBehavior = false;
             this.lstData.View = System.Windows.Forms.View.Details;
             this.lstData.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstData_ColumnClick);
-            this.lstData.ItemActivate += new System.EventHandler(this.lstData_ItemActivate);
+            this.lstData.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstData_MouseDoubleClick);
             // 
             // columnID
             // 
