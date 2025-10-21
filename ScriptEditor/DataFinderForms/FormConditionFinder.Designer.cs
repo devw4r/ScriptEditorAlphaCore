@@ -250,26 +250,10 @@
             this.lstData.Size = new System.Drawing.Size(650, 123);
             this.lstData.SelectedIndexChanged += new System.EventHandler(this.lstData_SelectedIndexChanged);
             // 
-            // btnSelect
-            // 
-            this.btnSelect.Location = new System.Drawing.Point(209, 368);
-            // 
             // label1
             // 
             this.label1.Size = new System.Drawing.Size(109, 13);
             this.label1.Text = "Enter Id to search for:";
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(290, 368);
-            // 
-            // btnSelectNone
-            // 
-            this.btnSelectNone.Location = new System.Drawing.Point(115, 368);
-            // 
-            // btnSelectUnchanged
-            // 
-            this.btnSelectUnchanged.Location = new System.Drawing.Point(9, 368);
             // 
             // columnType
             // 
