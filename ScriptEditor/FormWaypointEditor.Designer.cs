@@ -64,6 +64,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnMoveUp = new System.Windows.Forms.Button();
             this.btnMoveDown = new System.Windows.Forms.Button();
+            this.btnPort = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstWaypoints
@@ -389,11 +390,22 @@
             this.btnMoveDown.UseVisualStyleBackColor = true;
             this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
             // 
+            // btnPort
+            // 
+            this.btnPort.Location = new System.Drawing.Point(415, 390);
+            this.btnPort.Name = "btnPort";
+            this.btnPort.Size = new System.Drawing.Size(128, 23);
+            this.btnPort.TabIndex = 30;
+            this.btnPort.Text = "Port Command";
+            this.btnPort.UseVisualStyleBackColor = true;
+            this.btnPort.Click += new System.EventHandler(this.btnPort_Click);
+            // 
             // FormWaypointEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnPort);
             this.Controls.Add(this.btnMoveDown);
             this.Controls.Add(this.btnMoveUp);
             this.Controls.Add(this.btnSave);
@@ -475,5 +487,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnMoveUp;
         private System.Windows.Forms.Button btnMoveDown;
+        private System.Windows.Forms.Button btnPort;
     }
 }
