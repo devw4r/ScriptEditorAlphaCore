@@ -1530,7 +1530,6 @@ namespace ScriptEditor
 
                 txtConditionId.Location = new Point(txtConditionId.Location.X, frmConditionUnknown.Location.Y - 28);
                 cmbConditionType.Location = new Point(cmbConditionType.Location.X, frmConditionUnknown.Location.Y - 28);
-                cmbConditionType.Width = this.Size.Width - 479;
                 chkConditionFlag1.Location = new Point(cmbConditionType.Location.X + cmbConditionType.Size.Width + 7, cmbConditionType.Location.Y + 3);
                 chkConditionFlag2.Location = new Point(chkConditionFlag1.Location.X + chkConditionFlag1.Size.Width + 6, cmbConditionType.Location.Y + 3);
                 btnSaveAll.Location = new Point(this.Size.Width - btnSaveAll.Size.Width - 20, frmConditionUnknown.Location.Y - 28);
