@@ -168,16 +168,16 @@ namespace ScriptEditor
             }
         }
 
-        private void lstData_ItemActivate(object sender, EventArgs e)
-        {
-            btnSelect_Click(sender, e);
-        }
-
         private void btnSelectUnchanged_Click(object sender, EventArgs e)
         {
             ReturnValue = -1;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void lstData_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            btnSelect_Click(sender, e);
         }
     }
 }
