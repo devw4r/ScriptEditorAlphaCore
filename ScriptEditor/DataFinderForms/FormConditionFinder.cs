@@ -1564,46 +1564,53 @@ namespace ScriptEditor
 
         private void lstData_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lstData.SelectedItems.Count == 0)
+            try
             {
-                dontUpdate = true;
-                ResetBaseControls();
-                ResetAndHideConditionSpecificForms();
-                dontUpdate = false;
-                return;
-            }
-
-            dontUpdate = true;
-            ListViewItem selectedItem = lstData.SelectedItems[0];
-            ConditionInfo selectedCondition = (ConditionInfo)selectedItem.Tag;
-
-            int conditionIndex = -1;
-            foreach (var item in cmbConditionType.Items)
-            {
-                ComboboxPair conditionTypePair = item as ComboboxPair;
-                if (conditionTypePair.Value == selectedCondition.Type)
+                if (lstData.SelectedItems.Count == 0)
                 {
-                    conditionIndex = cmbConditionType.Items.IndexOf(item);
-                    break;
+                    dontUpdate = true;
+                    ResetBaseControls();
+                    ResetAndHideConditionSpecificForms();
+                    dontUpdate = false;
+                    return;
                 }
+
+                dontUpdate = true;
+                ListViewItem selectedItem = lstData.SelectedItems[0];
+                ConditionInfo selectedCondition = (ConditionInfo)selectedItem.Tag;
+
+                int conditionIndex = -1;
+                foreach (var item in cmbConditionType.Items)
+                {
+                    ComboboxPair conditionTypePair = item as ComboboxPair;
+                    if (conditionTypePair.Value == selectedCondition.Type)
+                    {
+                        conditionIndex = cmbConditionType.Items.IndexOf(item);
+                        break;
+                    }
+                }
+
+                cmbConditionType.SelectedIndex = conditionIndex;
+                cmbConditionType.Enabled = true;
+
+                txtConditionId.Text = selectedCondition.ID.ToString();
+                txtConditionId.Enabled = true;
+
+                chkConditionFlag1.Enabled = true;
+                chkConditionFlag2.Enabled = true;
+
+                if ((selectedCondition.Flags & 1) != 0)
+                    chkConditionFlag1.Checked = true;
+                if ((selectedCondition.Flags & 2) != 0)
+                    chkConditionFlag2.Checked = true;
+
+                ShowConditionSpecificForm(selectedCondition);
+                dontUpdate = false;
             }
-
-            cmbConditionType.SelectedIndex = conditionIndex;
-            cmbConditionType.Enabled = true;
-
-            txtConditionId.Text = selectedCondition.ID.ToString();
-            txtConditionId.Enabled = true;
-
-            chkConditionFlag1.Enabled = true;
-            chkConditionFlag2.Enabled = true;
-
-            if ((selectedCondition.Flags & 1) != 0)
-                chkConditionFlag1.Checked = true;
-            if ((selectedCondition.Flags & 2) != 0)
-                chkConditionFlag2.Checked = true;
-
-            ShowConditionSpecificForm(selectedCondition);
-            dontUpdate = false;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void cmbConditionType_SelectedIndexChanged(object sender, EventArgs e)
