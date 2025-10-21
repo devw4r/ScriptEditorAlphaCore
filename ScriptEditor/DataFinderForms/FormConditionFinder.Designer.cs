@@ -205,11 +205,12 @@
             this.lblConditionLocalTimeTooltip = new System.Windows.Forms.Label();
             this.btnDescribe = new System.Windows.Forms.Button();
             this.frmConditionHasFlag = new System.Windows.Forms.Panel();
+            this.btnHasFlagFlags = new System.Windows.Forms.Button();
             this.cmbHasFlagFieldIndex = new System.Windows.Forms.ComboBox();
             this.lblHasFlagFlags = new System.Windows.Forms.Label();
             this.lblHasFlagFieldIndex = new System.Windows.Forms.Label();
             this.frmConditionHasFlagTooltip = new System.Windows.Forms.Label();
-            this.btnHasFlagFlags = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.frmConditionNot.SuspendLayout();
             this.frmConditionAura.SuspendLayout();
             this.frmConditionItem.SuspendLayout();
@@ -234,6 +235,7 @@
             this.frmConditionDbGuid.SuspendLayout();
             this.frmConditionLocalTime.SuspendLayout();
             this.frmConditionHasFlag.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstData
@@ -248,10 +250,26 @@
             this.lstData.Size = new System.Drawing.Size(650, 123);
             this.lstData.SelectedIndexChanged += new System.EventHandler(this.lstData_SelectedIndexChanged);
             // 
+            // btnSelect
+            // 
+            this.btnSelect.Location = new System.Drawing.Point(209, 368);
+            // 
             // label1
             // 
             this.label1.Size = new System.Drawing.Size(109, 13);
             this.label1.Text = "Enter Id to search for:";
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(290, 368);
+            // 
+            // btnSelectNone
+            // 
+            this.btnSelectNone.Location = new System.Drawing.Point(115, 368);
+            // 
+            // btnSelectUnchanged
+            // 
+            this.btnSelectUnchanged.Location = new System.Drawing.Point(9, 368);
             // 
             // columnType
             // 
@@ -348,7 +366,8 @@
             // 
             // btnEditAdd
             // 
-            this.btnEditAdd.Location = new System.Drawing.Point(12, 367);
+            this.btnEditAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnEditAdd.Location = new System.Drawing.Point(11, 368);
             this.btnEditAdd.Name = "btnEditAdd";
             this.btnEditAdd.Size = new System.Drawing.Size(75, 23);
             this.btnEditAdd.TabIndex = 12;
@@ -358,7 +377,8 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(93, 367);
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDelete.Location = new System.Drawing.Point(92, 368);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 14;
@@ -2016,7 +2036,8 @@
             // 
             // btnDescribe
             // 
-            this.btnDescribe.Location = new System.Drawing.Point(174, 367);
+            this.btnDescribe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDescribe.Location = new System.Drawing.Point(173, 368);
             this.btnDescribe.Name = "btnDescribe";
             this.btnDescribe.Size = new System.Drawing.Size(75, 23);
             this.btnDescribe.TabIndex = 42;
@@ -2038,6 +2059,16 @@
             this.frmConditionHasFlag.Size = new System.Drawing.Size(650, 150);
             this.frmConditionHasFlag.TabIndex = 43;
             this.frmConditionHasFlag.Visible = false;
+            // 
+            // btnHasFlagFlags
+            // 
+            this.btnHasFlagFlags.Location = new System.Drawing.Point(100, 101);
+            this.btnHasFlagFlags.Name = "btnHasFlagFlags";
+            this.btnHasFlagFlags.Size = new System.Drawing.Size(536, 23);
+            this.btnHasFlagFlags.TabIndex = 8;
+            this.btnHasFlagFlags.Text = "-NONE-";
+            this.btnHasFlagFlags.UseVisualStyleBackColor = true;
+            this.btnHasFlagFlags.Click += new System.EventHandler(this.btnHasFlagFlags_Click);
             // 
             // cmbHasFlagFieldIndex
             // 
@@ -2076,22 +2107,22 @@
             this.frmConditionHasFlagTooltip.TabIndex = 0;
             this.frmConditionHasFlagTooltip.Text = "Returns true if the source WorldObject has any of the specified flags.";
             // 
-            // btnHasFlagFlags
+            // panel1
             // 
-            this.btnHasFlagFlags.Location = new System.Drawing.Point(100, 101);
-            this.btnHasFlagFlags.Name = "btnHasFlagFlags";
-            this.btnHasFlagFlags.Size = new System.Drawing.Size(536, 23);
-            this.btnHasFlagFlags.TabIndex = 8;
-            this.btnHasFlagFlags.Text = "-NONE-";
-            this.btnHasFlagFlags.UseVisualStyleBackColor = true;
-            this.btnHasFlagFlags.Click += new System.EventHandler(this.btnHasFlagFlags_Click);
+            this.panel1.Controls.Add(this.btnEditAdd);
+            this.panel1.Controls.Add(this.btnDelete);
+            this.panel1.Controls.Add(this.btnDescribe);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(286, 395);
+            this.panel1.TabIndex = 44;
             // 
             // FormConditionFinder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(674, 395);
             this.Controls.Add(this.frmConditionHasFlag);
-            this.Controls.Add(this.btnDescribe);
             this.Controls.Add(this.frmConditionLocalTime);
             this.Controls.Add(this.frmConditionDbGuid);
             this.Controls.Add(this.frmConditionAnd);
@@ -2118,27 +2149,22 @@
             this.Controls.Add(this.chkConditionFlag1);
             this.Controls.Add(this.txtConditionId);
             this.Controls.Add(this.btnSaveAll);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnEditAdd);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.cmbConditionType);
             this.Controls.Add(this.frmConditionNot);
             this.Controls.Add(this.lblNoSelection);
+            this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormConditionFinder";
             this.Text = "Condition Finder";
             this.ResizeEnd += new System.EventHandler(this.FormConditionFinder_ResizeEnd);
+            this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.txtSearch, 0);
             this.Controls.SetChildIndex(this.btnSearch, 0);
-            this.Controls.SetChildIndex(this.btnSelect, 0);
-            this.Controls.SetChildIndex(this.btnCancel, 0);
-            this.Controls.SetChildIndex(this.btnSelectUnchanged, 0);
             this.Controls.SetChildIndex(this.lblNoSelection, 0);
             this.Controls.SetChildIndex(this.frmConditionNot, 0);
             this.Controls.SetChildIndex(this.cmbConditionType, 0);
             this.Controls.SetChildIndex(this.btnSave, 0);
-            this.Controls.SetChildIndex(this.btnEditAdd, 0);
-            this.Controls.SetChildIndex(this.btnDelete, 0);
             this.Controls.SetChildIndex(this.btnSaveAll, 0);
             this.Controls.SetChildIndex(this.txtConditionId, 0);
             this.Controls.SetChildIndex(this.chkConditionFlag1, 0);
@@ -2153,7 +2179,6 @@
             this.Controls.SetChildIndex(this.frmConditionComparison, 0);
             this.Controls.SetChildIndex(this.frmConditionGameEvent, 0);
             this.Controls.SetChildIndex(this.lstData, 0);
-            this.Controls.SetChildIndex(this.btnSelectNone, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.frmConditionRaceClass, 0);
             this.Controls.SetChildIndex(this.frmConditionInstanceScript, 0);
@@ -2168,7 +2193,6 @@
             this.Controls.SetChildIndex(this.frmConditionAnd, 0);
             this.Controls.SetChildIndex(this.frmConditionDbGuid, 0);
             this.Controls.SetChildIndex(this.frmConditionLocalTime, 0);
-            this.Controls.SetChildIndex(this.btnDescribe, 0);
             this.Controls.SetChildIndex(this.frmConditionHasFlag, 0);
             this.frmConditionNot.ResumeLayout(false);
             this.frmConditionNot.PerformLayout();
@@ -2218,6 +2242,7 @@
             this.frmConditionLocalTime.PerformLayout();
             this.frmConditionHasFlag.ResumeLayout(false);
             this.frmConditionHasFlag.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2406,5 +2431,6 @@
         private System.Windows.Forms.Label lblHasFlagFieldIndex;
         private System.Windows.Forms.Label frmConditionHasFlagTooltip;
         private System.Windows.Forms.Button btnHasFlagFlags;
+        private System.Windows.Forms.Panel panel1;
     }
 }

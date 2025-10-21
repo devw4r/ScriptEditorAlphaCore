@@ -41,6 +41,9 @@ namespace ScriptEditor
         public static readonly List<ComboboxPair> LootStateNamesList = new List<ComboboxPair>();
         public static readonly List<ComboboxPair> GOStateNamesList = new List<ComboboxPair>();
         public static readonly List<ComboboxPair> ContentPatchesList = new List<ComboboxPair>();
+        public static readonly List<Waypoint> CreatureMovementList = new List<Waypoint>();
+        public static readonly List<Waypoint> CreatureMovementSpecialList = new List<Waypoint>();
+        public static readonly List<Waypoint> CreatureMovementTemplateList = new List<Waypoint>();
         public static readonly List<Tuple<string, uint>> GameObjectFlagsList = new List<Tuple<string, uint>>();
         public static readonly List<Tuple<string, uint>> GameObjectDynFlagsList = new List<Tuple<string, uint>>();
         public static readonly List<Tuple<string, uint>> UnitFieldFlagsList = new List<Tuple<string, uint>>();
@@ -162,7 +165,7 @@ namespace ScriptEditor
         {
             foreach (CreatureInfo creature in CreatureInfoList)
             {
-                if (creature.ID == id)
+                if (creature.Entry == id)
                     return creature.Name;
             }
 
@@ -296,7 +299,7 @@ namespace ScriptEditor
 
             return "";
         }
-        public static string FindSpellEffectName(uint id)
+        public static string FindSpellEffectName(int id)
         {
             foreach (ComboboxPair spell in SpellEffectNamesList)
             {
@@ -494,7 +497,7 @@ namespace ScriptEditor
 
             MySqlConnection conn = new MySqlConnection(connString);
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `MinLevel`, `QuestLevel`, `Title` FROM `quest_template` t1 WHERE `patch`=(SELECT max(`patch`) FROM `quest_template` t2 WHERE t1.`entry`=t2.`entry`) ORDER BY `entry`";
+            command.CommandText = "SELECT `entry`, `MinLevel`, `QuestLevel`, `Title` FROM `quest_template` ORDER BY `entry`";
             try
             {
                 conn.Open();
@@ -519,7 +522,7 @@ namespace ScriptEditor
 
             MySqlConnection conn = new MySqlConnection(connString);
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `type`, `displayId`, `name` FROM `gameobject_template` t1 WHERE `patch`=(SELECT max(`patch`) FROM `gameobject_template` t2 WHERE t1.`entry`=t2.`entry`) ORDER BY `entry`";
+            command.CommandText = "SELECT `entry`, `type`, `displayId`, `name` FROM `gameobject_template` t1 ORDER BY `entry`";
             try
             {
                 conn.Open();
@@ -544,7 +547,7 @@ namespace ScriptEditor
 
             MySqlConnection conn = new MySqlConnection(connString);
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `level_min`, `level_max`, `rank`, `name`, `spell_list_id` FROM `creature_template` t1 WHERE `patch`=(SELECT max(`patch`) FROM `creature_template` t2 WHERE t1.`entry`=t2.`entry`) ORDER BY `entry`";
+            command.CommandText = "SELECT entry, level_min, level_max, `rank`, spell_list_id, name, IFNULL(subname, '') as subname, display_id1, display_id2, display_id3, display_id4, mount_display_id FROM `creature_template` ORDER BY `entry`";
             try
             {
                 conn.Open();
@@ -553,7 +556,11 @@ namespace ScriptEditor
                 while (reader.Read())
                 {
                     // Add the new creature entry to the list.
-                    CreatureInfoList.Add(new CreatureInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetUInt32(3), reader.GetUInt32(5), reader.GetString(4)));
+                    CreatureInfoList.Add(new CreatureInfo(reader.GetUInt32("entry"), reader.GetUInt32("level_min"), reader.GetUInt32("level_max"),
+                                                                  reader.GetUInt32("rank"), reader.GetUInt32("spell_list_id"), reader.GetString("name"),
+                                                                  reader.GetString("subname"), reader.GetUInt32("display_id1"), reader.GetUInt32("display_id2"),
+                                                                  reader.GetUInt32("display_id3"), reader.GetUInt32("display_id4"), reader.GetUInt32("mount_display_id")
+                                                                  ));
                 }
                 reader.Close();
             }
@@ -692,7 +699,7 @@ namespace ScriptEditor
 
             MySqlConnection conn = new MySqlConnection(connString);
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `effect1`, `effect2`, `effect3`, `name`, `description` FROM `spell_template` t1 WHERE `build`=(SELECT max(`build`) FROM `spell_template` t2 WHERE t1.`entry`=t2.`entry` && `build` <= 5875) ORDER BY `entry`";
+            command.CommandText = "SELECT `ID`, `EffectMiscValue_1`, `EffectMiscValue_2`, `EffectMiscValue_3`, `Name_enUS`, `Description_enUS` FROM `Spell` ORDER BY `ID`";
             try
             {
                 conn.Open();
@@ -701,7 +708,7 @@ namespace ScriptEditor
                 while (reader.Read())
                 {
                     // Add the spell entry to the list.
-                    SpellInfoList.Add(new SpellInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2), reader.GetUInt32(3), reader.GetString(4), reader.GetString(5)));
+                    SpellInfoList.Add(new SpellInfo(reader.GetUInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetString(4), reader.GetString(5)));
                 }
                 reader.Close();
             }
@@ -717,7 +724,7 @@ namespace ScriptEditor
 
             MySqlConnection conn = new MySqlConnection(connString);
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `entry`, `required_level`, `item_level`, `inventory_type`, `display_id`, `name` FROM `item_template` t1 WHERE `patch`=(SELECT max(`patch`) FROM `item_template` t2 WHERE t1.`entry`=t2.`entry`) ORDER BY `entry`";
+            command.CommandText = "SELECT `entry`, `required_level`, `item_level`, `inventory_type`, `display_id`, `name` FROM `item_template` ORDER BY `entry`";
             try
             {
                 conn.Open();
@@ -793,6 +800,65 @@ namespace ScriptEditor
             }
             conn.Close();
         }
+        public static void LoadCreatureMovement(string connString)
+        {
+            CreatureMovementList.Clear();
+
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand command = conn.CreateCommand();
+            command.CommandText = "SELECT id, point, position_x, position_y, position_z, orientation, waittime, wander_distance, script_id FROM creature_movement";
+            try
+            {
+                conn.Open();
+                using (MySqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        CreatureMovementList.Add(new Waypoint(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetFloat(2), reader.GetFloat(3), reader.GetFloat(4), reader.GetFloat(5), reader.GetUInt32(6), reader.GetFloat(7), reader.GetUInt32(8)));
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
+            }
+        }
+        public static void LoadCreatureMovementSpecial(string connString)
+        {
+            CreatureMovementSpecialList.Clear();
+
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand command = conn.CreateCommand();
+            command.CommandText = "SELECT id, point, position_x, position_y, position_z, orientation, waittime, wander_distance, script_id FROM creature_movement_special";
+            try
+            {
+                conn.Open();
+                using (MySqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        CreatureMovementSpecialList.Add(new Waypoint(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetFloat(2), reader.GetFloat(3), reader.GetFloat(4), reader.GetFloat(5), reader.GetUInt32(6), reader.GetFloat(7), reader.GetUInt32(8)));
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
+            }
+        }
+
+        public static void LoadCreatureMovementTemplate(string connString)
+        {
+            CreatureMovementTemplateList.Clear();
+
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand command = conn.CreateCommand();
+            command.CommandText = "SELECT entry, point, position_x, position_y, position_z, orientation, waittime, wander_distance, script_id FROM creature_movement_template";
+            try
+            {
+                conn.Open();
+                using (MySqlDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        CreatureMovementTemplateList.Add(new Waypoint(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetFloat(2), reader.GetFloat(3), reader.GetFloat(4), reader.GetFloat(5), reader.GetUInt32(6), reader.GetFloat(7), reader.GetUInt32(8)));
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
+            }
+        }
+
         public static void LoadSounds(string connString)
         {
             SoundInfoList.Clear();
@@ -824,7 +890,7 @@ namespace ScriptEditor
 
             MySqlConnection conn = new MySqlConnection(connString);
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `id`, `reputation_list_id`, `team`, `name`, `description` FROM `faction` t1 WHERE `build`=(SELECT max(`build`) FROM `faction` t2 WHERE t1.`id`=t2.`id` && `build` <= 5875) ORDER BY `id`";
+            command.CommandText = "SELECT `id`, `Name_enUS` AS name FROM `Faction` ORDER BY `id`";
             try
             {
                 conn.Open();
@@ -833,7 +899,7 @@ namespace ScriptEditor
                 while (reader.Read())
                 {
                     // Add the new faction entry to the list.
-                    FactionInfoList.Add(new FactionInfo(reader.GetUInt32(0), reader.GetInt32(1), reader.GetUInt32(2), reader.GetString(3), reader.GetString(4)));
+                    FactionInfoList.Add(new FactionInfo(reader.GetUInt32(0), 0, 0, reader.GetString(1), ""));
                 }
                 reader.Close();
             }
@@ -849,7 +915,7 @@ namespace ScriptEditor
 
             MySqlConnection conn = new MySqlConnection(connString);
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "SELECT `id`, `faction_id`, `faction_flags` FROM `faction_template` t1 WHERE `build`=(SELECT max(`build`) FROM `faction_template` t2 WHERE t1.`id`=t2.`id` && `build` <= 5875) ORDER BY `id`";
+            command.CommandText = "SELECT `id`, `Faction` AS faction_id FROM `FactionTemplate` ORDER BY `id`";
             try
             {
                 conn.Open();
@@ -858,7 +924,7 @@ namespace ScriptEditor
                 while (reader.Read())
                 {
                     // Add the new faction template entry to the list.
-                    FactionTemplateInfoList.Add(new FactionTemplateInfo(reader.GetUInt32(0), reader.GetUInt32(1), reader.GetUInt32(2)));
+                    FactionTemplateInfoList.Add(new FactionTemplateInfo(reader.GetUInt32(0), reader.GetUInt32(1), 0));
                 }
                 reader.Close();
             }
@@ -2782,31 +2848,43 @@ namespace ScriptEditor
     }
     public struct CreatureInfo
     {
-        public uint ID;
+        public uint Entry { get; set; }
+        public string Name { get; set; }
+        public string Subname;
+        public uint Display_id1;
+        public uint Display_id2;
+        public uint Display_id3;
+        public uint Display_id4;
+        public uint Mount_display_id;
         public uint MinLevel;
         public uint MaxLevel;
         public uint Rank;
         public uint SpellListId;
-        public string Name;
-        public CreatureInfo(uint id, uint minlevel, uint maxlevel, uint rank, uint spelllistid, string name)
+        public CreatureInfo(uint entry, uint minlevel, uint maxlevel, uint rank, uint spelllistid, string name, string subname, uint display_id1, uint display_id2, uint display_id3, uint display_id4, uint mount_display_id)
         {
-            ID = id;
+            Entry = entry;
             Name = name;
+            Subname = subname;
             MinLevel = minlevel;
             MaxLevel = maxlevel;
             Rank = rank;
             SpellListId = spelllistid;
+            Display_id1 = display_id1;
+            Display_id2 = display_id2;
+            Display_id3 = display_id3;
+            Display_id4 = display_id4;
+            Mount_display_id = mount_display_id;
         }
     }
     public struct SpellInfo
     {
         public uint ID;
-        public uint Effect1;
-        public uint Effect2;
-        public uint Effect3;
+        public int Effect1;
+        public int Effect2;
+        public int Effect3;
         public string Name;
         public string Description;
-        public SpellInfo(uint id, uint effect1, uint effect2, uint effect3, string name, string description)
+        public SpellInfo(uint id, int effect1, int effect2, int effect3, string name, string description)
         {
             ID = id;
             Effect1 = effect1;
@@ -2993,5 +3071,43 @@ namespace ScriptEditor
         }
     }
 
-    
+    public class Waypoint
+    {
+        public uint Id;
+        public uint Point;
+        public float Position_x;
+        public float Position_y;
+        public float Position_z;
+        public float Orientation;
+        public uint Waittime;
+        public float Wander_distance;
+        public uint Script_id;
+
+        public Waypoint(uint id, uint point, float position_x, float position_y, float position_z, float orientation, uint waittime, float wander_distance, uint script_id)
+        {
+            Id = id;
+            Point = point;
+            Position_x = position_x;
+            Position_y = position_y;
+            Position_z = position_z;
+            Orientation = orientation;
+            Waittime = waittime;
+            Wander_distance = wander_distance;
+            Script_id = script_id;
+        }
+
+        public Waypoint(uint id, uint point)
+        {
+            Id = id;
+            Point = point;
+            Position_x = 0;
+            Position_y = 0;
+            Position_z = 0;
+            Orientation = 0;
+            Waittime = 0;
+            Wander_distance = 0;
+            Script_id = 0;
+        }
+    }
+
 }

@@ -78,6 +78,7 @@
             this.tsmiFlagsNpcStatic1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFlagsNpcStatic2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFlagsNpcExtra = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiWaypoints = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.picScriptEditor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picEventEditor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picGitLink)).BeginInit();
@@ -174,33 +175,34 @@
             this.tsmiScripts,
             this.tsmiCreatureEvents,
             this.tsmiCreatureSpells,
-            this.tsmiConditions});
+            this.tsmiConditions,
+            this.tsmiWaypoints});
             this.tsmiEditors.Name = "tsmiEditors";
-            this.tsmiEditors.Size = new System.Drawing.Size(52, 20);
+            this.tsmiEditors.Size = new System.Drawing.Size(55, 20);
             this.tsmiEditors.Text = "Editors";
             // 
             // tsmiScripts
             // 
             this.tsmiScripts.Name = "tsmiScripts";
-            this.tsmiScripts.Size = new System.Drawing.Size(153, 22);
+            this.tsmiScripts.Size = new System.Drawing.Size(180, 22);
             this.tsmiScripts.Text = "Scripts";
             // 
             // tsmiCreatureEvents
             // 
             this.tsmiCreatureEvents.Name = "tsmiCreatureEvents";
-            this.tsmiCreatureEvents.Size = new System.Drawing.Size(153, 22);
+            this.tsmiCreatureEvents.Size = new System.Drawing.Size(180, 22);
             this.tsmiCreatureEvents.Text = "Creature Events";
             // 
             // tsmiCreatureSpells
             // 
             this.tsmiCreatureSpells.Name = "tsmiCreatureSpells";
-            this.tsmiCreatureSpells.Size = new System.Drawing.Size(153, 22);
+            this.tsmiCreatureSpells.Size = new System.Drawing.Size(180, 22);
             this.tsmiCreatureSpells.Text = "Creature Spells";
             // 
             // tsmiConditions
             // 
             this.tsmiConditions.Name = "tsmiConditions";
-            this.tsmiConditions.Size = new System.Drawing.Size(153, 22);
+            this.tsmiConditions.Size = new System.Drawing.Size(180, 22);
             this.tsmiConditions.Text = "Conditions";
             // 
             // tsmiFinders
@@ -219,79 +221,79 @@
             this.tsmiTaxiFinder,
             this.tsmiTextFinder});
             this.tsmiFinders.Name = "tsmiFinders";
-            this.tsmiFinders.Size = new System.Drawing.Size(54, 20);
+            this.tsmiFinders.Size = new System.Drawing.Size(57, 20);
             this.tsmiFinders.Text = "Finders";
             // 
             // tsmiAreaFinder
             // 
             this.tsmiAreaFinder.Name = "tsmiAreaFinder";
-            this.tsmiAreaFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiAreaFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiAreaFinder.Text = "Area";
             // 
             // tsmiCreatureFinder
             // 
             this.tsmiCreatureFinder.Name = "tsmiCreatureFinder";
-            this.tsmiCreatureFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiCreatureFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiCreatureFinder.Text = "Creature";
             // 
             // tsmiEventFinder
             // 
             this.tsmiEventFinder.Name = "tsmiEventFinder";
-            this.tsmiEventFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiEventFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiEventFinder.Text = "Event Finder";
             // 
             // tsmiFactionFinder
             // 
             this.tsmiFactionFinder.Name = "tsmiFactionFinder";
-            this.tsmiFactionFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiFactionFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiFactionFinder.Text = "Faction";
             // 
             // tsmiFactionTemplateFinder
             // 
             this.tsmiFactionTemplateFinder.Name = "tsmiFactionTemplateFinder";
-            this.tsmiFactionTemplateFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiFactionTemplateFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiFactionTemplateFinder.Text = "Faction Template";
             // 
             // tsmiGameObjectFinder
             // 
             this.tsmiGameObjectFinder.Name = "tsmiGameObjectFinder";
-            this.tsmiGameObjectFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiGameObjectFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiGameObjectFinder.Text = "Game Object";
             // 
             // tsmiItemFinder
             // 
             this.tsmiItemFinder.Name = "tsmiItemFinder";
-            this.tsmiItemFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiItemFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiItemFinder.Text = "Item";
             // 
             // tsmiQuestFinder
             // 
             this.tsmiQuestFinder.Name = "tsmiQuestFinder";
-            this.tsmiQuestFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiQuestFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiQuestFinder.Text = "Quest";
             // 
             // tsmiSoundFinder
             // 
             this.tsmiSoundFinder.Name = "tsmiSoundFinder";
-            this.tsmiSoundFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiSoundFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiSoundFinder.Text = "Sound";
             // 
             // tsmiSpellFinder
             // 
             this.tsmiSpellFinder.Name = "tsmiSpellFinder";
-            this.tsmiSpellFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiSpellFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiSpellFinder.Text = "Spell";
             // 
             // tsmiTaxiFinder
             // 
             this.tsmiTaxiFinder.Name = "tsmiTaxiFinder";
-            this.tsmiTaxiFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiTaxiFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiTaxiFinder.Text = "Taxi";
             // 
             // tsmiTextFinder
             // 
             this.tsmiTextFinder.Name = "tsmiTextFinder";
-            this.tsmiTextFinder.Size = new System.Drawing.Size(156, 22);
+            this.tsmiTextFinder.Size = new System.Drawing.Size(164, 22);
             this.tsmiTextFinder.Text = "Broadcast Text";
             // 
             // tsmiHelpers
@@ -299,7 +301,7 @@
             this.tsmiHelpers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiFlags});
             this.tsmiHelpers.Name = "tsmiHelpers";
-            this.tsmiHelpers.Size = new System.Drawing.Size(55, 20);
+            this.tsmiHelpers.Size = new System.Drawing.Size(59, 20);
             this.tsmiHelpers.Text = "Helpers";
             // 
             // tsmiFlags
@@ -329,143 +331,149 @@
             this.tsmiFlagsNpcStatic2,
             this.tsmiFlagsNpcExtra});
             this.tsmiFlags.Name = "tsmiFlags";
-            this.tsmiFlags.Size = new System.Drawing.Size(99, 22);
+            this.tsmiFlags.Size = new System.Drawing.Size(101, 22);
             this.tsmiFlags.Text = "Flags";
             // 
             // tsmiFlagsGeneric
             // 
             this.tsmiFlagsGeneric.Name = "tsmiFlagsGeneric";
-            this.tsmiFlagsGeneric.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsGeneric.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsGeneric.Text = "Generic";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(200, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(215, 6);
             // 
             // tsmiFlagsGameObjectUF
             // 
             this.tsmiFlagsGameObjectUF.Name = "tsmiFlagsGameObjectUF";
-            this.tsmiFlagsGameObjectUF.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsGameObjectUF.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsGameObjectUF.Text = "Game Object Flags (UF)";
             // 
             // tsmiFlagsGameObjectDynUF
             // 
             this.tsmiFlagsGameObjectDynUF.Name = "tsmiFlagsGameObjectDynUF";
-            this.tsmiFlagsGameObjectDynUF.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsGameObjectDynUF.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsGameObjectDynUF.Text = "Game Object Dynamic (UF)";
             // 
             // tsmiFlagsUnitUF
             // 
             this.tsmiFlagsUnitUF.Name = "tsmiFlagsUnitUF";
-            this.tsmiFlagsUnitUF.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsUnitUF.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsUnitUF.Text = "Unit (UF)";
             // 
             // tsmiFlagsUnitDynamicUF
             // 
             this.tsmiFlagsUnitDynamicUF.Name = "tsmiFlagsUnitDynamicUF";
-            this.tsmiFlagsUnitDynamicUF.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsUnitDynamicUF.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsUnitDynamicUF.Text = "Unit Dynamic (UF)";
             // 
             // tsmiFlagsNpcUF
             // 
             this.tsmiFlagsNpcUF.Name = "tsmiFlagsNpcUF";
-            this.tsmiFlagsNpcUF.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsNpcUF.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsNpcUF.Text = "NPC (UF)";
             // 
             // tsmiFlagsPlayerUF
             // 
             this.tsmiFlagsPlayerUF.Name = "tsmiFlagsPlayerUF";
-            this.tsmiFlagsPlayerUF.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsPlayerUF.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsPlayerUF.Text = "Player (UF)";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(200, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(215, 6);
             // 
             // tsmiFlagsSpellAttributes
             // 
             this.tsmiFlagsSpellAttributes.Name = "tsmiFlagsSpellAttributes";
-            this.tsmiFlagsSpellAttributes.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsSpellAttributes.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsSpellAttributes.Text = "Spell Attributes";
             // 
             // tsmiFlagsSpellAttributesEx
             // 
             this.tsmiFlagsSpellAttributesEx.Name = "tsmiFlagsSpellAttributesEx";
-            this.tsmiFlagsSpellAttributesEx.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsSpellAttributesEx.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsSpellAttributesEx.Text = "Spell AttributesEx";
             // 
             // tsmiFlagsSpellAttributesEx2
             // 
             this.tsmiFlagsSpellAttributesEx2.Name = "tsmiFlagsSpellAttributesEx2";
-            this.tsmiFlagsSpellAttributesEx2.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsSpellAttributesEx2.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsSpellAttributesEx2.Text = "Spell AttributesEx2";
             // 
             // tsmiFlagsSpellAttributesEx3
             // 
             this.tsmiFlagsSpellAttributesEx3.Name = "tsmiFlagsSpellAttributesEx3";
-            this.tsmiFlagsSpellAttributesEx3.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsSpellAttributesEx3.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsSpellAttributesEx3.Text = "Spell AttributesEx3";
             // 
             // tsmiFlagsSpellAttributesEx4
             // 
             this.tsmiFlagsSpellAttributesEx4.Name = "tsmiFlagsSpellAttributesEx4";
-            this.tsmiFlagsSpellAttributesEx4.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsSpellAttributesEx4.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsSpellAttributesEx4.Text = "Spell AttributesEx4";
             // 
             // tsmiFlagsSpellMechanic
             // 
             this.tsmiFlagsSpellMechanic.Name = "tsmiFlagsSpellMechanic";
-            this.tsmiFlagsSpellMechanic.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsSpellMechanic.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsSpellMechanic.Text = "Spell Mechanic";
             // 
             // tsmiFlagsSpellProc
             // 
             this.tsmiFlagsSpellProc.Name = "tsmiFlagsSpellProc";
-            this.tsmiFlagsSpellProc.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsSpellProc.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsSpellProc.Text = "Spell Proc";
             // 
             // tsmiFlagsSpellProcEx
             // 
             this.tsmiFlagsSpellProcEx.Name = "tsmiFlagsSpellProcEx";
-            this.tsmiFlagsSpellProcEx.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsSpellProcEx.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsSpellProcEx.Text = "Spell Proc Ex";
             // 
             // tsmiFlagsSpellSchool
             // 
             this.tsmiFlagsSpellSchool.Name = "tsmiFlagsSpellSchool";
-            this.tsmiFlagsSpellSchool.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsSpellSchool.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsSpellSchool.Text = "Spell School";
             // 
             // tsmiFlagsShapeshiftMask
             // 
             this.tsmiFlagsShapeshiftMask.Name = "tsmiFlagsShapeshiftMask";
-            this.tsmiFlagsShapeshiftMask.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsShapeshiftMask.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsShapeshiftMask.Text = "Spell Shapeshift Form";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(200, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(215, 6);
             // 
             // tsmiFlagsNpcStatic1
             // 
             this.tsmiFlagsNpcStatic1.Name = "tsmiFlagsNpcStatic1";
-            this.tsmiFlagsNpcStatic1.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsNpcStatic1.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsNpcStatic1.Text = "Creature Static Flags 1";
             // 
             // tsmiFlagsNpcStatic2
             // 
             this.tsmiFlagsNpcStatic2.Name = "tsmiFlagsNpcStatic2";
-            this.tsmiFlagsNpcStatic2.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsNpcStatic2.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsNpcStatic2.Text = "Creature Static Flags 2";
             // 
             // tsmiFlagsNpcExtra
             // 
             this.tsmiFlagsNpcExtra.Name = "tsmiFlagsNpcExtra";
-            this.tsmiFlagsNpcExtra.Size = new System.Drawing.Size(203, 22);
+            this.tsmiFlagsNpcExtra.Size = new System.Drawing.Size(218, 22);
             this.tsmiFlagsNpcExtra.Text = "Creature Extra Flags";
+            // 
+            // tsmiWaypoints
+            // 
+            this.tsmiWaypoints.Name = "tsmiWaypoints";
+            this.tsmiWaypoints.Size = new System.Drawing.Size(180, 22);
+            this.tsmiWaypoints.Text = "Waypoints";
             // 
             // Form1
             // 
@@ -550,5 +558,6 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiFlagsNpcStatic1;
         private System.Windows.Forms.ToolStripMenuItem tsmiFlagsNpcStatic2;
         private System.Windows.Forms.ToolStripMenuItem tsmiFlagsNpcExtra;
+        private System.Windows.Forms.ToolStripMenuItem tsmiWaypoints;
     }
 }

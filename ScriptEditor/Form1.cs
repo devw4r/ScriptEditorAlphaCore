@@ -37,6 +37,7 @@ namespace ScriptEditor
             tsmiCreatureEvents.Click += picEventEditor_Click;
             tsmiCreatureSpells.Click += picCastsEditor_Click;
             tsmiConditions.Click += picConditionEditor_Click;
+            tsmiWaypoints.Click += picWaypointsEditor_Click;
 
             // Finders
             tsmiAreaFinder.Click += (sender, e) =>
@@ -286,6 +287,12 @@ namespace ScriptEditor
         {
             FormConditionFinder editor = new FormConditionFinder();
             editor.ShowStandalone();
+        }
+
+        private void picWaypointsEditor_Click(object sender, EventArgs e)
+        {
+            FormWaypointEditor editor = new FormWaypointEditor();
+            editor.Show();
         }
     }
 }

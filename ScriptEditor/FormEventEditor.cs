@@ -686,7 +686,7 @@ namespace ScriptEditor
             ResetEditorForm();
             ScriptIdsList.Clear();
 
-            MySqlConnection conn = new MySqlConnection(Program.connString);
+            MySqlConnection conn = new MySqlConnection(Program.worldConnString);
             MySqlCommand command = conn.CreateCommand();
             command.CommandText = "SELECT id, creature_id, condition_id, event_type, event_inverse_phase_mask, event_chance, event_flags, event_param1, event_param2, event_param3, event_param4, action1_script, action2_script, action3_script, comment FROM creature_ai_events WHERE creature_id=" + creature_id.ToString() + " ORDER BY id";
             try
@@ -1226,7 +1226,7 @@ namespace ScriptEditor
                 string query = GenerateSaveQuery();
                 if (Helpers.ShowSaveDialog(ref query) == DialogResult.OK)
                 {
-                    MySqlConnection conn = new MySqlConnection(Program.connString);
+                    MySqlConnection conn = new MySqlConnection(Program.worldConnString);
                     MySqlCommand command = conn.CreateCommand();
                     command.CommandText = query;
                     try

@@ -25,7 +25,7 @@ namespace ScriptEditor
         {
             foreach (CreatureInfo creature in GameData.CreatureInfoList)
             {
-                if (creature.ID == id)
+                if (creature.Entry == id)
                     AddCreatureToListView(creature);
             }
         }
@@ -33,7 +33,7 @@ namespace ScriptEditor
         {
             foreach (CreatureInfo creature in GameData.CreatureInfoList)
             {
-                if ((creature.ID >= minId) && (creature.ID <= maxId))
+                if ((creature.Entry >= minId) && (creature.Entry <= maxId))
                     AddCreatureToListView(creature);
             }
         }
@@ -48,7 +48,7 @@ namespace ScriptEditor
         private void AddCreatureToListView(CreatureInfo creature)
         {
             ListViewItem lvi = new ListViewItem();
-            lvi.Text = creature.ID.ToString();
+            lvi.Text = creature.Entry.ToString();
             if (creature.MinLevel != creature.MaxLevel)
                 lvi.SubItems.Add(creature.MinLevel.ToString() + " - " + creature.MaxLevel.ToString());
             else

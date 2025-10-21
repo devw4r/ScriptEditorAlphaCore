@@ -325,7 +325,7 @@ namespace ScriptEditor
             {
                 if (creature.SpellListId == lbi.Id)
                 {
-                    cmbUsedBy.Items.Add(creature.Name + " (" + creature.ID + ")");
+                    cmbUsedBy.Items.Add(creature.Name + " (" + creature.Entry + ")");
                 }
             }
 
@@ -535,7 +535,7 @@ namespace ScriptEditor
             string query = GenerateSaveTemplateQuery(selectedItem.Template);
             if (Helpers.ShowSaveDialog(ref query) == DialogResult.OK)
             {
-                MySqlConnection conn = new MySqlConnection(Program.connString);
+                MySqlConnection conn = new MySqlConnection(Program.worldConnString);
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = query;
                 try
@@ -598,7 +598,7 @@ namespace ScriptEditor
 
             if (Helpers.ShowSaveDialog(ref query) == DialogResult.OK)
             {
-                MySqlConnection conn = new MySqlConnection(Program.connString);
+                MySqlConnection conn = new MySqlConnection(Program.worldConnString);
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = query;
                 try

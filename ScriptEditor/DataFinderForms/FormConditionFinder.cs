@@ -1538,21 +1538,8 @@ namespace ScriptEditor
 
                 lstData.Width = this.Size.Width - 32;
                 lstData.Height = this.Size.Height - lstData.Location.Y - 5 - (this.Size.Height - txtConditionId.Location.Y);
-                btnCancel.Location = new Point(this.Size.Width - btnCancel.Size.Width - 20, frmConditionUnknown.Location.Y + frmConditionUnknown.Size.Height + 5);
-                btnSelect.Location = new Point(btnCancel.Location.X - btnSelect.Size.Width - 6, btnCancel.Location.Y);
-                btnSelectNone.Location = new Point(btnSelect.Location.X - btnSelectNone.Size.Width - 6, btnCancel.Location.Y);
-                btnEditAdd.Location = new Point(btnEditAdd.Location.X, btnCancel.Location.Y);
-                btnDelete.Location = new Point(btnDelete.Location.X, btnCancel.Location.Y);
-                btnDescribe.Location = new Point(btnDescribe.Location.X, btnCancel.Location.Y);
                 btnSearch.Location = new Point(lstData.Size.Width + lstData.Location.X - btnSearch.Size.Width, btnSearch.Location.Y);
                 txtSearch.Width = btnSearch.Location.X - txtSearch.Location.X - 7;
-                btnSelectUnchanged.Location = new Point(btnSelectNone.Location.X - btnSelectUnchanged.Size.Width - 6, btnCancel.Location.Y);
-            }
-            else
-            {
-                btnEditAdd.Location = new Point(btnEditAdd.Location.X, lstData.Location.Y + lstData.Height + 6);
-                btnDelete.Location = new Point(btnDelete.Location.X, lstData.Location.Y + lstData.Height + 6);
-                btnDescribe.Location = new Point(btnDescribe.Location.X, lstData.Location.Y + lstData.Height + 6);
             }
 
             lstData.Columns[1].Width = lstData.ClientSize.Width - lstData.Columns[0].Width - lstData.Columns[2].Width - lstData.Columns[3].Width - lstData.Columns[4].Width - lstData.Columns[5].Width - lstData.Columns[6].Width;
@@ -1939,7 +1926,7 @@ namespace ScriptEditor
         {
             if (Helpers.ShowSaveDialog(ref query) == DialogResult.OK)
             {
-                MySqlConnection conn = new MySqlConnection(Program.connString);
+                MySqlConnection conn = new MySqlConnection(Program.worldConnString);
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = query;
                 try
@@ -2004,7 +1991,7 @@ namespace ScriptEditor
 
             if (Helpers.ShowSaveDialog(ref query) == DialogResult.OK)
             {
-                MySqlConnection conn = new MySqlConnection(Program.connString);
+                MySqlConnection conn = new MySqlConnection(Program.worldConnString);
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = query;
                 try
