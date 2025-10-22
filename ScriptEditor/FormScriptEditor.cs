@@ -173,30 +173,28 @@ namespace ScriptEditor
             cmbTargetType.Items.Add(new ComboboxPair("Last on Threat", 3));
             cmbTargetType.Items.Add(new ComboboxPair("Random Attacker", 4));
             cmbTargetType.Items.Add(new ComboboxPair("Random Not Top", 5));
-            cmbTargetType.Items.Add(new ComboboxPair("Nearest", 6));
-            cmbTargetType.Items.Add(new ComboboxPair("Farthest", 7));
-            cmbTargetType.Items.Add(new ComboboxPair("Owner or Source", 8));
-            cmbTargetType.Items.Add(new ComboboxPair("Owner of Source", 9));
-            cmbTargetType.Items.Add(new ComboboxPair("Creature Entry", 10));
-            cmbTargetType.Items.Add(new ComboboxPair("Creature GUID", 11));
-            cmbTargetType.Items.Add(new ComboboxPair("Creature Instance Data", 12));
-            cmbTargetType.Items.Add(new ComboboxPair("Gameobject Entry", 13));
-            cmbTargetType.Items.Add(new ComboboxPair("Gameobject GUID", 14));
-            cmbTargetType.Items.Add(new ComboboxPair("Gameobject Instance Data", 15));
-            cmbTargetType.Items.Add(new ComboboxPair("Nearby Friendly", 16));
-            cmbTargetType.Items.Add(new ComboboxPair("Injured Friendly", 17));
-            cmbTargetType.Items.Add(new ComboboxPair("Injured Not Self", 18));
-            cmbTargetType.Items.Add(new ComboboxPair("Friendly Missing Buff", 19));
-            cmbTargetType.Items.Add(new ComboboxPair("Missing Buff Not Self", 20));
-            cmbTargetType.Items.Add(new ComboboxPair("Friendly CC-ed", 21));
-            cmbTargetType.Items.Add(new ComboboxPair("Map Event Source", 22));
-            cmbTargetType.Items.Add(new ComboboxPair("Map Event Target", 23));
-            cmbTargetType.Items.Add(new ComboboxPair("Map Event Additional", 24));
-            cmbTargetType.Items.Add(new ComboboxPair("Nearest Player", 25));
-            cmbTargetType.Items.Add(new ComboboxPair("Nearest Hostile Player", 26));
-            cmbTargetType.Items.Add(new ComboboxPair("Nearest Friendly Player", 27));
-            cmbTargetType.Items.Add(new ComboboxPair("Random Creature", 28));
-            cmbTargetType.Items.Add(new ComboboxPair("Random Gameobject", 29));
+            cmbTargetType.Items.Add(new ComboboxPair("Owner or Source", 6));
+            cmbTargetType.Items.Add(new ComboboxPair("Owner of Source", 7));
+            cmbTargetType.Items.Add(new ComboboxPair("Creature Entry", 8));
+            cmbTargetType.Items.Add(new ComboboxPair("Creature GUID", 9));
+            cmbTargetType.Items.Add(new ComboboxPair("Creature Instance Data", 10));
+            cmbTargetType.Items.Add(new ComboboxPair("Gameobject Entry", 11));
+            cmbTargetType.Items.Add(new ComboboxPair("Gameobject GUID", 12));
+            cmbTargetType.Items.Add(new ComboboxPair("Gameobject Instance Data", 13));
+            cmbTargetType.Items.Add(new ComboboxPair("Nearby Friendly", 14));
+            cmbTargetType.Items.Add(new ComboboxPair("Injured Friendly", 15));
+            cmbTargetType.Items.Add(new ComboboxPair("Injured Not Self", 16));
+            cmbTargetType.Items.Add(new ComboboxPair("Friendly Missing Buff", 17));
+            cmbTargetType.Items.Add(new ComboboxPair("Missing Buff Not Self", 18));
+            cmbTargetType.Items.Add(new ComboboxPair("Friendly CC-ed", 19));
+            cmbTargetType.Items.Add(new ComboboxPair("Map Event Source", 20));
+            cmbTargetType.Items.Add(new ComboboxPair("Map Event Target", 21));
+            cmbTargetType.Items.Add(new ComboboxPair("Map Event Additional", 22));
+            cmbTargetType.Items.Add(new ComboboxPair("Nearest Player", 23));
+            cmbTargetType.Items.Add(new ComboboxPair("Nearest Hostile Player", 24));
+            cmbTargetType.Items.Add(new ComboboxPair("Nearest Friendly Player", 25));
+            cmbTargetType.Items.Add(new ComboboxPair("Random Creature", 26));
+            cmbTargetType.Items.Add(new ComboboxPair("Random Gameobject", 27));
             cmbTargetType.SelectedIndex = 0;
 
             // Add chat types to combo box.
@@ -2459,127 +2457,125 @@ namespace ScriptEditor
                 case 3: // Last Aggro
                 case 4: // Random
                 case 5: // Random Not Top
-                case 6: // Nearest
-                case 7: // Farthest
-                {
-                    lblTargetParam1.Text = "Flags:";
-                    lblTargetParam2.Text = "N/A:";
-                    txtTargetParam1.Text = "";
-                    txtTargetParam1.Enabled = false;
-                    btnTargetParam1.Visible = true;
-                    SetScriptFieldFromValue(0, "TargetParam2");
-                    txtTargetParam2.Text = "";
-                    txtTargetParam2.Enabled = false;
-                    break;
-                }
+                    {
+                        lblTargetParam1.Text = "Flags:";
+                        lblTargetParam2.Text = "N/A:";
+                        txtTargetParam1.Text = "";
+                        txtTargetParam1.Enabled = false;
+                        btnTargetParam1.Visible = true;
+                        SetScriptFieldFromValue(0, "TargetParam2");
+                        txtTargetParam2.Text = "";
+                        txtTargetParam2.Enabled = false;
+                        break;
+                    }
                 case 0: // Provided Target
                 case 1: // Current Victim
-                case 8: // Owner or Self
-                case 9: // Owner
-                {
-                    lblTargetParam1.Text = "N/A:";
-                    lblTargetParam2.Text = "N/A:";
-                    SetScriptFieldFromValue(0, "TargetParam1");
-                    txtTargetParam1.Text = "";
-                    txtTargetParam1.Enabled = false;
-                    SetScriptFieldFromValue(0, "TargetParam2");
-                    txtTargetParam2.Text = "";
-                    txtTargetParam2.Enabled = false;
-                    break;
-                }
-                case 10: // Nearest Creature with Entry
-                case 13: // Nearest GameObject with Entry
-                case 28: // Random Creature with Entry
-                case 29: // Random GameObject with Entry
-                {
-                    
-                    lblTargetParam1.Text = "Entry:";
-                    lblTargetParam2.Text = "Radius:";
-                    btnTargetParam1.Visible = true;
-                    txtTargetParam1.Enabled = false;
-                    txtTargetParam2.Enabled = true;
-                    break;
-                }
-                case 11: // Creature GUID
-                case 14: // GameObject Guid
-                {
-                    lblTargetParam1.Text = "GUID:";
-                    lblTargetParam2.Text = "N/A:";
-                    txtTargetParam1.Enabled = true;
-                    txtTargetParam2.Enabled = false;
-                    SetScriptFieldFromValue(0, "TargetParam2");
-                    txtTargetParam2.Text = "";
-                    break;
-                }
-                case 12: // Creature Instance Data
-                case 15: // GameObject Instance Data
-                {
-                    lblTargetParam1.Text = "Index:";
-                    lblTargetParam2.Text = "N/A:";
-                    txtTargetParam1.Enabled = true;
-                    txtTargetParam2.Enabled = false;
-                    SetScriptFieldFromValue(0, "TargetParam2");
-                    txtTargetParam2.Text = "";
-                    break;
-                }
-                case 16: // Nearby Friendly
-                {
-                    lblTargetParam1.Text = "Radius:";
-                    lblTargetParam2.Text = "Not Self:";
-                    txtTargetParam1.Enabled = true;
-                    txtTargetParam2.Enabled = true;
-                    break;
-                }
-                case 17: // Injured Friendly
-                case 18: // Injured Friendly Not Self
-                {
-                    lblTargetParam1.Text = "Radius:";
-                    lblTargetParam2.Text = "HP %:";
-                    txtTargetParam1.Enabled = true;
-                    txtTargetParam2.Enabled = true;
-                    break;
-                }
-                case 19: // Friendly Missing Buff
-                case 20: // Friendly Missing Buff Not Self
-                {
-                    lblTargetParam1.Text = "Radius:";
-                    lblTargetParam2.Text = "Spell Id:";
-                    txtTargetParam1.Enabled = true;
-                    txtTargetParam2.Enabled = true;
-                    break;
-                }
-                case 21: // Friendly CC-ed
-                case 25: // Nearest Player
-                case 26: // Nearest Hostile Player
-                case 27: // Nearest Friendly Player
-                {
-                    lblTargetParam1.Text = "Radius:";
-                    lblTargetParam2.Text = "N/A:";
-                    txtTargetParam1.Enabled = true;
-                    txtTargetParam2.Enabled = false;
-                    SetScriptFieldFromValue(0, "TargetParam2");
-                    txtTargetParam2.Text = "";
-                    break;
-                }
-                case 22: // Scripted Map Event Source
-                case 23: // Scripted Map Event Target
-                {
-                    lblTargetParam1.Text = "Event Id:";
-                    lblTargetParam2.Text = "N/A:";
-                    txtTargetParam1.Enabled = true;
-                    txtTargetParam2.Enabled = false;
-                    SetScriptFieldFromValue(0, "TargetParam2");
-                    txtTargetParam2.Text = "";
-                    break;
-                }
-                case 24: // Scripted Map Event Additional Target
-                {
-                    lblTargetParam1.Text = "Event Id:";
-                    lblTargetParam2.Text = "Entry:";
-                    txtTargetParam1.Enabled = true;
-                    txtTargetParam2.Enabled = true;
-                    break;
-                }
+                case 6: // Owner or Self
+                case 7: // Owner
+                    {
+                        lblTargetParam1.Text = "N/A:";
+                        lblTargetParam2.Text = "N/A:";
+                        SetScriptFieldFromValue(0, "TargetParam1");
+                        txtTargetParam1.Text = "";
+                        txtTargetParam1.Enabled = false;
+                        SetScriptFieldFromValue(0, "TargetParam2");
+                        txtTargetParam2.Text = "";
+                        txtTargetParam2.Enabled = false;
+                        break;
+                    }
+                case 8: // Nearest Creature with Entry
+                case 11: // Nearest GameObject with Entry
+                case 26: // Random Creature with Entry
+                case 27: // Random GameObject with Entry
+                    {
+
+                        lblTargetParam1.Text = "Entry:";
+                        lblTargetParam2.Text = "Radius:";
+                        btnTargetParam1.Visible = true;
+                        txtTargetParam1.Enabled = false;
+                        txtTargetParam2.Enabled = true;
+                        break;
+                    }
+                case 9: // Creature GUID
+                case 12: // GameObject Guid
+                    {
+                        lblTargetParam1.Text = "GUID:";
+                        lblTargetParam2.Text = "N/A:";
+                        txtTargetParam1.Enabled = true;
+                        txtTargetParam2.Enabled = false;
+                        SetScriptFieldFromValue(0, "TargetParam2");
+                        txtTargetParam2.Text = "";
+                        break;
+                    }
+                case 10: // Creature Instance Data
+                case 13: // GameObject Instance Data
+                    {
+                        lblTargetParam1.Text = "Index:";
+                        lblTargetParam2.Text = "N/A:";
+                        txtTargetParam1.Enabled = true;
+                        txtTargetParam2.Enabled = false;
+                        SetScriptFieldFromValue(0, "TargetParam2");
+                        txtTargetParam2.Text = "";
+                        break;
+                    }
+                case 14: // Nearby Friendly
+                    {
+                        lblTargetParam1.Text = "Radius:";
+                        lblTargetParam2.Text = "Not Self:";
+                        txtTargetParam1.Enabled = true;
+                        txtTargetParam2.Enabled = true;
+                        break;
+                    }
+                case 15: // Injured Friendly
+                case 16: // Injured Friendly Not Self
+                    {
+                        lblTargetParam1.Text = "Radius:";
+                        lblTargetParam2.Text = "HP %:";
+                        txtTargetParam1.Enabled = true;
+                        txtTargetParam2.Enabled = true;
+                        break;
+                    }
+                case 17: // Friendly Missing Buff
+                case 18: // Friendly Missing Buff Not Self
+                    {
+                        lblTargetParam1.Text = "Radius:";
+                        lblTargetParam2.Text = "Spell Id:";
+                        txtTargetParam1.Enabled = true;
+                        txtTargetParam2.Enabled = true;
+                        break;
+                    }
+                case 19: // Friendly CC-ed
+                case 23: // Nearest Player
+                case 24: // Nearest Hostile Player
+                case 25: // Nearest Friendly Player
+                    {
+                        lblTargetParam1.Text = "Radius:";
+                        lblTargetParam2.Text = "N/A:";
+                        txtTargetParam1.Enabled = true;
+                        txtTargetParam2.Enabled = false;
+                        SetScriptFieldFromValue(0, "TargetParam2");
+                        txtTargetParam2.Text = "";
+                        break;
+                    }
+                case 20: // Scripted Map Event Source
+                case 21: // Scripted Map Event Target
+                    {
+                        lblTargetParam1.Text = "Event Id:";
+                        lblTargetParam2.Text = "N/A:";
+                        txtTargetParam1.Enabled = true;
+                        txtTargetParam2.Enabled = false;
+                        SetScriptFieldFromValue(0, "TargetParam2");
+                        txtTargetParam2.Text = "";
+                        break;
+                    }
+                case 22: // Scripted Map Event Additional Target
+                    {
+                        lblTargetParam1.Text = "Event Id:";
+                        lblTargetParam2.Text = "Entry:";
+                        txtTargetParam1.Enabled = true;
+                        txtTargetParam2.Enabled = true;
+                        break;
+                    }
             }
         }
         private void cmbTargetType_SelectedIndexChanged(object sender, EventArgs e)
@@ -2646,35 +2642,33 @@ namespace ScriptEditor
                 case 3: // Last Aggro
                 case 4: // Random
                 case 5: // Random Not Top
-                case 6: // Nearest
-                case 7: // Farthest
-                {
-                    FormTargetSelectFlags frm = new FormTargetSelectFlags(GetScriptFieldValue<uint>("TargetParam1"));
-                    if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        uint selectFlags = frm.ReturnValue;
+                        FormTargetSelectFlags frm = new FormTargetSelectFlags(GetScriptFieldValue<uint>("TargetParam1"));
+                        if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            uint selectFlags = frm.ReturnValue;
 
-                        if (selectFlags != 0)
-                            btnTargetParam1.Text = selectFlags.ToString();
-                        else
-                            btnTargetParam1.Text = "-NONE-";
+                            if (selectFlags != 0)
+                                btnTargetParam1.Text = selectFlags.ToString();
+                            else
+                                btnTargetParam1.Text = "-NONE-";
 
-                        SetScriptFieldFromValue(selectFlags, "TargetParam1");
+                            SetScriptFieldFromValue(selectFlags, "TargetParam1");
+                        }
+                        break;
                     }
-                    break;
-                }
-                case 10: // Nearest Creature with Entry
-                case 28: // Random Creature with Entry
-                {
-                    SetScriptFieldFromDataFinderForm<FormCreatureFinder>(btnTargetParam1, null, null, "TargetParam1");
-                    break;
-                }
-                case 13: // Nearest GameObject with Entry
-                case 29: // Random GameObject with Entry
-                {
-                    SetScriptFieldFromDataFinderForm<FormGameObjectFinder>(btnTargetParam1, null, null, "TargetParam1");
-                    break;
-                }
+                case 8: // Nearest Creature with Entry
+                case 26: // Random Creature with Entry
+                    {
+                        SetScriptFieldFromDataFinderForm<FormCreatureFinder>(btnTargetParam1, null, null, "TargetParam1");
+                        break;
+                    }
+                case 11: // Nearest GameObject with Entry
+                case 27: // Random GameObject with Entry
+                    {
+                        SetScriptFieldFromDataFinderForm<FormGameObjectFinder>(btnTargetParam1, null, null, "TargetParam1");
+                        break;
+                    }
             }
         }
 
